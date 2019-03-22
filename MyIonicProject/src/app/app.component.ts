@@ -27,9 +27,9 @@ export class MyApp {
   ) {
     this.initializeApp();
 
-    // set our app's pages
+    // set our app's pages 페이지 목록 화면
     this.pages = [
-      { title: 'Hello Ionic', component: HelloIonicPage },
+      { title: 'Hello Ionic22', component: HelloIonicPage },
       { title: 'My First List', component: ListPage }
     ];
   }
