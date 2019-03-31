@@ -1,0 +1,128 @@
+page-product-modify {
+
+}
+
+.disable-button{
+  background: none;
+}
+
+.quantity-input{
+  @extend .Green01;
+  @extend .Body02;
+  text-align:center;
+  width:25%;
+  margin-right:25px;
+  margin-left:25px;
+
+}
+
+.delete{
+  @extend .Red;
+  @extend .Body02;
+  height: 48px;
+  width: 100%;
+  padding: 14px 0px;
+}
+
+
+.discount-wrapper{
+  width: auto;
+  height:64px;
+  top:-37px;
+  left: -27px;
+  position:relative;
+  display: flex;
+  align-items: center;
+}
+
+.discount-image{
+  width:53px;
+  height:64px;
+  z-index: 2;
+}
+
+
+.discount-amount{
+  @extend .Body02;
+  @extend .Grey01;
+  position:absolute;
+  top:24%;
+  left:24%;
+}
+
+.discount-amount-recommended{
+  @extend .Body02;
+  @extend .Grey01;
+  position: absolute;
+  top:45%;
+  left:5%;
+  z-index: 3;
+}
+
+.discount-percent{
+  @extend .Caption01;
+
+}
+
+
+.range-pin::before {
+  background: transparent !important;
+}
+
+.promotion-input{
+  padding: 28px 0px 8px 0px;
+  .range-slider{
+    .range-bar{
+      background: $Grey03;
+    }
+    .range-bar-active{
+      background: $Primary !important;
+    }
+
+    .range-knob-handle{
+      will-change: left;
+      top: -9px;
+      height: 51px;
+
+      .range-pin{
+        @extend .Body02;
+        @extend .Grey01;
+        top: 6px;
+        left: 4px;
+        z-index: 10;
+        background: transparent;
+        transform: translate3d(0, 0, 0) scale(1) !important;
+        &:after{
+          @extend .Caption01;
+          content: '%';
+        }
+      }
+      .range-knob{
+        background-image:url("../../../../assets/icon/discount_rate.png") !important;
+        outline: none !important;
+        border: none !important;
+        background-size:cover;
+        background-color: transparent;
+        width:88px;
+        height:85px;
+        left: -19px;
+        top: -20px;
+      }
+    }
+  }
+}
+
+
+.input-recommend{
+  @extend .Grey06;
+  @extend .Caption02;
+  height: 36px;
+  padding: 9px 0px;
+  display: flex;
+  align-items: center;
+}
+
+
+.icon-mag path{
+  fill: #C0934D;
+}

@@ -1,0 +1,91 @@
+<!--
+  Generated template for the StoremainPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+  <div class="flex-area-row-space-between">
+    <div class="back" (click)="goToPage('main')">홈으로</div>
+    <div class="confirm" (click)="goToPage('main')">저장</div>
+  </div>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+
+      <div class="Title_Input">
+        상품사진<span class="Red Body04">&nbsp;*</span>
+      </div>
+      <div class="flex-area-row">
+        <div *ngFor="let item of items; let i=index" class="store-create-image">
+          <label for="file-input{{i}}">
+            <img class="store-create-image" *ngIf="product.images[i]==null" src="assets/imgs/picture_add_button.PNG"/>
+            <img class="store-create-image" *ngIf="product.images[i]!=null">
+          </label>
+          <input [disabled]="product.state==1 || product.state==2" id="file-input{{i}}" (change)="imageUpload($event,i)" hidden type="file"/>
+          <img *ngIf="product.images[i]!=null&&(product.state==0||product.state==3)" (click)="imageDelete(i)" class="image-delete-button" src="assets/imgs/image-delete-button.png"/>
+        </div>
+      </div>
+      <br style="line-height: 16px;">
+      <div class="Title_Input">
+        상품명<span class="Red Body04">&nbsp;*</span>
+        <!--<ion-toggle (ngModelChange)="changeState()" [(ngModel)]="product.state"></ion-toggle>-->
+      </div>
+      <input class="input_box" [(ngModel)]="product.name">
+      <br style="line-height: 16px;">
+      <div class="flex-area-row-space-between">
+        <div class="semi-content-area">
+          <div class="Title_Input">
+            정상가격
+            <span class="Red Body04">&nbsp;*</span>
+          </div>
+          <div class="flex-area-row" style="position:relative">
+            <input [(ngModel)]="product.originalPrice" type="number" class="input_box">
+            <div style="position: absolute; right:10%; top:25%; ">원</div>
+          </div>
+        </div>
+        <div class="semi-content-area">
+          <div class="Title_Input">
+            할인가격
+            <span class="Red Body04">&nbsp;*</span>
+          </div>
+          <div class="flex-area-row" style="position:relative">
+            <input min="0" type=number maxlength="7" (change)="discountPriceChanged(product.discountPrice)" [(ngModel)]="product.discountPrice" type="number" class="input_box">
+            <div style="position: absolute; right:10%; top:25%; ">원</div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <div class="flex-area-row">
+        <div id="rangeBar" class="input-recommend">
+          할인율
+          <span class="Red Body04">&nbsp;*</span>
+        </div>
+      </div>
+      <ion-range  class="promotion-input" [(ngModel)]="product.discountRate"
+                  (ionChange)="discountRateChanged($event.value)"
+                  min="0" max="100" pin="true">
+      </ion-range>
+
+
+      <div class="Title_Input">
+        수량
+        <span class="Red Body04">&nbsp;*</span>
+      </div>
+      <div class="flex-area-row-center content-box" style="background-color: white">
+        <button   class="disable-button" >
+          <img  (click)="removeButtonClicked()" style="width:25px; height: 25px;" src="assets/icon/icon_minus_grey_04.png">
+        </button>
+        <input  class="quantity-input"[(ngModel)]="product.stock">
+        <button class="disable-button" >
+          <img  (click)="addButtonClicked()" style="width:25px; height: 25px;" src="assets/icon/icon_plus_grey_04.png">
+        </button>
+      </div>
+      <br style="line-height: 16px;">
+
+  <div (click)="delete()" class="delete">상품삭제</div>
+
+</ion-content>

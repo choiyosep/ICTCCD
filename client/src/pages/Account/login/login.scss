@@ -1,0 +1,25 @@
+page-login {
+
+}
+
+
+
+.app-name{
+  color: $Green01;
+  font-family: "Spoqa Han Sans KR Bold";
+  font-size: 30px;
+  line-height: 45px;
+  margin : 165px 0px 50px 0px;
+  text-align: center;
+}
+
+
+
+
+
+.signup-text{
+  @extend .Body01;
+  @extend .Grey07;
+  @extend .flex-content-row;
+  margin-top: 100px;
+}

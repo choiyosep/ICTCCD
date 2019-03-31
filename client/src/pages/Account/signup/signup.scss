@@ -1,0 +1,25 @@
+page-signup {
+
+}
+
+.signup-container {
+  .scroll-content{
+    padding-top:88px !important;
+  }
+
+}
+
+
+
+
+input:disabled {
+  @extend .Grey07;
+  @extend .Body01;
+  background-color: $Grey01;
+}
+
+
+.error-text{
+  @extend .Caption01;
+  @extend .Red;
+}

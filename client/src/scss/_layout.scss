@@ -1,0 +1,545 @@
+/**
+ * Explain : 공통으로 사용될 레이아웃인경우 이곳에 정의
+ */
+
+@import "_variable.scss";
+
+//font CSS지정
+.Heading{
+  font-family: "Spoqa Han Sans KR Recular";
+  font-size: 28px;
+  line-height: 40px;
+}
+
+.Subheading{
+  font-family: "Spoqa Han Sans KR Bold";
+  font-size : 20px;
+  line-height: 28px;
+}
+
+.Body04{
+  font-family: "Spoqa Han Sans KR Bold";
+  font-size : 16px;
+  line-height: 24px;
+}
+
+.Body03{
+  font-family: "Spoqa Han Sans KR Recular";
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.Body02{
+  font-family: "Spoqa Han Sans KR Bold";
+  font-size : 14px;
+  line-height: 20px;
+}
+
+.Body01{
+  font-family: "Spoqa Han Sans KR Recular";
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.Caption02{
+  font-family: "Spoqa Han Sans KR Bold";
+  font-size : 12px;
+  line-height: 18px;
+}
+
+.Caption01{
+  font-family: "Spoqa Han Sans KR Recular";
+  font-size: 12px;
+  line-height: 18px;
+}
+
+//font
+.Grey01{
+  color: $Grey01 !important;
+}
+.Grey02{
+  color: $Grey02 !important;
+}
+.Grey03{
+  color: $Grey03 !important;
+}
+.Grey04{
+  color: $Grey04 !important;
+}
+.Grey05{
+  color: $Grey05 !important;
+}
+.Grey06{
+  color: $Grey06 !important;
+}
+.Grey07{
+  color: $Grey07 !important;
+}
+.Primary{
+  color: $Primary !important;
+}
+.Gold{
+  color: $Gold !important;
+}
+.Red{
+  color: $Red !important;
+}
+.Green01{
+  color: $Green01 !important;
+}
+
+
+.top-margin-container {
+  padding-top: 44px
+}
+
+ion-header {
+  width: 100%;
+  height: 44px;
+}
+
+ion-toolbar {
+  height: 44px;
+}
+
+.header-md::after{
+  height:0px;
+}
+
+.toolbar{
+  min-height:44px;
+}
+
+
+.scroll-content{
+  padding: 15px 30px 30px 30px !important;
+}
+
+ion-app{
+  background-color: transparent !important;
+}
+
+ion-content{
+  background-color: #f6f6f5 !important;
+}
+
+input{
+  border-width: 0px;
+}
+
+.store-toolbar-title{
+  width:100%;
+  margin-right: 39px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-area-row{
+  display:flex;
+  //width:100%;
+}
+
+.flex-area-row-reverse{
+  display : flex;
+  flex-direction: row-reverse;
+}
+
+.flex-area-row-space-between{
+  display:flex;
+  width:100%;
+  justify-content: space-between;
+}
+
+.flex-area-row-center{
+  display:flex;
+  justify-content: center;
+  width:100%;
+}
+
+.flex-area-col{
+  display:flex;
+  width:100%;
+  flex-direction: column;
+}
+
+.flex-content-row{
+  display: flex;
+  justify-content: center;
+}
+
+.flex-content-col{
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+
+
+.flexible-wrapper{
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 75%;
+}
+
+.flexible-wrapper-image{
+  @extend .flexible-wrapper;
+  padding-bottom: 100%;
+}
+
+.flexible-wrap{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gold{
+  color:#c0934d;
+
+
+}
+/*
+
+.title-box{
+  width: 100%;
+  height: 36px;
+  padding: 9px 0px;
+  display: flex;
+  align-items: center;
+  @extend .Caption02;
+  @extend .Grey06;
+}
+*/
+
+/*.title-box-gray{
+  @extend .title-box;
+  color: #8d8f89;
+}
+
+.title-box-underline{
+  @extend .title-box;
+  margin-top: 10px;
+  border-bottom: 0.5px solid gray;
+}*/
+
+.confirm{
+  margin-right: 12px;
+  color: $Green01 !important;
+  display:flex;
+  align-items: center;
+  @extend .Body02;
+}
+
+.back{
+  @extend .Grey06;
+  @extend .Body01;
+  margin-left: 14px;
+}
+
+.content-box{
+  height: 48px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #30312f;
+}
+
+.content-box-gray{
+  @extend .content-box;
+  background-color: #ffffff;
+}
+
+.content-box-underline{
+  border-bottom: 0.5px solid $Grey03;
+  height: 48px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+
+
+//product-detail, product-modify, product-create
+
+.product-name{
+  font-size: 28px;
+  color: #30312f;
+  margin: 30px 0px;
+  font-weight: bold;
+}
+
+.product-property-name{
+  @extend .Grey05;
+  @extend .Body01;
+  margin-top: 20px;
+}
+
+.product-property-value{
+  @extend .Subheading;
+  @extend .Grey07;
+  margin-top: 6px;
+}
+
+.product-property-measure{
+  @extend .Grey07;
+  @extend .Body04;
+}
+
+.product-property-value-gold{
+  @extend .Gold;
+  @extend .Subheading;
+  margin-top: 6px;
+}
+
+.product-property-measure-gold{
+  @extend .Gold;
+  @extend .Body04;
+}
+
+.toggle-button{
+  position:absolute;
+  right:2px;
+  top:50%;
+}
+
+.semi-content-area{
+  width: 46%;
+  height: auto;
+}
+
+
+//store-detail
+
+.store-property-name{
+  @extend .Gold;
+  @extend .Body01;
+}
+
+.store-property-value{
+  @extend .Grey07;
+  @extend .Body02;
+}
+
+
+//mypage
+.record-box{
+  height:60px;
+  padding: 10px 0px;
+}
+
+.record-title{
+  @extend .Grey07;
+  @extend .Caption02;
+  padding: 9px 0px;
+  border-bottom: 1px solid $Grey03;
+
+}
+
+
+
+//main
+
+
+
+
+.disable-text{
+
+}
+
+
+.grey-opacity{
+  height: 135px;
+  width : 100%;
+  opacity: 0.7;
+  border-radius : 6px;
+  background-color : $Grey05;
+  z-index: 5;
+}
+
+
+
+//공통
+
+
+.green-button{
+  @extend .Grey01;
+  @extend .Body03;
+  width: 100%;
+  height: 50px;
+  background-color: $Green01;
+  border-radius: 4px;
+
+}
+.btn-link{
+  display: none !important;
+}
+
+.line-button{
+  @extend .Green01;
+  @extend .Body02;
+  width: 100%;
+  height: 50px;
+  border : $Green01 1px solid;
+  background-color: $Grey01;
+  border-radius: 4px;
+
+}
+
+.input_box{
+  @extend .flex-area-row;
+  height: 48px;
+  width: 100%;
+  padding: 14px 14px;
+  background-color: $Grey01;
+}
+
+input[_ngcontent-c0] {
+  @extend .Grey05;
+  @extend .Body01;
+  height: 48px;
+  width: 50px !important;
+  border: none;
+}
+.number_input_box{
+  @extend .flex-area-row;
+  height: 48px;
+  width: 100%;
+  padding: 14px 48px 14px 14px;
+  background-color: $Grey01;
+  text-align: right;
+}
+
+.Icon_Text_input{
+  margin-left: 12px;
+  width: 100%;
+  height:24px;
+}
+
+.Text_Input{
+  @extend .Grey06;
+  @extend .Body01;
+  width: 100%;
+  height:48px;
+  padding: 14px;
+  border : none;
+}
+
+.Time_Text_Input{
+  width: 70%;
+  height:24px;
+}
+
+.Title_Input{
+  @extend .Grey06;
+  @extend .Caption02;
+  width: 100%;
+  height: 36px;
+  padding: 9px 0px;
+  display: flex;
+  align-items: center;
+}
+
+
+.normal{
+  @extend .Grey05;
+  @extend .Body01;
+  border-radius: 4px;
+}
+
+.active{
+  @extend .Grey07;
+  @extend .Body02;
+  border: $Primary 1px solid;
+  border-radius: 4px;
+}
+
+.error{
+  @extend .Grey07;
+  @extend .Body02;
+  border: $Red 1px solid;
+  border-radius: 4px;
+}
+
+.disable{
+  @extend .Grey07;
+  @extend .Body01;
+  border-radius: 4px;
+}
+
+
+
+//삭제 팝업
+
+
+.alert-wrapper{
+  width: 300px;
+  max-width: 300px !important;
+  border-radius: 6px !important;
+
+  .alert-head{
+    height: 156px;
+    padding: 40px;
+    background-color: $Grey02;
+    .alert-title{
+      @extend .Grey07;
+      @extend .Body02;
+      text-align: center;
+    }
+
+    .alert-sub-title{
+      margin-top:10px;
+      @extend .Grey06;
+      @extend .Body01;
+      text-align: center;
+    }
+  }
+
+  .alert-button-group{
+    height: 50px;
+    padding: 0px;
+    button{
+      padding: 0px;
+      margin: 0px;
+      width:50%;
+      .button-inner{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.del{
+  @extend .Red;
+  @extend .Body02;
+}
+
+.cancle{
+  @extend .Grey05;
+  @extend .Body01;
+}
+
+.segment-button{
+  @extend .Green01;
+  @extend .Body04;
+}
+  .segment-activated{
+    border-color: $Green01 !important;
+  }
+
+
+
+
+ion-page, .nav-decor, content-md, content-ios,ion-app.ios,.fixed-content,.scroll-content{
+  background-color: transparent !important;
+}
