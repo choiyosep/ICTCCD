@@ -2,12 +2,51 @@
 
   <ion-header>
     <ion-toolbar>
-      <ion-title>Pages</ion-title>
+      <ion-title>홍길동님</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
+    판매자메뉴
+    <ion-list>
+      <button ion-item >
+        회원정보수정
+      </button>
+      <button ion-item >
+        판매이력조회
+      </button>
+      <button ion-item >
+        로그아웃
+      </button>
+      <button ion-item >
+        회원탈퇴
+      </button>
+    </ion-list>
 
+    구매자메뉴
+    <ion-list>
+      <button (click)="goToPage('main')" ion-item >
+        메인
+      </button>
+      <button (click)="goToPage('cart')" ion-item >
+        장바구니
+      </button>
+      <button (click)="goToPage('book-mark')" ion-item >
+        즐겨찾기
+      </button>
+      <button ion-item >
+        회원정보수정
+      </button>
+      <button (click)="goToPage('order-record')" ion-item >
+        구매이력조회
+      </button>
+      <button ion-item >
+        로그아웃
+      </button>
+      <button ion-item >
+        회원탈퇴
+      </button>
+    </ion-list>
   </ion-content>
 
 </ion-menu>
