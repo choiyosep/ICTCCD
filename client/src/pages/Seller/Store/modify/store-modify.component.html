@@ -1,0 +1,83 @@
+<!--
+  Generated template for the StoremainPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <div class="flex-area-row-space-between">
+      <div class="back" (click)="back()">취소</div>
+      <div class="confirm" (click)="back()">완료</div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <iframe style="display:none;" class="daumIframeStyle" id='daumIframe'></iframe>
+
+  <div id="formContent">
+    <div class="Title_Input">
+      상점사진
+    </div>
+    <div class="flex-area-row">
+      <div *ngFor="let item of items; let i=index" class="store-create-image">
+        <label for="file-input{{i}}">
+          <img  class="store-create-image" *ngIf="userStore.images[i]==null" src="assets/imgs/picture_add_button.PNG"/>
+          <img  class="store-create-image" *ngIf="userStore.images[i]!=null">
+        </label>
+        <input id="file-input{{i}}" (change)="imageUpload($event,i)" hidden type="file"/>
+        <img *ngIf="userStore.images[i]!=null" (click)="imageDelete(i)" class="image-delete-button" src="assets/imgs/image-delete-button.png"/>
+      </div>
+    </div>
+    <br>
+    <div class="Title_Input">
+      상점명
+    </div>
+    <input [(ngModel)]="userStore.title"  class="Text_Input">
+    <br>
+    <br>
+    <div class="flex-area-row-space-between">
+      <div class="semi-content-area">
+        <div class="Title_Input">개장시간</div>
+        <ngb-timepicker [(ngModel)]="openTime"></ngb-timepicker>
+      </div>
+      <div class="semi-content-area">
+        <div class="Title_Input">마감시간</div>
+        <ngb-timepicker [(ngModel)]="closingTime"></ngb-timepicker>
+      </div>
+    </div>
+    <br>
+    <div class="Title_Input">
+      연락처
+    </div>
+    <input type="tel" [(ngModel)]="userStore.tel" class="Text_Input">
+    <br><br>
+    <div id="wrap">
+
+    </div>
+    <div class="Title_Input">
+      주소
+    </div>
+    <input id="mainAddr" (click)="startJusoSearch()"  placeholder="주소검색" [(ngModel)]="userStore.mainAddr" readonly class="Text_Input">
+    <br><br>
+    <input placeholder="상세 주소" [(ngModel)]="userStore.detailAddr" class="Text_Input">
+    <br><br>
+    <div class="Title_Input">
+      카테고리
+    </div>
+    <ion-item>
+      <ion-label class="Body01 Grey06">카테고리</ion-label>
+      <ion-select class="Text_Input" [(ngModel)]="userStore.category">
+        <ion-option value="1">베이커리</ion-option>
+        <ion-option value="2">떡집</ion-option>
+        <ion-option value="3">분식집</ion-option>
+        <ion-option value="4">기타</ion-option>
+      </ion-select>
+    </ion-item>
+    <br><br>
+
+    <div (click)="delete()" class="delete">상점삭제</div>
+  </div>
+
+</ion-content>

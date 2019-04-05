@@ -1,0 +1,92 @@
+@import "variable";
+
+@font-face {
+  font-family: 'Spoqa Han Sans KR Bold';
+  font-style: normal;
+  src: url(../assets/fonts/Spoqa-Han-Sans-Bold.ttf) format('ttf'),
+      url(../assets/fonts/Spoqa-Han-Sans-Bold.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans KR Recular';
+  font-style: normal;
+  src: url(../assets/fonts/Spoqa-Han-Sans-Regular.ttf) format('ttf'),
+      url(../assets/fonts/Spoqa-Han-Sans-Regular.woff) format('woff');
+}
+
+/*@font-face {
+  font-family: 'Noto Sans CJK KR';
+  font-weight: 300;
+  font-style: normal;
+  src: url(../assets/fonts/NotoSansCJKkr-DemiLight-subset.woff) format('woff'),
+  url(../assets/fonts/NotoSansCJKkr-DemiLight-subset.otf) format('opentype');
+}*/
+
+/*@font-face {
+  font-family: 'Noto Sans CJK KR';
+  font-weight: 400;
+  font-style: normal;
+  src: url(../assets/fonts/NotoSansCJKkr-Regular-subset.woff) format('woff'),
+  url(../assets/fonts/NotoSansCJKkr-Regular-subset.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK KR';
+  font-weight: 500;
+  font-style: normal;
+  src: url(../assets/fonts/NotoSansCJKkr-Medium-subset.woff) format('woff'),
+  url(../assets/fonts/NotoSansCJKkr-Medium-subset.otf) format('opentype');
+}*/
+
+$typographyBreakPoint: (
+  display3: (
+    weight: 300,
+    size: 48px
+  ),
+  display2: (
+    weight: 400,
+    size: 34px
+  ),
+  display1: (
+    weight: 300,
+    size: 24px
+  ),
+  title: (
+    weight: 400,
+    size: 18px
+  ),
+  subheading: (
+    weight: 300,
+    size: 18px
+  ),
+  question: (
+    weight: 400,
+    size: 16px
+  ),
+  body2: (
+    size: 14px,
+    weight: 500,
+  ),
+  body1: (
+    size: 14px,
+    weight: 300,
+  ),
+  caption3: (
+    size: 12px,
+    weight: 500,
+  ),
+  caption2: (
+    size: 12px,
+    weight: 400,
+  ),
+  caption1: (
+    size: 12px,
+    weight: 300,
+  )
+);
+
+@mixin font($type) {
+  font-family: 'Noto Sans CJK KR';
+  font-size: map-get(map-get($typographyBreakPoint, $type), size);
+  font-weight: map-get(map-get($typographyBreakPoint, $type), weight);
+}
