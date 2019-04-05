@@ -37,10 +37,26 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-    // close the menu when clicking a link from the menu
+  goToPage(pageName: string) {
     this.menu.close();
-    // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
+
+    switch(pageName){
+      case 'main':
+        this.nav.setRoot('BuyerMainPage');
+        break;
+      case 'cart':
+        this.nav.setRoot('CartListPage');
+        break;
+      case 'book-mark':
+        this.nav.setRoot('BookMarkPage');
+        break;
+      case 'order-record':
+        this.nav.setRoot('OrderRecordPage');
+        break;
+      default:
+        break;
+    }
+
+
   }
 }
