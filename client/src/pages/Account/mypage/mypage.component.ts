@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from "ionic-angular";
-import {SessionService} from "../../../core/service/session.service";
+//import {SessionService} from "../../../core/service/session.service";
 
 /**
  * Generated class for the StoremainPage page.
@@ -30,11 +30,6 @@ export class MyPageComponent{
     console.log('ionViewDidLoad MyPage');
   }
 
-  goToPage(str: string) {
-    switch (str) {
-
-    }
-  }
 
   back() {
     this.navCtrl.pop();
@@ -86,4 +81,16 @@ export class MyPageComponent{
     });
     confirm.present();
   }
+
+  goToPage(str: string) {
+    switch (str) {
+      case 'order-record' :
+        this.navCtrl.setRoot('OrderRecordPage');
+        break;
+      case 'main':
+        this.navCtrl.push('MainComponent');
+        break;
+  }
 }
+}
+

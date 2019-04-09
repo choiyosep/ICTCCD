@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {  IonicPage, NavController, NavParams} from 'ionic-angular';
 
 /**
  * Generated class for the OrderRecordPage page.
@@ -8,7 +8,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage(
+ 
+)
 @Component({
   selector: 'page-order-record',
   templateUrl: 'order-record.html',
@@ -21,5 +23,16 @@ export class OrderRecordPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderRecordPage');
   }
+  back() {
+    this.navCtrl.push('MainComponent');
+  }
+  goToPage(str: string) {
+    switch (str) {
+      
+      case 'main':
+        this.navCtrl.push('MainComponent');
+        break;
+  }
+}
 
 }
