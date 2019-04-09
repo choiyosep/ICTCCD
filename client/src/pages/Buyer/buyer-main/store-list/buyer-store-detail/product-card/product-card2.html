@@ -1,0 +1,17 @@
+<!-- Generated template for the ProductCardComponent component -->
+
+<div class="product-card" *ngIf="product.state==2 ||product.state==1">
+  <div class="flex-area-row-space-between">
+    <div class="Grey07 Body04">{{product.name}}</div>
+    <div class="Grey07 Body04 flex-content-col product-price">{{product.discountPrice|number}}원</div>
+  </div>
+  <div class = "flex-area-row-space-between">
+    <div class="flex-area-row">
+      <div class="Grey06 Body04 flex-content-col">
+        {{product.stock}}
+      </div>
+      <div class="Grey06 Caption02 flex-content-col">개</div>
+    </div>
+    <div class="Gold Body04">{{product.discountRate|number}}%</div>
+  </div>
+</div>

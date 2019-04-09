@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Product} from "../../../../core/model/Product";
+import {Product} from "../../../../../core/model/Product";
 
 /**
  * Generated class for the ProductCardComponent component.
@@ -8,10 +8,10 @@ import {Product} from "../../../../core/model/Product";
  * Components.
  */
 @Component({
-  selector: 'product-card',
-  templateUrl: 'product-card.html'
+  selector: 'product-card2',
+  templateUrl: 'product-card2.html'
 })
-export class ProductCardComponent {
+export class ProductCardComponent2 {
 
   text: string;
 
