@@ -2,20 +2,41 @@
 
 <div class="product-card" *ngIf="product.state==2 ||product.state==1">
   <!--<img class="main-product-image" [awsSrc]="product.images[0]">-->
+  <!--<div class="flex-area-row-space-between">-->
+    <!--<img class="main-product-image" src ="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg">-->
+    <!--<div class="main-product-info">-->
+      <!--<div class = "flex-area-row-space-between">-->
+        <!--<div class="Grey07 Body04">{{product.name}}</div>-->
+        <!--<div class="Grey06 Body04 flex-content-col">-->
+          <!--{{product.stock}}개-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class = "flex-area-row-space-between">-->
+        <!--<div class="Grey07 Body02 flex-content-col product-price">{{product.discountPrice|number}}원</div>-->
+        <!--<div class="Gold Body04">{{product.discountRate|number:'1.0-0'}}%</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <img class="main-product-image" src ="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg">
+  <br><br>
   <div class="flex-area-row-space-between">
-    <img class="main-product-image" src ="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg">
-    <div class="main-product-info">
-      <div class = "flex-area-row-space-between">
-        <div class="Grey07 Body04">{{product.name}}</div>
-        <div class="Grey06 Body04 flex-content-col">
-          {{product.stock}}개
-        </div>
-      </div>
-      <div class = "flex-area-row-space-between">
-        <div class="Grey07 Body02 flex-content-col product-price">{{product.discountPrice|number}}원</div>
-        <div class="Gold Body04">{{product.discountRate|number:'1.0-0'}}%</div>
-      </div>
-    </div>
+    <div class="Grey07 Body04">{{product.name}}</div>
+
+    <div class="Grey07 Body04 flex-content-col product-price">{{product.discountPrice|number}}원</div>
+
   </div>
+  <div class = "flex-area-row-space-between">
+    <div class="flex-area-row">
+      <div class="Grey06 Body04 flex-content-col">
+        {{product.stock}}
+      </div>
+      <div class="Grey06 Caption02 flex-content-col">개</div>
+    </div>
+    <div class="Gold Body04">{{product.discountRate|number}}%</div>
+  </div>
+
+
+
 
 </div>

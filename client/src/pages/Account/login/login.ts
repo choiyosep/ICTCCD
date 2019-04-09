@@ -51,8 +51,8 @@ export class LoginPage {
    /*   case 'sign-up' :
         this.navCtrl.setRoot('SignupPage');
         break;*/
-      case 'main':
-        this.navCtrl.push('MainComponent');
+      case 'sellerMain':
+        this.navCtrl.setRoot('StoreDetailComponent');
         break;
     }
   }

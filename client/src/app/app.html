@@ -9,23 +9,26 @@
   <ion-content>
     판매자메뉴
     <ion-list>
+      <button (click)="goToPage('sellerMain')"  ion-item >
+        메인
+      </button>
       <button ion-item >
         회원정보수정
       </button>
       <button ion-item >
         판매이력조회
       </button>
-      <button ion-item >
+      <button (click)="logout()" ion-item >
         로그아웃
       </button>
-      <button ion-item >
+      <button (click)="leave()" ion-item >
         회원탈퇴
       </button>
     </ion-list>
 
     구매자메뉴
     <ion-list>
-      <button (click)="goToPage('main')" ion-item >
+      <button (click)="goToPage('buyerMain')" ion-item >
         메인
       </button>
       <button (click)="goToPage('cart')" ion-item >
@@ -40,10 +43,10 @@
       <button (click)="goToPage('order-record')" ion-item >
         구매이력조회
       </button>
-      <button ion-item >
+      <button (click)="logout()" ion-item >
         로그아웃
       </button>
-      <button ion-item >
+      <button (click)="leave()" ion-item >
         회원탈퇴
       </button>
     </ion-list>

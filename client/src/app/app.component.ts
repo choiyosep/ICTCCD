@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, MenuController, Nav } from 'ionic-angular';
+import {Platform, MenuController, Nav, AlertController} from 'ionic-angular';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -21,7 +21,8 @@ export class MyApp {
     public platform: Platform,
     public menu: MenuController,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    private alertCtrl: AlertController,
   ) {
     this.initializeApp();
 
@@ -41,8 +42,11 @@ export class MyApp {
     this.menu.close();
 
     switch(pageName){
-      case 'main':
+      case 'buyerMain':
         this.nav.setRoot('BuyerMainPage');
+        break;
+      case 'sellerMain':
+        this.nav.setRoot('StoreDetailComponent');
         break;
       case 'cart':
         this.nav.setRoot('CartListPage');
@@ -58,5 +62,53 @@ export class MyApp {
     }
 
 
+  }
+
+
+  logout() {
+    let confirm = this.alertCtrl.create({
+      title: '로그아웃 하시겠습니까?',
+      cssClass: '',
+      buttons: [
+        {
+          text: '취소',
+          cssClass: 'cancle',
+          handler: () => {
+          }
+        },
+        {
+          text: '확인',
+          cssClass:'del',
+          handler: () => {
+            //로그아웃작업
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  leave() {
+    let confirm = this.alertCtrl.create({
+      title: '회원을 탈퇴하시겠습니까?',
+      subTitle: '회원탈퇴시 저장된<br>모든 데이터가 삭제됩니다.',
+      cssClass: '',
+      buttons: [
+        {
+          text: '취소',
+          cssClass: 'cancle',
+          handler: () => {
+          }
+        },
+        {
+          text: '회원탈퇴',
+          cssClass:'del',
+          handler: () => {
+            //회원탈퇴작업
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 }

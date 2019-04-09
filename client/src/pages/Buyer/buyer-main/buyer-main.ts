@@ -15,15 +15,10 @@ import {ToastService} from "../../../core/service/toast.service";
   templateUrl: 'buyer-main.html',
 })
 export class BuyerMainPage {
-
-  private pageName : string = "aaa";
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastService : ToastService) {
-    this.pageName = "bbb";
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    this.toastService.presentToast("안녕하세요");
     console.log('ionViewDidLoad BuyerMainPage');
   }
   goToPage(str: string) {

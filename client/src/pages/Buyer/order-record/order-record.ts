@@ -23,12 +23,9 @@ export class OrderRecordPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderRecordPage');
   }
-  back() {
-    this.navCtrl.push('MainComponent');
-  }
+
   goToPage(str: string) {
     switch (str) {
-      
       case 'main':
         this.navCtrl.push('MainComponent');
         break;

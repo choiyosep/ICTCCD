@@ -6,14 +6,20 @@
 -->
 <ion-header>
   <ion-toolbar>
-    <div class="flex-area-row-space-between">
-      <img (click)="back()" class="back" height="25px" src="assets/icon/icon_back_grey_05.png">
-      <div (click)="goToPage('modify')" class="confirm flex-content-col">수정</div>
-    </div>
-
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <div (click)="goToPage('modify')" class="confirm">
+        수정
+      </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <div  class="store-create-area" (click)="goToPage('store-create')">
+    <div class="store-create-button">
+      상점추가
+    </div>
+  </div>
   <div>
     <ion-slides class="slides" >
       <!--ngFor 이용-->
@@ -56,6 +62,42 @@
       {{userStore?.mainAddr}} {{userStore?.detailAddr}}
     </div>
   </div>
+  <br>
+
+  <ion-segment [(ngModel)]="contents" (ngModelChange)="change(contents)"  color="primary" style="height:44px;">
+    <ion-segment-button value="menu">
+      메뉴
+    </ion-segment-button>
+    <ion-segment-button value="info">
+      위치
+    </ion-segment-button>
+    <ion-segment-button value="review">
+      리뷰
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div [ngSwitch]="contents" >
+    <div *ngSwitchCase="'menu'">
+      <div class="product-card-area">
+        <product-card
+          (click)="goToPage('product-modify', product._id)"
+          *ngFor="let product of products"
+          [product]="product"></product-card>
+      </div>
+    </div>
+    <div *ngSwitchCase="'info'">
+    </div>
+    <div *ngSwitchCase="'review'">
+      후기 목록
+    </div>
+  </div>
 
   <div id="map" class="store-location-image"></div>
+  <img id="product-add-button" ion-fixed="true" *ngIf="userStore!=undefined" (click)="goToPage('product-create')" class="add-circle" src="assets/icon/icon_add.png">
+
+
+
+
+
 </ion-content>
