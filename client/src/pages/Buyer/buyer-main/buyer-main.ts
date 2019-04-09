@@ -26,5 +26,17 @@ export class BuyerMainPage {
     this.toastService.presentToast("안녕하세요");
     console.log('ionViewDidLoad BuyerMainPage');
   }
+  goToPage(str: string) {
+    switch (str) {
+      // case 'sign-up' :
+      //   this.navCtrl.setRoot('SignupPage');
+      //   break;
+      case 'store-detail':
+        this.navCtrl.push('StoreDetailComponent')
+        break;
+
+    }
+  }
+
 
 }

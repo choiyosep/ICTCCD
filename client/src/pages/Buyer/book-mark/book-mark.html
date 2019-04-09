@@ -5,11 +5,61 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
-    <ion-title>BookMark</ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+
+          <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+
+          </button>
+
+      </ion-col>
+
+      <ion-col >
+
+        <div class="centered">
+         즐겨찾기
+        </div>
+
+
+
+      </ion-col>
+
+
+    </ion-row>
+  </ion-toolbar>
+
 </ion-header>
 
 <ion-content padding>
+  <ion-list>
+
+    <ion-item>
+
+
+
+    <ion-label>
+
+
+      <img width="200px" src="assets/imgs/tteokbokki.png">
+
+
+        떡볶이
+        <img width="20px" src="assets/imgs/star-icon.png">3.7
+
+      </ion-label>
+  </ion-item>
+    <ion-item>
+
+
+
+      <ion-label><img width="200px" src="assets/imgs/banchan.png">반찬</ion-label>
+    </ion-item>
+
+
+
+
+  </ion-list>
 
 </ion-content>

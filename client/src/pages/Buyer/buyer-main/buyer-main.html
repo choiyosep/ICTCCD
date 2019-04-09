@@ -4,43 +4,74 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header xmlns:text-align="http://www.w3.org/1999/xhtml">
+
   <ion-toolbar>
+<ion-row  align-items-center>
+  <ion-col  >
+    <!--<div float-left="">-->
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
+
     </button>
-    <ion-title>메인</ion-title>
+    <!--</div>-->
+  </ion-col>
+
+  <ion-col>
+
+    <ion-searchbar  placeholder="위치검색" ></ion-searchbar>
+
+  </ion-col>
+
+  <ion-col>
+      <div float-right="100">
+    <button ion-button gpstoggle>
+      <ion-icon name="pin"></ion-icon>
+    </button>
+    </div>
+  </ion-col>
+</ion-row>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content padding>
   <ion-grid>
     <ion-row>
       <ion-col size="2">
-        ion-col
+        <img width="200px" height="150px" src="assets/imgs/bakery.png">
       </ion-col>
-      <ion-col size="5">
-        ion-col
+
+      <ion-col size="2">
+
+        <img width="200px" height="150px" src="assets/imgs/tteokbokki.png">
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+
+      </ion-col>
+      <ion-col>
+        <button (click)="goToPage('store-detail')" >
+        <img src="assets/imgs/banchan.png" style="width : 100% ; height : 100%">
+        </button>
+
+
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
-        ion-col
+        <img width="200px" height="150px" src="assets/imgs/cart.png">
       </ion-col>
       <ion-col>
-        ion-col
+        <img width="200px" height="150px" src="assets/imgs/review.png">
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col>
-        ion-col
-      </ion-col>
-      <ion-col>
-        ion-col
-      </ion-col>
-    </ion-row>
+    <ion-searchbar placeholder="상품/상점검색" ></ion-searchbar>
   </ion-grid>
 
 </ion-content>

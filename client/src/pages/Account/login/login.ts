@@ -48,9 +48,9 @@ export class LoginPage {
 
   goToPage(str: string) {
     switch (str) {
-      case 'sign-up' :
+   /*   case 'sign-up' :
         this.navCtrl.setRoot('SignupPage');
-        break;
+        break;*/
       case 'main':
         this.navCtrl.push('MainComponent');
         break;
