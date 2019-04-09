@@ -1,5 +1,7 @@
 import {Serializable} from "../helper/serializable";
 import {IModel} from "./interface";
+import {Review} from "./Review";
+import {Product} from "./Product";
 export class UserStore extends Serializable implements IModel{
   _id: string = '';
 
@@ -22,6 +24,11 @@ export class UserStore extends Serializable implements IModel{
   images= [
 
   ];
+
+
+  reviews : Review[] = [];
+
+  products: Product[] = [];
 
   category : string = '';
 

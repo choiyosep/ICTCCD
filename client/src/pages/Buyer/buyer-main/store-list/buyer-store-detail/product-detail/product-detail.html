@@ -1,0 +1,70 @@
+<!--
+  Generated template for the StoremainPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    상품 상세정보
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-slides class="slides" >
+    <ion-slide *ngFor="let image of product?.images">
+      <img height="225px" [src]="image">
+    </ion-slide >
+  </ion-slides>
+  <br style="line-height: 30px">
+  <div class="Heading">
+    {{product.name}}
+  </div>
+  <br style="line-height: 30px">
+
+  <div class="flex-area-row-space-between">
+    <div class="semi-content-area">
+      <div class="product-property-name">가격</div>
+      <div class="product-property-value">
+        {{product.originalPrice|number}}
+        <span class="product-property-measure">원</span>
+      </div>
+    </div>
+    <div class="semi-content-area">
+      <div class="product-property-name">판매가격</div>
+      <div class="product-property-value-gold">
+        {{product.discountPrice|number}}
+        <span class="product-property-measure-gold">원</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-area-row-space-between">
+    <div class="semi-content-area">
+      <div class="product-property-name">할인률</div>
+      <div class="product-property-value">
+        {{product.discountRate|number}}
+        <span class="product-property-measure">%</span>
+      </div>
+    </div>
+    <div class="semi-content-area">
+      <div class="product-property-name">수량</div>
+      <div class="product-property-value">
+        {{product.stock|number}}
+        <span class="product-property-measure">개</span>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="flex-area-row-center content-box" style="background-color: white">
+    <button class="disable-button" >
+      <img (click)="removeButtonClicked()" style="width:25px; height: 25px;" src="assets/icon/icon_minus_grey_04.png">
+    </button>
+    <input  class="quantity-input"[(ngModel)]="amount">
+    <button  class="disable-button" >
+      <img  (click)="addButtonClicked()" style="width:25px; height: 25px;" src="assets/icon/icon_plus_grey_04.png">
+    </button>
+  </div>
+  <br>
+  <button (click)="cartAdd()" class="green-button">장바구니 담기</button>
+</ion-content>

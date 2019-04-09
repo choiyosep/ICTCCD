@@ -10,7 +10,8 @@ export class ToastService {
     let toast = this.toast.create({
       message: message,
       duration: 2000,
-      cssClass: 'toast'
+      cssClass: 'toast',
+      position: 'top'
     });
 
     toast.onDidDismiss(() => {

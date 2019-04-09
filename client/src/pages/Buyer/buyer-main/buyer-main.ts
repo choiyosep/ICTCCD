@@ -27,7 +27,7 @@ export class BuyerMainPage {
       //   this.navCtrl.setRoot('SignupPage');
       //   break;
       case 'store-detail':
-        this.navCtrl.push('StoreDetailComponent')
+        this.navCtrl.push('StoreListPage')
         break;
 
     }

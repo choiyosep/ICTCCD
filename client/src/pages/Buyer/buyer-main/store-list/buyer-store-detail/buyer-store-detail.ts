@@ -1,26 +1,25 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams} from "ionic-angular";
-import {SessionService} from "../../../../core/service/session.service";
-import {UserStore} from "../../../../core/model/UserStore";
-import {Product} from "../../../../core/model/Product";
-import {Review} from "../../../../core/model/Review";
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {UserStore} from "../../../../../core/model/UserStore";
+import {Product} from "../../../../../core/model/Product";
+import {SessionService} from "../../../../../core/service/session.service";
+import {Review} from "../../../../../core/model/Review";
+
 /**
- * Generated class for the StoreDetailPage page.
+ * Generated class for the BuyerStoreDetailPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 declare const naver:any;
 
-@IonicPage({
-    name: 'StoreDetailComponent',
-    segment: 'store/detail'
-})
+@IonicPage()
 @Component({
-  selector: 'page-store-detail',
-  templateUrl: 'store-detail.component.html',
+  selector: 'page-buyer-store-detail',
+  templateUrl: 'buyer-store-detail.html',
 })
-export class StoreDetailComponent{
+export class BuyerStoreDetailPage {
+
   contents: String;
 
   private userStore : UserStore;
@@ -30,10 +29,10 @@ export class StoreDetailComponent{
   private products: Array<Product>;
 
   constructor(
-              protected session: SessionService,
-              public navCtrl : NavController,
-              public navParams : NavParams
-              ) {
+    protected session: SessionService,
+    public navCtrl : NavController,
+    public navParams : NavParams
+  ) {
 
 
     this.contents = "review";
@@ -47,13 +46,13 @@ export class StoreDetailComponent{
 
 
 
-      var product:Product = new Product();
-      product.name = "소보로빵";
-      product.discountPrice = 1000;
-      product.stock = 10;
-      product.discountRate = 20 ;
+    var product:Product = new Product();
+    product.name = "소보로빵";
+    product.discountPrice = 1000;
+    product.stock = 10;
+    product.discountRate = 20 ;
 
-      this.userStore.products.push(product);
+    this.userStore.products.push(product);
     this.userStore.products.push(product);
     this.userStore.products.push(product);
     this.userStore.products.push(product);
@@ -110,8 +109,8 @@ export class StoreDetailComponent{
         this.navCtrl.push('StoreModifyComponent');
         break;
 
-      case 'product-create' :
-        this.navCtrl.push('ProductCreateComponent');
+      case 'product-detail' :
+        this.navCtrl.push('ProductDetailPage');
         break;
     }
   }
@@ -122,7 +121,7 @@ export class StoreDetailComponent{
         if(document.getElementById("map")){
           document.getElementById("map").style.display="none";
         }
-          document.getElementById("product-add-button").style.display="";
+        document.getElementById("product-add-button").style.display="";
         break;
       case 'info':
         if(document.getElementById("map")) {

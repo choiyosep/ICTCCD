@@ -2,7 +2,22 @@ page-store-create {
 
 }
 
+.store-create-area{
+  height:146px;
+  width: 100%;
+}
 
+.store-create-button{
+  @extend .Grey01;
+  @extend .Body04;
+  border-radius: 6px;
+  background-color: $Primary !important;
+  height:116px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .store-create-image{
   height:90px;

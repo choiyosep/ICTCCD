@@ -1,0 +1,32 @@
+page-product-detail {
+
+}
+
+
+.product-detail-table {
+  width:100%;
+  tr{
+    height: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}
+
+.disable-button{
+  background: none;
+}
+
+.quantity-input{
+  @extend .Green01;
+  @extend .Body02;
+  text-align:center;
+  width:25%;
+  margin-right:25px;
+  margin-left:25px;
+
+}
+
+
+.slides{
+  height: 160px;
+}

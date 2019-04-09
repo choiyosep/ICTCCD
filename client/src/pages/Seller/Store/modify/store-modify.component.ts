@@ -78,8 +78,8 @@ export class StoreModifyComponent{
 
   goToPage(str: string) {
     switch (str) {
-      case 'main' :
-        this.navCtrl.push('MainComponent');
+      case 'store-detail' :
+        this.navCtrl.setRoot('StoreDetailComponent');
         break;
     }
   }
@@ -170,7 +170,7 @@ export class StoreModifyComponent{
   }
 
   back() {
-    this.navCtrl.setRoot("MainComponent");
+    this.navCtrl.pop();
   }
 
   startJusoSearch(){

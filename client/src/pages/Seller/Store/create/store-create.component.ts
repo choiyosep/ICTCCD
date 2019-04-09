@@ -130,7 +130,7 @@ export class StoreCreateComponent {
   }
 
   goToMain(){
-    this.navCtrl.setRoot('MainComponent');
+    this.navCtrl.setRoot('StoreDetailComponent');
   }
 
 

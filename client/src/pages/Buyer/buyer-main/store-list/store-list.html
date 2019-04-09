@@ -1,0 +1,47 @@
+<!--
+  Generated template for the StoreListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <div class="store-toolbar-title">{{contents}}</div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="contents"  color="primary" style="height:44px;">
+    <ion-segment-button value="제과">
+      제과
+    </ion-segment-button>
+    <ion-segment-button value="분식">
+      분식
+    </ion-segment-button>
+    <ion-segment-button value="반찬">
+      반찬
+    </ion-segment-button>
+    <ion-segment-button value="떡">
+      떡
+    </ion-segment-button>
+    <ion-segment-button value="기타">
+      기타
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="contents" >
+    <div *ngSwitchCase="'베이커리'">
+    </div>
+    <div *ngSwitchCase="'분식'">
+    </div>
+    <div *ngSwitchCase="'반찬'">
+    </div>
+    <div *ngSwitchCase="'떡'">
+    </div>
+    <div *ngSwitchCase="'기타'">
+    </div>
+  </div>
+
+  <button (click)="goToPage('store-detail')">상점정보</button>
+
+</ion-content>

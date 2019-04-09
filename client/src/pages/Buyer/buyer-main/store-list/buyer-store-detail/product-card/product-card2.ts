@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Product} from "../../../../../core/model/Product";
+import {Product} from "../../../../../../core/model/Product";
 
 /**
  * Generated class for the ProductCardComponent component.

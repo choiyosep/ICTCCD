@@ -35,3 +35,40 @@ page-store-detail {
   width:100%;
   height: 168px;
 }
+
+
+.add-circle{
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 48px;
+  height: 48px;
+  z-index: 10;
+}
+
+.product-card-area{
+  width:100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+
+.review-buyer-Id{
+  @extend .Body04;
+  width: 45%;
+}
+
+.review-grade{
+  padding : 0px 5px 0px 5px;
+  @extend .Body03;
+}
+
+.review-card{
+  padding: 10px 5px 15px 5px;
+}
+
+.review-content{
+  padding-top : 5px;
+  @extend .Caption01;
+
+}
