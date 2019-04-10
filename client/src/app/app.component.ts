@@ -81,6 +81,8 @@ export class MyApp {
           cssClass:'del',
           handler: () => {
             //로그아웃작업
+            this.menu.close();
+            this.nav.setRoot('LoginPage');
           }
         }
       ]

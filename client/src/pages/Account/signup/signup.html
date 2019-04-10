@@ -1,5 +1,10 @@
 
+<ion-header>
 
+  <ion-navbar>
+
+  </ion-navbar>
+</ion-header>
 <ion-content class="signup-container" padding>
   <form name="userForm" [formGroup]="userForm">
     <!--{{this.allowStep}}-->
@@ -7,15 +12,12 @@
       <img height="24px" width="24px" src="assets/icon/icon_id_grey_03.png">
       <input (keyup)="checkId()" (blur)="blur('id')" (focus)="onfocus('id')" type="text" formControlName="id" class="Icon_Text_input" placeholder="아이디">
     </div>
-    <span *ngIf="!userFormErrors.id.valid">
-      <span class="error-text" *ngIf="userFormErrors.id.email" >
-        이메일 형식에 맞지 않습니다
-      </span>
-      <span class="error-text" *ngIf="userFormErrors.id.required" >
-        <br>
-        이메일을 입력해주세요
-      </span>
-    </span>
+    <br>
+    <div class="input_box {{nickNameStatus}}">
+      <img height="24px" width="24px" src="assets/icon/icon_id_grey_03.png">
+      <input (keyup)="checkId()" (blur)="blur('nickName')" (focus)="onfocus('nickName')" type="text" formControlName="nickName" class="Icon_Text_input" placeholder="닉네임">
+    </div>
+
     <br>
     <div class="input_box {{passStatus}}">
       <img height="24px" width="24px" src="assets/icon/icon_passward_grey_03.png">
@@ -41,11 +43,26 @@
     <br>
     <div class="input_box {{phoneStatus}}">
       <img height="24px" width="24px" src="assets/icon/icon_phone_grey_03.png">
-      <input (blur)="blur('phone')" (focus)="onfocus('phone')" type="text" formControlName="phone" class="Icon_Text_input" placeholder="핸드폰번호">
+      <input (blur)="blur('phone')" (focus)="onfocus('phone')" type="text" formControlName="email" class="Icon_Text_input" placeholder="이메일">
+      <button class="auth-button" (click)="sendAuthCode()" [disabled]="allowStep === 2">
+        <div  class="auth-button-content">인증번호 전송</div>
+      </button>
     </div>
-
+    <span *ngIf="!userFormErrors.email.valid">
+      <span class="error-text" *ngIf="userFormErrors.email.email" >
+        이메일 형식에 맞지 않습니다
+      </span>
+      <span class="error-text" *ngIf="userFormErrors.email.required" >
+        <br>
+        이메일을 입력해주세요
+      </span>
+    </span>
     <br>
-    <button (click)="signup()" class="line-button Green01 Body02 ">가입</button>
+    <div *ngIf="this.allowStep!=1" class="input_box {{authStatus}}">
+      <input (blur)="blur('auth')" (focus)="onfocus('auth')" type="text" formControlName="code" class="Icon_Text_input" placeholder="인증번호">
+    </div>
+    <br>
+    <button (click)="authencateAndSignup()" class="line-button Green01 Body02 ">가입</button>
     <div class="Body01 Grey07 signup-text">이미 계정이 있으신가요?&nbsp;&nbsp; <span (click)="goToPage('login')">로그인</span></div>
 
 
