@@ -80,9 +80,9 @@
     </div>
     <div *ngSwitchCase="'review'">
       <div *ngFor="let review of userStore.reviews" class="review-card">
-        <div style="display:flex;">
+        <div class="review-header">
 
-          <div class="flex-area-row" class="review-buyer-Id">
+          <div class="review-buyer-Id">
             {{review.buyerId}}
           </div>
           <button class="review-manage-button">
@@ -92,11 +92,9 @@
             삭제
           </button>
 
-          <div class="flex-area-row" style="width:15%;">
-            <img width="20px" height="20px" src="assets/imgs/star-icon.png">
-            <div class="flex-area-row" class="review-grade">
-              {{review.grade}}
-            </div>
+          <img width="20px" height="20px" src="assets/imgs/star-icon.png">
+          <div class="review-grade">
+            {{review.grade}}
           </div>
 
         </div>
