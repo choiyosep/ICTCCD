@@ -16,59 +16,50 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-      <ion-item>
-          <div class='table'>
-            <div class='box check'>
-                <input type="checkbox" (click)="checkedAll()">
-            </div>
-            <div class='box name'>
-              상품명
-            </div>
-            <div class='box qnty'>
-              수량
-            </div>
-            <div class='box price'>
-              가격
-            </div>
-          </div>
-        </ion-item>
-      
-        <ion-item>
-          <div class='product-list' *ngFor="let item of cartProductArray" (click)="checked(product)">
-            <div class='box check'>
-              <input type="checkbox" [checked]="item.checked">
-            </div>
-            <div class='box sub-photo'>
-              <img src="{{ item.product.images }}">
-            </div>
-            <div class='box sub-name'>
-              {{ item.product.name }}
-            </div>
-            <div class='box qnty'>
-              {{ item.qnty }}개
-            </div>
-            <div class='box price'>
-              {{ item.product.discountPrice }}원
-            </div>
-          </div>
-        </ion-item>
-      
-      <div class='button-wrapper'>
-          <button class='delete-button'>
-              선택삭제
-          </button>
+  <div class='table'>
+    <div class='box check'>
+          <input type="checkbox" (click)="checkedAll()">
       </div>
-      
-  </ion-list>
-  
-<ion-list>
-  <ion-item>
-    <div>
-      총 상품 가격: 3,400원
+      <div class='box name'>
+        상품명
+      </div>
+      <div class='box qnty'>
+        수량
+      </div>
+      <div class='box price'>
+        가격
+      </div>
     </div>
-  </ion-item>
-</ion-list>
+    <div class='product-list' *ngFor="let item of cartProductArray" (click)="checked(item)">
+      <div class='box check'>
+        <input type="checkbox" [checked]="item.checked">
+      </div>
+      <div class='box sub-photo'>
+        <img src="{{ item.product.images }}">
+      </div>
+      <div class='box sub-name'>
+        {{ item.product.name }}
+      </div>
+      <div class='box qnty'>
+        {{ item.qnty }}개
+      </div>
+      <div class='box price'>
+        {{ item.product.discountPrice }}원
+      </div>
+    </div>
+    
+    <div class='button-wrapper'>
+        <button class='delete-button'>
+            선택삭제
+        </button>
+    </div>
+
+  
+
+  <div class='totalPrice'>
+    총 상품 가격: {{ totalPrice }}원
+  </div>
+ 
 <div class='agreement'>
   <input type="checkbox" id='buyAgreement'> 주문 상품의 내역을 확인하였습니다.
 </div>
@@ -76,5 +67,9 @@
   <button id='buyBtn'>구매하기</button>
 </div>
 
+{{ allChecked }}
+{{ cartProductArray[0].checked }}
+{{ cartProductArray[1].checked }}
+{{ cartProductArray[2].checked }}
 
 </ion-content>

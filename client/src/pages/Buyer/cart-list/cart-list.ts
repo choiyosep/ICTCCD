@@ -19,12 +19,17 @@ import { CheckboxRequiredValidator } from '@angular/forms';
 export class CartListPage {
 
   cartProductArray: cartProduct[];
+  totalPrice: number;
+  allChecked: boolean;
   // dummy product
   private product1: Product;
   private product2: Product;
   private product3: Product;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.totalPrice = 0;
+    this.allChecked = false;
+
     this.product1 = new Product();
     this.product1.name="소보로빵",
     this.product1.discountPrice=1000,
@@ -46,6 +51,9 @@ export class CartListPage {
       { product: this.product3, qnty: 3, checked: false },
     ];
     
+    for(let product of this.cartProductArray) {
+      this.totalPrice += product.product.discountPrice * product.qnty;
+    }
   }
 
   ionViewDidLoad() {
@@ -54,12 +62,24 @@ export class CartListPage {
 
   checked(product: cartProduct) {
     product.checked = !product.checked;
+    if(product.checked == false) {
+      this.allChecked = false;
+    }
   }
 
   checkedAll() {
-    for(let product of this.cartProductArray) {
-      product.checked = !product.checked;
+    if(this.allChecked) {
+      this.allChecked = false;
+      for(let product of this.cartProductArray) {
+        product.checked = false;
+      }
+    } else {
+      this.allChecked = true;
+      for(let product of this.cartProductArray) {
+        product.checked = true;
+      }
     }
+    
   }
 
 }
