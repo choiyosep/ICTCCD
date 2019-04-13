@@ -1,3 +1,65 @@
 page-cart-list {
+}
 
+.table {
+    width: 100%;
+    display: table;
+}
+
+.box {display: table-cell}
+.check {
+    width: 5%;
+    text-align: center;
+}
+.name {
+    width: 60%;
+    text-align: center;
+}
+.qnty {
+    width: 15%;
+    text-align: center;
+}
+.price {
+    width: 20%;
+    text-align: center;
+}
+
+
+.product-list{
+    width: 100%;
+    display: table;
+}
+.sub-photo {
+    width: 15%;
+    text-align: center;
+}
+.sub-name {width: 45%}
+
+.product{
+    width: 50%;
+    padding: 10px;
+}
+
+.button-wrapper {
+    width: 40%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.delete-button {
+    font-weight: bold;
+    height: 48px;
+    width: 100%;
+    padding: 14px 0px;
+    color: #F36C69;
+}
+
+.buy {
+    font-size: 20px;
+    font-weight: bold;
+    height: 60px;
+    width: 100%;
+    padding: 14px 0px;
+    color: white;
+    background-color: rgb(58, 132, 241);
 }
