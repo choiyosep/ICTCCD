@@ -4,7 +4,7 @@ import { CartListPage } from './cart-list';
 
 @NgModule({
   declarations: [
-    CartListPage,
+    CartListPage
   ],
   imports: [
     IonicPageModule.forChild(CartListPage),
