@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Product} from "../../../core/model/Product"
 import { QueryBindingType } from '@angular/compiler/src/core';
@@ -60,28 +60,18 @@ export class CartListPage {
     console.log('ionViewDidLoad CartListPage');
   }
 
-  checked(product: cartProduct) {
-    product.checked = !product.checked;
-    if(product.checked == false) {
+
+  checked(ischecked: boolean) {
+    if(!ischecked) {
       this.allChecked = false;
     }
   }
 
   checkedAll() {
-    if(this.allChecked) {
-      this.allChecked = false;
-      for(let product of this.cartProductArray) {
-        product.checked = false;
-      }
-    } else {
-      this.allChecked = true;
-      for(let product of this.cartProductArray) {
-        product.checked = true;
-      }
+    for (let product of this.cartProductArray) {
+      product.checked = this.allChecked;
     }
-    
   }
-
 }
 
 

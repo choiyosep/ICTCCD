@@ -16,35 +16,40 @@
 </ion-header>
 
 <ion-content padding>
+  {{ allChecked }}
+  {{ cartProductArray[0].checked }}
+  {{ cartProductArray[1].checked }}
+  {{ cartProductArray[2].checked }}
+
   <div class='table'>
     <div class='box check'>
-          <input type="checkbox" (click)="checkedAll()">
+      <ion-checkbox [(ngModel)]="allChecked" (click)="checkedAll()" ></ion-checkbox>
       </div>
-      <div class='box name'>
+      <div class='box name Body04'>
         상품명
       </div>
-      <div class='box qnty'>
+      <div class='box qnty Body04'>
         수량
       </div>
-      <div class='box price'>
+      <div class='box price Body04'>
         가격
       </div>
     </div>
-    <div class='product-list' *ngFor="let item of cartProductArray" (click)="checked(item)">
+    <div class='product-list' *ngFor="let item of cartProductArray">
       <div class='box check'>
-        <input type="checkbox" [checked]="item.checked">
+        <ion-checkbox [(ngModel)]="item.checked" (ionChange)="checked($event.checked)"></ion-checkbox>
       </div>
       <div class='box sub-photo'>
         <img src="{{ item.product.images }}">
       </div>
-      <div class='box sub-name'>
+      <div class='box sub-name Body04'>
         {{ item.product.name }}
       </div>
-      <div class='box qnty'>
+      <div class='box qnty Body03'>
         {{ item.qnty }}개
       </div>
-      <div class='box price'>
-        {{ item.product.discountPrice }}원
+      <div class='box price Body03'>
+        {{item.product.discountPrice }}원
       </div>
     </div>
     
@@ -56,20 +61,15 @@
 
   
 
-  <div class='totalPrice'>
+  <div class='totalPrice Grey05 Body04'>
     총 상품 가격: {{ totalPrice }}원
   </div>
  
-<div class='agreement'>
-  <input type="checkbox" id='buyAgreement'> 주문 상품의 내역을 확인하였습니다.
-</div>
-<div class='buy'>
-  <button id='buyBtn'>구매하기</button>
+<div class='agreement Body01'>
+  <ion-checkbox id='buyAgreement'></ion-checkbox> &nbsp;&nbsp; 주문 상품의 내역을 확인하였습니다.
 </div>
 
-{{ allChecked }}
-{{ cartProductArray[0].checked }}
-{{ cartProductArray[1].checked }}
-{{ cartProductArray[2].checked }}
+  <br>
 
+  <button class='buy' id='buyBtn'>구매하기</button>
 </ion-content>
