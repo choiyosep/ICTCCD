@@ -114,6 +114,9 @@ export class StoreDetailComponent{
       case 'product-create' :
         this.navCtrl.push('ProductCreateComponent');
         break;
+      case 'product-modify' :
+        this.navCtrl.push('ProductModifyComponent');
+        break;
     }
   }
 

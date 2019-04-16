@@ -11,7 +11,9 @@ import { CheckboxRequiredValidator } from '@angular/forms';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage(
+
+)
 @Component({
   selector: 'page-cart-list',
   templateUrl: 'cart-list.html',
