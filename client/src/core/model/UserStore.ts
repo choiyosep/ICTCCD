@@ -3,6 +3,7 @@ import {IModel} from "./interface";
 import {Review} from "./Review";
 import {Product} from "./Product";
 export class UserStore extends Serializable implements IModel{
+  //판매자 아이디
   _id: string = '';
 
   //상점명
@@ -10,6 +11,7 @@ export class UserStore extends Serializable implements IModel{
   //전화번호
   tel: string = '';
 
+  //운영시간 09:00~ 23:00
   operatingHour: string='';
 
   sHour: number;
@@ -30,7 +32,17 @@ export class UserStore extends Serializable implements IModel{
 
   products: Product[] = [];
 
+  //카테고리
   category : string = '';
+
+  //평점
+  grade: number;
+
+  //거리
+  distance : number;
+
+  //즐겨찾기 여부
+  isBookMarked: boolean
 
   lng: number;
   lat: number;

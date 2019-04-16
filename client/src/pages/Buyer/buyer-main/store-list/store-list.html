@@ -30,7 +30,29 @@
   </ion-segment>
 
   <div [ngSwitch]="contents" >
-    <div *ngSwitchCase="'베이커리'">
+    <div *ngSwitchCase="'제과'">
+      <div *ngFor="let store of bakeryStoreList" class="store-list-card" >
+        <img (click)="goToPage('store-detail')" width="100px" height="100px" [src]="store.images[0]">
+        <div class="store-list-info">
+          <div (click)="goToPage('store-detail')" class="store-list-info-detail">
+            <div class="Body02">{{store.title}}</div><br>
+            <div class="flex-area-row">
+              <img width="15px" height="15px" src="assets/imgs/star-icon.png">
+              &nbsp;
+              <div class="Caption03">{{store.grade}}</div>
+            </div>
+            <div class="Caption03">
+              거리: {{store.distance}}m
+            </div>
+          </div>
+          <div class="flex-content-col">
+            <!--즐겨찾기 됐을때-->
+            <img *ngIf="store.isBookMarked" (click)="removeFromBookmark(store)" width="80px" height="80px" src="assets/icon/bookmark-hand-filled.png">
+            <!--즐겨찾기 안됐을때-->
+            <img *ngIf="!store.isBookMarked" (click)="addToBookmark(store)" width="80px" height="80px" src="assets/icon/bookmark-hand-empty.png">
+          </div>
+        </div>
+      </div>
     </div>
     <div *ngSwitchCase="'분식'">
     </div>
@@ -42,6 +64,7 @@
     </div>
   </div>
 
-  <button (click)="goToPage('store-detail')">상점정보</button>
+
+
 
 </ion-content>

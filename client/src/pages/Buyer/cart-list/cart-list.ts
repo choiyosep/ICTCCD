@@ -58,7 +58,7 @@ export class CartListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CartListPage');
-  }
+}
 
 
   checked(ischecked: boolean) {

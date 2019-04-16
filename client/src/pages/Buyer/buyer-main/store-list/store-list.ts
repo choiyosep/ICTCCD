@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {UserStore} from "../../../../core/model/UserStore";
+import {ToastService} from "../../../../core/service/toast.service";
+
 
 /**
  * Generated class for the StoreListPage page.
@@ -15,10 +18,40 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class StoreListPage {
 
-  private contents: string = 'bakery';
+  private contents: string = '제과';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private bakeryStoreList: UserStore[] = [];
+  private flourFoodStoreList: UserStore[] = [];
+  private sideDishStoreList: UserStore[] = [];
+  private riceCakeStoreList: UserStore[] = [];
+  private EtcStoreList: UserStore[] = [];
+
+  constructor(private navCtrl: NavController,
+              private navParams: NavParams,
+              private alertCtrl: AlertController,
+              private toastService: ToastService
+              ) {
+
+    var store1 = new UserStore();
+    store1.title = "브라운 파파";
+    store1.grade = 4.5;
+    store1.distance = 130;
+    store1.isBookMarked=true;
+    store1.images.push("http://www.reputation.kr/news/photo/201803/56_121_2159.jpg");
+
+    var store2 = new UserStore();
+    store2.title = "라두스 베이커리";
+    store2.grade = 4.9;
+    store2.distance = 190;
+    store2.isBookMarked=false;
+    store2.images.push("https://fastly.4sqi.net/img/general/600x600/29176994_bX10YpLlXDPjcq-f0LXaPG02fwyq5XLEkXQg_L7ACro.jpg");
+
+    this.bakeryStoreList.push(store1);
+    this.bakeryStoreList.push(store2);
   }
+
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StoreListPage');
@@ -29,5 +62,67 @@ export class StoreListPage {
       case 'store-detail':
         this.navCtrl.push('BuyerStoreDetailPage');
     }
+  }
+
+  addToBookmark(store: UserStore) {
+    let confirm = this.alertCtrl.create({
+      title: '즐겨찾기에 추가하시겠습니까??',
+      subTitle: '',
+      cssClass: '',
+      buttons: [
+        {
+          text: '확인',
+          cssClass: '',
+          handler: () => {
+            //즐겨찾기 추가 작업
+
+            //즐겨찾기 속성 변경
+            store.isBookMarked=true;
+
+            //알림메시지
+            this.toastService.presentToast('즐겨찾기 추가 완료!!');
+
+          }
+        },
+        {
+          text: '취소',
+          cssClass:'',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+  }
+
+  removeFromBookmark(store: UserStore) {
+    let confirm = this.alertCtrl.create({
+      title: '즐겨찾기에서 제거하시겠습니까?',
+      subTitle: '',
+      cssClass: '',
+      buttons: [
+        {
+          text: '확인',
+          cssClass: '',
+          handler: () => {
+            //즐겨찾기 추가 작업(로그인한 구매자 아이디와 해당 상점의 판매자 아이디 서버로 전송)
+
+            //즐겨찾기 속성 변경
+            store.isBookMarked=false;
+
+            //알림메시지
+            this.toastService.presentToast('즐겨찾기 제거 완료!');
+          }
+        },
+        {
+          text: '취소',
+          cssClass:'',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 }
