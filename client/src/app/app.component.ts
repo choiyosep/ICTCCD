@@ -6,6 +6,7 @@ import {Platform, MenuController, Nav, AlertController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/Account/login/login";
+import {SessionService} from "../core/service/session.service";
 
 
 @Component({
@@ -17,16 +18,20 @@ export class MyApp {
   // make HelloIonicPage the root (or first) page
   rootPage = LoginPage;
 
+
+
   constructor(
     public platform: Platform,
     public menu: MenuController,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private alertCtrl: AlertController,
+    private sessionService: SessionService
   ) {
     this.initializeApp();
 
     // set our app's pages
+
   }
 
   initializeApp() {
@@ -81,6 +86,7 @@ export class MyApp {
           cssClass:'del',
           handler: () => {
             //로그아웃작업
+            this.sessionService.destory();
             this.menu.close();
             this.nav.setRoot('LoginPage');
           }
@@ -113,4 +119,15 @@ export class MyApp {
     });
     confirm.present();
   }
+
+  getLevel(){
+    return this.sessionService.getValue('level');
+  }
+
+  getNickname(){
+    const nickname = this.sessionService.getValue('nickname');
+
+    return nickname? nickname+"님": "로그인이 필요합니다";
+  }
+
 }

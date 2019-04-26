@@ -11,18 +11,19 @@
     떠리 매쳐
   </div>
 
+  <form name="loginForm" [formGroup]="loginForm">
     <div class="input_box {{idStatus}}">
       <img height="24px" width="24px" src="assets/icon/icon_id_grey_03.png">
-      <input (blur)="blur('id')" (focus)="onfocus('id')" type="text" class="Icon_Text_input" placeholder="아이디">
+      <input (blur)="blur('id')" (focus)="onfocus('id')" formControlName="id" type="text" class="Icon_Text_input" placeholder="아이디">
     </div>
     <br>
     <div class="input_box {{passStatus}}">
       <img height="24px" width="24px" src="assets/icon/icon_passward_grey_03.png">
-      <input (blur)="blur('pass')" (focus)="onfocus('pass')"  type="password" class="Icon_Text_input" placeholder="비밀번호">
+      <input (blur)="blur('pass')" (focus)="onfocus('pass')" formControlName="password" type="password" class="Icon_Text_input" placeholder="비밀번호">
     </div>
     <br>
-
-  <button (click)="goToPage('sellerMain')" class="line-button">로그인</button>
+  </form>
+  <button (click)="login()" class="line-button">로그인</button>
 
   <div class="signup-text">아직 계정이 없으신가요?&nbsp;&nbsp; <span (click)="goToPage('sign-up')">회원가입</span></div>
 </ion-content>

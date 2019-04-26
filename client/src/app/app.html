@@ -2,13 +2,13 @@
 
   <ion-header>
     <ion-toolbar>
-      <ion-title>홍길동님</ion-title>
+      <ion-title>{{getNickname()}}</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
-    판매자메뉴
-    <ion-list>
+    <!--판매자메뉴-->
+    <ion-list *ngIf="getLevel()==2" >
       <button (click)="goToPage('sellerMain')"  ion-item >
         메인
       </button>
@@ -25,9 +25,8 @@
         회원탈퇴
       </button>
     </ion-list>
-
-    구매자메뉴
-    <ion-list>
+    <!--구매자메뉴-->
+    <ion-list *ngIf="getLevel()==1">
       <button (click)="goToPage('buyerMain')" ion-item >
         메인
       </button>

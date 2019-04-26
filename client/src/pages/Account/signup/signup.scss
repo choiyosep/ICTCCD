@@ -4,7 +4,7 @@ page-signup {
 
 .signup-container {
   .scroll-content{
-    padding-top:88px !important;
+    padding-top:40px !important;
   }
 
 }
@@ -40,4 +40,13 @@ input:disabled {
   @extend .Grey07;
   @extend .Body01;
   background-color: $Grey01;
+}
+
+.user-type{
+  .segment-button{
+    height: 50px;
+    .label{
+      @extend .Body04;
+    }
+  }
 }

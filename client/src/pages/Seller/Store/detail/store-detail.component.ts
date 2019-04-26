@@ -33,10 +33,11 @@ export class StoreDetailComponent{
               protected session: SessionService,
               public navCtrl : NavController,
               public navParams : NavParams
-              ) {
+              )
+  {
 
 
-    this.contents = "review";
+    this.contents = "menu";
     this.userStore= new UserStore();
 
     this.userStore.title="이솝베이커리";
@@ -137,6 +138,13 @@ export class StoreDetailComponent{
         document.getElementById("product-add-button").style.display="none";
         break;
     }
+  }
+
+
+  getUserId() {
+    localStorage.set('userId',"zz");
+    console.log(localStorage.get('userId'));
+    // return localStorage.get('userId');
   }
 
 

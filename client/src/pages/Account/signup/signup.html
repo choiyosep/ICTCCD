@@ -6,8 +6,18 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="signup-container" padding>
+
+  <ion-segment class="user-type" [(ngModel)]="userLevel"  color="primary" >
+    <ion-segment-button value="2">
+      <ion-label>판매자</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-label>구매자</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
   <form name="userForm" [formGroup]="userForm">
-    <!--{{this.allowStep}}-->
+    <br>
     <div class="input_box {{idStatus}}">
       <img height="24px" width="24px" src="assets/icon/icon_id_grey_03.png">
       <input (keyup)="checkId()" (blur)="blur('id')" (focus)="onfocus('id')" type="text" formControlName="id" class="Icon_Text_input" placeholder="아이디">
@@ -64,7 +74,5 @@
     <br>
     <button (click)="authencateAndSignup()" class="line-button Green01 Body02 ">가입</button>
     <div class="Body01 Grey07 signup-text">이미 계정이 있으신가요?&nbsp;&nbsp; <span (click)="goToPage('login')">로그인</span></div>
-
-
   </form>
 </ion-content>

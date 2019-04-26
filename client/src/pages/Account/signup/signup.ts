@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormHelper} from "../../../core/helper/form";
 import * as AWSCognito from "amazon-cognito-identity-js";
 import {User} from "../../../core/model/user";
+import {environment} from "../../../environments/environment";
 
 /**
  * Generated class for the SignupPage page.
@@ -32,12 +33,9 @@ export class SignupPage {
   private cognitoUser : any;
 
   // 사용할 User Pool의 정보를 담고있는 변수입니다.
-  private _POOL_DATA = {
-    UserPoolId: "ap-northeast-2_NnQK9HehJ",
-    ClientId: "5ril24apu7umqbou211363ahge",
-    region: 'ap-northeast-2',
-  };
+  private _POOL_DATA = environment._POOL_DATA;
   private allowStep: number = 1;
+  private userLevel: string = "1";
 
 
 
@@ -53,7 +51,7 @@ export class SignupPage {
       pass: {},
       confirmPass: {},
       email: {},
-      nickName: {}
+      nickName: {},
     };
     this.userForm = this.formBuilder.group( {
       // 1
@@ -62,7 +60,7 @@ export class SignupPage {
       confirmPass: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       nickName : ['', [Validators.required]],
-      code : ['']
+      code : [''],
     }, {validator: FormHelper.confirmPassword('pass', 'confirmPass')} );
 
     this.idStatus="normal";
@@ -72,6 +70,7 @@ export class SignupPage {
     this.authStatus="normal";
     this.nickNameStatus="normal";
 
+    this.userLevel="2";
   }
 
 
@@ -201,7 +200,7 @@ export class SignupPage {
 
 
 
-    return new Promise((resolved, reject) => {
+    new Promise((resolved, reject) => {
       // 입력한 User Pool 정보를 가지고 실제 User Pool에 접근할 수 있는 객체를 만듭니다.
       const userPool = new AWSCognito.CognitoUserPool(this._POOL_DATA);
 
@@ -217,6 +216,9 @@ export class SignupPage {
         ),new AWSCognito.CognitoUserAttribute(
           { Name: "nickname", Value: rawValue.nickName },
 
+        )
+        ,new AWSCognito.CognitoUserAttribute(
+          {Name:"custom:level", Value: this.userLevel},
         )
       );
 
@@ -240,7 +242,13 @@ export class SignupPage {
             resolved(result);
           }
         });
-    });
+    }
+    ).catch(
+      (err) =>{
+        this.toast(err.message);
+      }
+    )
+
   }
 
 
@@ -266,5 +274,10 @@ export class SignupPage {
       });
 
 
+  }
+
+  segmentChanged(ev) {
+    // this.userForm.setValue({'level':ev.value});
+    // console.log(this.userForm.getRawValue().level);
   }
 }
