@@ -32,11 +32,11 @@ export class ProductDetailPage {
   ) {
     this.product = new Product();
 
-    this.product.name="소보로빵";
+    this.product.prodName="소보로빵";
     this.product.discountRate=20;
     this.product.originalPrice=1000;
     this.product.stock=10;
-    this.product.discountPrice=800;
+    this.product.salePrice=800;
     this.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
     this.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
 

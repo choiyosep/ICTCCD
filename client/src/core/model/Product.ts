@@ -1,36 +1,49 @@
 import {Serializable} from "../helper/serializable";
 import {IModel} from "./interface";
 export class Product extends Serializable implements IModel{
-  _id: string = '';
+
+  //상품번호
+  prodNum: string;
 
   //상점아이디
-  owner_id: string = '';
+  ownerId: string;
+
+  //판매자아이디
+  sellerId: string;
 
   //상품명
-  name: string = '';
-  //가격
+  prodName: string = '';
+
+  //정상가격
   originalPrice: number;
-  discountPrice: number;
+
+  //할인률
   discountRate: number;
 
+  //판매가격
+  salePrice: number;
+
+  //재고량
   stock : number;
 
   //이미지
   images =[];
+
+  //상품상태
   state: string = '1';
 
 
   toObject(): object {
     return {
-      _id: this._id,
-      name: this.name,
-
-      product_id: this._id,
+      prodNum: this.prodNum,
+      prodName: this.prodName,
+      ownerId: this.ownerId,
+      sellerId: this.sellerId,
       originalPrice: this.originalPrice,
-      discountPrice: this.discountPrice,
+      salePrice: this.salePrice,
       discountRate: this.discountRate,
       stock: this.stock,
-      image: this.images,
+      images: this.images,
       state: this.state
     }
   }

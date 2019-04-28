@@ -1,20 +1,30 @@
 import {Serializable} from "../helper/serializable";
 import {IModel} from "./interface";
 export class Review extends Serializable implements IModel{
-  _id: string;
 
+  //후기번호
+  reviewNum: string;
+
+  //구매자 아이디
   buyerId: string;
+
+  //판매자 아이디
+  sellerId: string;
+
+  //후기내용
   content: string;
 
-  grade: number;
+  //별점
+  rating: number;
 
 
   toObject(): object {
       return {
-        _id: this._id,
+        reviewNum: this.reviewNum,
         buyerId: this.buyerId,
+        sellerId: this.sellerId,
         content: this.content,
-        grade: this.grade
+        rating: this.rating
     }
   }
 

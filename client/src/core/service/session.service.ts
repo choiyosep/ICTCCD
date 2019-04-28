@@ -12,9 +12,8 @@ export class SessionService {
   constructor(private http: HttpService) { }
 
   init(data: any): void {
-    console.log("sessionService!!");
-    console.log(data);
-    localStorage.removeItem(this.LOCAL_STORAGE_NAME);
+
+    this.destory();
     localStorage.setItem(this.LOCAL_STORAGE_NAME, JSON.stringify(data));
     // this.setPing();
   }

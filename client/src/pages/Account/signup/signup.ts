@@ -3,7 +3,6 @@ import {App, IonicPage, NavController, NavParams, ToastController} from 'ionic-a
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormHelper} from "../../../core/helper/form";
 import * as AWSCognito from "amazon-cognito-identity-js";
-import {User} from "../../../core/model/user";
 import {environment} from "../../../environments/environment";
 
 /**
@@ -196,7 +195,6 @@ export class SignupPage {
     }
 
     const rawValue = this.userForm.getRawValue();
-    const user = new User();
 
 
 

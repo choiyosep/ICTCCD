@@ -31,18 +31,18 @@ export class CartListPage {
     this.allChecked = false;
 
     this.product1 = new Product();
-    this.product1.name="소보로빵",
-    this.product1.discountPrice=1000,
+    this.product1.prodName="소보로빵",
+    this.product1.salePrice=1000,
     this.product1.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
 
     this.product2 = new Product();
-    this.product2.name="단팥빵",
-    this.product2.discountPrice=1200,
+    this.product2.prodName="단팥빵",
+    this.product2.salePrice=1200,
     this.product2.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
 
     this.product3 = new Product();
-    this.product3.name="슈크림빵",
-    this.product3.discountPrice=900.
+    this.product3.prodName="슈크림빵",
+    this.product3.salePrice=900.
     this.product3.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
 
     this. cartProductArray = [
@@ -52,7 +52,7 @@ export class CartListPage {
     ];
     
     for(let product of this.cartProductArray) {
-      this.totalPrice += product.product.discountPrice * product.qnty;
+      this.totalPrice += product.product.salePrice * product.qnty;
     }
   }
 
