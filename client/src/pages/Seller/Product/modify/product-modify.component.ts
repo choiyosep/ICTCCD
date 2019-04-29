@@ -50,7 +50,7 @@ export class ProductModifyComponent{
       return false;
     }
 
-    if(this.product.name==undefined || this.product.name == ''){
+    if(this.product.prodName==undefined || this.product.prodName == ''){
       this.toast("상품명을 입력해주세요");
       return false;
     }
@@ -95,11 +95,11 @@ export class ProductModifyComponent{
 
 
   discountRateChanged( discountRate: number) {
-    this.product.discountPrice= Math.round(this.product.originalPrice*((100-discountRate)/100));
+    this.product.salePrice= Math.round(this.product.originalPrice*((100-discountRate)/100));
   }
 
-  discountPriceChanged(discountPrice: number) {
-    this.product.discountRate =  (this.product.originalPrice - discountPrice)/this.product.originalPrice*100
+  discountPriceChanged(salePrice: number) {
+    this.product.discountRate =  (this.product.originalPrice - salePrice)/this.product.originalPrice*100
   }
 
   addButtonClicked() {

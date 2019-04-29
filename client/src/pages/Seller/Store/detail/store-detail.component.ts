@@ -4,6 +4,8 @@ import {SessionService} from "../../../../core/service/session.service";
 import {UserStore} from "../../../../core/model/UserStore";
 import {Product} from "../../../../core/model/Product";
 import {Review} from "../../../../core/model/Review";
+import {StoreService} from "../../../../core/api/store.service";
+import {Converter} from "../../../../core/helper/converter";
 /**
  * Generated class for the StoreDetailPage page.
  *
@@ -27,57 +29,40 @@ export class StoreDetailComponent{
 
   private map;
   private marker;
-  private products: Array<Product>;
 
   constructor(
               protected session: SessionService,
               public navCtrl : NavController,
-              public navParams : NavParams
+              public navParams : NavParams,
+              private storeService : StoreService,
+              private sessionService: SessionService
               )
   {
-
-
     this.contents = "menu";
-    this.userStore= new UserStore();
+    //   var product:Product = new Product();
+    //   product.prodName = "소보로빵";
+    //   product.salePrice = 1000;
+    //   product.stock = 10;
+    //   product.discountRate = 20 ;
+    //
+    //   this.userStore.products.push(product);
+    // this.userStore.products.push(product);
+    // this.userStore.products.push(product);
+    // this.userStore.products.push(product);
 
-    this.userStore.title="이솝베이커리";
-    this.userStore.operatingHour = "09:00~22:00";
-    this.userStore.tel="010-123-1234";
-    this.userStore.mainAddr ="수원시 팔달구 우만동 11";
-    this.userStore.detailAddr="이솝베이커리";
-
-
-
-      var product:Product = new Product();
-      product.name = "소보로빵";
-      product.discountPrice = 1000;
-      product.stock = 10;
-      product.discountRate = 20 ;
-
-      this.userStore.products.push(product);
-    this.userStore.products.push(product);
-    this.userStore.products.push(product);
-    this.userStore.products.push(product);
-
-
-    var review: Review = new Review();
-    review.buyerId = 'zmfl1230';
-    review.content = '짱~ 너무 좋았습니다. 사장님도 친절하시구오래된 제품같지  않았어요 ~~ 잘먹었네여.';
-    review.grade = 4.7;
-
-    var review2: Review = new Review();
-    review2.buyerId = 'dlgusdn753';
-    review2.content = '사장님이 너무 친절하시네요~' +
-      '제품도 슈크림도 촉촉하고 맛있었네요!!';
-    review2.grade = 5.0;
-
-    this.userStore.reviews.push(review);
-    this.userStore.reviews.push(review2);
-
-
-
-
-
+    // var review: Review = new Review();
+    // review.buyerId = 'zmfl1230';
+    // review.content = '짱~ 너무 좋았습니다. 사장님도 친절하시구오래된 제품같지  않았어요 ~~ 잘먹었네여.';
+    // review.rating = 4.7;
+    //
+    // var review2: Review = new Review();
+    // review2.buyerId = 'dlgusdn753';
+    // review2.content = '사장님이 너무 친절하시네요~' +
+    //   '제품도 슈크림도 촉촉하고 맛있었네요!!';
+    // review2.rating = 5.0;
+    //
+    // this.userStore.reviews.push(review);
+    // this.userStore.reviews.push(review2);
   }
 
   makeMap(lat, lng){
@@ -93,14 +78,24 @@ export class StoreDetailComponent{
     });
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidLoad StoreDetailPage');
-    this.makeMap(37,127 );
-    if(document.getElementById("map")){
-      document.getElementById("map").style.display="none";
-    }
+  ionViewDidEnter(){
 
+    const id = this.sessionService.getValue("loginId");
+    this.storeService.get(id).subscribe((res) =>{
+      if(res && res.code==1){
+        this.userStore=res.data;
+        this.userStore.operatingHour =
+          Converter.timesTohours(this.userStore.sHour, this.userStore.sMinute, this.userStore.eHour, this.userStore.eMinute)
+
+        this.makeMap(this.userStore.lat, this.userStore.lng);
+        if(document.getElementById("map")){
+          document.getElementById("map").style.display="none";
+        }
+      }
+    });
   }
+
+
 
   goToPage(str: string, productId: string) {
     switch (str) {
@@ -138,13 +133,6 @@ export class StoreDetailComponent{
         document.getElementById("product-add-button").style.display="none";
         break;
     }
-  }
-
-
-  getUserId() {
-    localStorage.set('userId',"zz");
-    console.log(localStorage.get('userId'));
-    // return localStorage.get('userId');
   }
 
 

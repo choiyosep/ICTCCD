@@ -11,104 +11,103 @@
       <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
-      <div (click)="goToPage('store-modify')" class="confirm2">
+      <div *ngIf="userStore!=undefined"  (click)="goToPage('store-modify')" class="confirm2">
         수정
       </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div  class="store-create-area" (click)="goToPage('store-create')">
+  <div *ngIf="userStore==undefined"  class="store-create-area" (click)="goToPage('store-create')">
     <div class="store-create-button">
       상점추가
     </div>
   </div>
-  <div>
-    <ion-slides class="slides" >
-      <!--ngFor 이용-->
-      <ion-slide>
-        <img src="http://files.mirweb.co.kr/mwa_m128/0601_2/81aaafa49cad328ad782a5489f928761.jpg">
-      </ion-slide>
-      <ion-slide>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQytD96PuRxFJc17oDzA8ZQ5K0uLtYNSh3PRNWlORF2qQJz62BOUQ">
-      </ion-slide>
-    </ion-slides>
-  </div>
-
-  <div class="store-name">
-    {{userStore?.title}}
-  </div>
-  <div class="content-box-underline flex-area-row-space-between">
-    <div class="store-property-name">
-      오픈시간
+  <div *ngIf="userStore!=undefined">
+    <div>
+      <ion-slides class="slides" >
+        <ion-slide *ngFor="let picture of userStore.pictures">
+          <img src="{{picture}}">
+        </ion-slide>
+      </ion-slides>
     </div>
-    <div class="store-property-value">
-      {{userStore?.operatingHour}}
+
+    <div class="store-name">
+      {{userStore?.title}}
     </div>
-  </div>
-
-  <div class="content-box-underline flex-area-row-space-between">
-    <div class="store-property-name">
-      연락처
-    </div>
-    <div class="store-property-value">
-      {{userStore?.tel}}
-    </div>
-  </div>
-
-
-  <div class="content-box-underline flex-area-row-space-between">
-    <div class="store-property-name">
-      주소
-    </div>
-    <div class="store-property-value">
-      {{userStore?.mainAddr}} {{userStore?.detailAddr}}
-    </div>
-  </div>
-  <br>
-
-  <ion-segment [(ngModel)]="contents" (ngModelChange)="change(contents)"  color="primary" style="height:44px;">
-    <ion-segment-button value="menu">
-      메뉴
-    </ion-segment-button>
-    <ion-segment-button value="info">
-      위치
-    </ion-segment-button>
-    <ion-segment-button value="review">
-      리뷰
-    </ion-segment-button>
-  </ion-segment>
-
-
-  <div [ngSwitch]="contents" >
-    <div *ngSwitchCase="'menu'">
-      <div class="product-card-area">
-        <product-card
-          (click)="goToPage('product-modify', product._id)"
-          *ngFor="let product of userStore.products"
-          [product]="product"></product-card>
+    <div class="content-box-underline flex-area-row-space-between">
+      <div class="store-property-name">
+        오픈시간
+      </div>
+      <div class="store-property-value">
+        {{userStore?.operatingHour}}
       </div>
     </div>
-    <div *ngSwitchCase="'info'">
+
+    <div class="content-box-underline flex-area-row-space-between">
+      <div class="store-property-name">
+        연락처
+      </div>
+      <div class="store-property-value">
+        {{userStore?.tel}}
+      </div>
     </div>
-    <div *ngSwitchCase="'review'">
-      <div *ngFor="let review of userStore.reviews" class="review-card">
-        <div class="flex-area-row-space-between">
-          <div class="flex-area-row" class="review-buyer-Id">
-            {{review.buyerId}}
-          </div>
-          <div class="flex-area-row">
-            <img width="20px" height="20px" src="assets/imgs/star-icon.png">
-            <div class="review-grade">
-              {{review.grade}}
+
+
+    <div class="content-box-underline flex-area-row-space-between">
+      <div class="store-property-name">
+        주소
+      </div>
+      <div class="store-property-value">
+        {{userStore?.address}}
+      </div>
+    </div>
+    <br>
+
+    <ion-segment [(ngModel)]="contents" (ngModelChange)="change(contents)"  color="primary" style="height:44px;">
+      <ion-segment-button value="menu">
+        메뉴
+      </ion-segment-button>
+      <ion-segment-button value="info">
+        위치
+      </ion-segment-button>
+      <ion-segment-button value="review">
+        리뷰
+      </ion-segment-button>
+    </ion-segment>
+
+
+    <div [ngSwitch]="contents" >
+      <div *ngSwitchCase="'menu'">
+        <div class="product-card-area">
+          <product-card
+            (click)="goToPage('product-modify', product._id)"
+            *ngFor="let product of userStore.products"
+            [product]="product"></product-card>
+        </div>
+      </div>
+      <div *ngSwitchCase="'info'">
+      </div>
+      <div *ngSwitchCase="'review'">
+        <div *ngFor="let review of userStore.reviews" class="review-card">
+          <div class="flex-area-row-space-between">
+            <div class="flex-area-row" class="review-buyer-Id">
+              {{review.buyerId}}
             </div>
-          </div>
+            <div class="flex-area-row">
+              <img width="20px" height="20px" src="assets/imgs/star-icon.png">
+              <div class="review-grade">
+                {{review.rating}}
+              </div>
+            </div>
 
-        </div>
-        <div class="review-content">
-          {{review.content}}
+          </div>
+          <div class="review-content">
+            {{review.content}}
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 
   <div id="map" class="store-location-image"></div>

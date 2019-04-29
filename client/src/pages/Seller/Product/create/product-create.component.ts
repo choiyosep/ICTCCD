@@ -57,11 +57,11 @@ export class ProductCreateComponent{
   }
 
   discountRateChanged(discountRate: number) {
-    this.product.discountPrice= Math.round(this.product.originalPrice*((100-discountRate)/100));
+    this.product.salePrice= Math.round(this.product.originalPrice*((100-discountRate)/100));
   }
 
-  discountPriceChanged(discountPrice: number) {
-    this.product.discountRate =  (this.product.originalPrice - discountPrice)/this.product.originalPrice*100
+  discountPriceChanged(salePrice: number) {
+    this.product.discountRate =  (this.product.originalPrice - salePrice)/this.product.originalPrice*100
   }
 
 
@@ -74,7 +74,7 @@ export class ProductCreateComponent{
       return false;
     }
 
-    if(this.product.name==undefined || this.product.name == ''){
+    if(this.product.prodName==undefined || this.product.prodName == ''){
       this.toast("상품명을 입력해주세요");
       return false;
     }
@@ -86,7 +86,7 @@ export class ProductCreateComponent{
 
 
 
-    if(this.product.discountPrice==undefined || this.product.discountPrice == null){
+    if(this.product.salePrice==undefined || this.product.salePrice == null){
       this.toast("할인 정보를 입력해주세요");
       return false;
     }

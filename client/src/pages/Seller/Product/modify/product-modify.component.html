@@ -34,7 +34,7 @@
         상품명<span class="Red Body04">&nbsp;*</span>
         <!--<ion-toggle (ngModelChange)="changeState()" [(ngModel)]="product.state"></ion-toggle>-->
       </div>
-      <input class="input_box" [(ngModel)]="product.name">
+      <input class="input_box" [(ngModel)]="product.prodName">
       <br style="line-height: 16px;">
       <div class="flex-area-row-space-between">
         <div class="semi-content-area">
@@ -53,7 +53,7 @@
             <span class="Red Body04">&nbsp;*</span>
           </div>
           <div class="flex-area-row" style="position:relative">
-            <input min="0" type=number maxlength="7" (change)="discountPriceChanged(product.discountPrice)" [(ngModel)]="product.discountPrice" type="number" class="input_box">
+            <input min="0" type=number maxlength="7" (change)="discountPriceChanged(product.salePrice)" [(ngModel)]="product.salePrice" type="number" class="input_box">
             <div style="position: absolute; right:10%; top:25%; ">원</div>
           </div>
         </div>

@@ -31,7 +31,7 @@
   <div class="Title_Input">
     상품명<span class="Red Body04">&nbsp;*</span>
   </div>
-  <input [(ngModel)]="product.name" class="input_box">
+  <input [(ngModel)]="product.prodName" class="input_box">
   <br style="line-height: 16px;">
 
   <div class="flex-area-row-space-between">
@@ -51,7 +51,7 @@
       </div>
 
       <div class="flex-area-row disable-input" style="position:relative">
-        <input [(ngModel)]="product.discountPrice" (change)="discountPriceChanged(product.discountPrice)"  type=number maxlength="7" type="number" class="input_box">
+        <input [(ngModel)]="product.salePrice" (change)="discountPriceChanged(product.salePrice)"  type=number maxlength="7" type="number" class="input_box">
         <div style="position: absolute; right:10%; top:25%; ">원</div>
       </div>
     </div>

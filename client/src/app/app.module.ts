@@ -11,6 +11,7 @@ import {ToastService} from "../core/service/toast.service";
 import {HttpService} from "../core/service/http.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {StoreService} from "../core/api/store.service";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     SessionService,
     ToastService,
     AwsService,
-    HttpClient
+    HttpClient,
+    StoreService
   ]
 })
 export class AppModule {}
