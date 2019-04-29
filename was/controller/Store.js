@@ -19,11 +19,11 @@ module.exports = {
                     store.eMinute = store.eTime % 60;
 
                     //사진 파일 정보 불러옴
-                    const pictures = await Store.getPicturesById(sellerId);
-                    store.pictures=[];
+                    const images = await Store.getPicturesById(sellerId);
+                    store.images=[];
                     //사진 파일 정보들을 store객체에 넣어준다.
-                    for(let i=0; i<pictures.length; i++){
-                        store.pictures.push(pictures[i].pic_src);
+                    for(let i=0; i<images.length; i++){
+                        store.images.push(images[i].pic_src);
                     }
 
                     //상품 정보 불러옴

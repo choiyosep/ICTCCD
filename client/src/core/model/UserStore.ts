@@ -43,7 +43,7 @@ export class UserStore extends Serializable implements IModel{
   grade: number;
 
   //사진 파일
-  pictures= [];
+  images= [];
 
   //등록된 후기
   reviews : Review[] = [];
