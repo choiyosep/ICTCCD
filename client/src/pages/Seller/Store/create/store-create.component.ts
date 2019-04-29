@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams, ToastController} from "ionic-angula
 import {UserStore} from "../../../../core/model/UserStore";
 import {TimePick} from "../../../../core/model/timePick";
 import {environment} from "../../../../environments/environment";
+import {StoreService} from "../../../../core/api/store.service";
 
 /**
  * Generated class for the StoreDetailPage page.
@@ -32,7 +33,8 @@ export class StoreCreateComponent {
   constructor(
               private toastCtrl : ToastController,
               public navCtrl: NavController,
-              public navParams : NavParams
+              public navParams : NavParams,
+              private storeService : StoreService
 ) {
 
     window.addEventListener( 'message', (e) =>{
@@ -65,9 +67,14 @@ export class StoreCreateComponent {
       duration: 2000,
       position: 'top'
     }).present();
+
+    this.storeAdd();
   }
 
-  add() {
+  storeAdd() {
+    this.storeService.add(this.userStore);
+
+
 
     if(this.items.length<2){
       this.toast("사진을 1장 이상 등록해주세요");

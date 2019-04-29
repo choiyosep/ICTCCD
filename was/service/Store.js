@@ -8,13 +8,13 @@ module.exports = {
 
     //상점 테이블에서 상점 정보 불러온다
     getStoreById: (sellerId)=> {
-        const store = Store.getOne('seller_id', sellerId);
+        const store = Store.getOne('sellerId', sellerId);
         return store;
     },
 
     //상점_사진 테이블에서 상점의 사진 파일 정보를 불러온다
     getPicturesById: (sellerId)=> {
-        const pictures = Store_picture.getList('seller_id', sellerId);
+        const pictures = Store_picture.getList('sellerId', sellerId);
         return pictures;
     },
 
