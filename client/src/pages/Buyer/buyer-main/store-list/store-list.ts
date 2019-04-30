@@ -30,7 +30,8 @@ export class StoreListPage {
               private navParams: NavParams,
               private alertCtrl: AlertController,
               private toastService: ToastService
-              ) {
+              )
+  {
 
     var store1 = new UserStore();
     store1.title = "브라운 파파";

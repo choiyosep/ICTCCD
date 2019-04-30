@@ -49,7 +49,8 @@ export class StoreDetailComponent{
 
 
       var product:Product = new Product();
-      product.name = "소보로빵";
+      // @ts-ignore
+     product.name = "소보로빵";
       product.discountPrice = 1000;
       product.stock = 10;
       product.discountRate = 20 ;

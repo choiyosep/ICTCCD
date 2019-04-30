@@ -25,18 +25,20 @@
 
 
     <div class='bookmark-list' *ngFor="let item of bookMarkArray">
+
       <div class="box sub-star">
-        <button >
-          <ion-icon  name="heart"></ion-icon>
-        </button>
+        <!--즐겨찾기 됐을때-->
+        <img *ngIf="item.isBookMarked" (click)="removeFromBookmark(item)" width="300px" height="100px" src="assets/icon/heart-filled.png">
+        <!--즐겨찾기 안됐을때-->
+        <img *ngIf="!item.isBookMarked" (click)="addToBookmark(item)" width="300px" height="100px" src="assets/icon/heart-empty.png">
       </div>
 
       <div class='box sub-photo'>
-        <img src="{{ item.store.images }}">
+        <img src="{{ item.images }}">
       </div>
 
       <div class='box sub-name Body04'>
-        {{ item.store.title }}
+        {{ item.title }}
       </div>
 
       <div class = 'box sub-star'>
