@@ -34,7 +34,7 @@ export class UserStore extends Serializable implements IModel{
   //상세 주소
   detailAddr: string='';
   //전체 주소 ( 도로명주소 + 상세주소)
-  fullAddr: string='';
+  address: string='';
 
   //카테고리
   category : string = '';
@@ -74,7 +74,7 @@ export class UserStore extends Serializable implements IModel{
       eMinute: this.eMinute,
       mainAddr: this.mainAddr,
       detailAddr: this.detailAddr,
-      fullAddr: this.fullAddr,
+      address: this.address,
       category: this.category
     }
   }

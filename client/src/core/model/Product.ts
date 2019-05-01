@@ -5,9 +5,6 @@ export class Product extends Serializable implements IModel{
   //상품번호
   prodNum: string;
 
-  //상점아이디
-  ownerId: string;
-
   //판매자아이디
   sellerId: string;
 
@@ -39,7 +36,6 @@ export class Product extends Serializable implements IModel{
     return {
       prodNum: this.prodNum,
       prodName: this.prodName,
-      ownerId: this.ownerId,
       sellerId: this.sellerId,
       originalPrice: this.originalPrice,
       salePrice: this.salePrice,

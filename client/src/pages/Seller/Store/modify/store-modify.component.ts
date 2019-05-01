@@ -26,7 +26,6 @@ export class StoreModifyComponent{
   private userStore: UserStore;
   private items = [];
 
-  private tempAddress;
   private openTime : TimePick;
   private closingTime : TimePick;
 

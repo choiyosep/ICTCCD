@@ -7,7 +7,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "https://47xxmupgl5.execute-api.ap-northeast-2.amazonaws.com/discount/"
+      "proxyUrl": "http://localhost:3000/"
     }
   ]
 }
