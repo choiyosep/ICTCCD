@@ -14,4 +14,10 @@ module.exports = {
         SMS_CALLBACK : '18005681'
     },
 
+    S3_BUCKET: {
+        NAME: 'soborrow',
+    },
+
+
+
 }

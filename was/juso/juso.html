@@ -23,14 +23,10 @@
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
                 var fullAddr = data.address; // 최종 주소 변수
                 var extraAddr = ''; // 조합형 주소 변수
-                console.log(fullAddr);
-
 
                 // console.log( window.top.document.getElementById("mainAddr"));
                 console.log( document.getElementById('wrap'));
                 window.parent.postMessage( fullAddr, '*' );
-                console.log("ok>");
-                console.log(document);
                 document.clear();
 
                 // window.top.document.getElementById("mainAddr").value = fullAddr;

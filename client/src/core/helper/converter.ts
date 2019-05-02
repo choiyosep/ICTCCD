@@ -1,4 +1,5 @@
 import {Serializable} from './serializable';
+import {environment} from "../../environments/environment";
 /* */
 export class Converter {
 
@@ -53,6 +54,12 @@ export class Converter {
         day = "토요일";
     }
     return day;
+  }
+
+
+  static keyToAWSSource(key:string){
+
+    return environment.AWS.S3.FILE_URL + key;
   }
 
 }

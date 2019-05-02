@@ -86,15 +86,17 @@ export class StoreDetailComponent{
   }
 
   ionViewDidEnter(){
-    //console.log('트리거 실행'); 출력완료
+    //페이지가 처음 진입했을 때 실행하는 코드
 
+    //session에 저장되있는, 로그인한 유저의 아이디를 받아온다.
     const id = this.sessionService.getValue("loginId");
-    //console.log(id);//sell1
+    //서버로 id를 전송해서, 상점이 있는지 없는지 결과를 받아온다.
     this.storeService.get(id).subscribe((res) =>{
       
       console.log(res);
       console.log(this.userStore);//undefined
       if(res && res.code==1){
+        console.log(res);
         this.userStore=res.data;
         console.log(res.code);
        // console.log(this.userStore);
@@ -108,6 +110,7 @@ export class StoreDetailComponent{
       }
     });
   }
+  
 
 
 

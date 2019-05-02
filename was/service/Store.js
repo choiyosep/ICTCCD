@@ -32,10 +32,30 @@ module.exports = {
 
     },
 
-    create: (sellerId) => {
-        const store_create =Store.update('sellerId',sellerId);
-        return store_create;
+    createStore: (sellerId, title, sTime, eTime, tel, lat, lng, address, category) => {
+        //객체 생성
+        const store_obj = {
+            sellerId : sellerId,
+            title : title,
+            sTime : sTime,
+            eTime : eTime,
+            tel : tel,
+            lat : lat,
+            lng : lng,
+            address : address,
+            category : category,
+            grade : 0
+        };
+        return Store.create(store_obj);
+    },
 
+    createStorePicture: (sellerId, image) => {
+        //객체 생성
+        const store_obj = {
+            sellerId : sellerId,
+            pic_src : image
+        };
+        return Store_picture.create(store_obj);
     },
 
     delete: (sellerId) => {
@@ -45,6 +65,20 @@ module.exports = {
     },
 
     list: () => {
+
+    }
+    ,
+    has: (sellerId) =>{
+        return new Promise( async (resolve, reject) =>{
+            try{
+                const count = await Store.count('sellerId', sellerId);
+                console.log("개수");
+                console.log(count);
+                resolve((count>0)? true: false);
+            }catch(err){
+                reject(err);
+            }
+        })
 
     }
 

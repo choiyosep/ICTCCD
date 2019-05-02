@@ -4,7 +4,8 @@ const app = require('express')()
     , bodyParser = require('body-parser')
     , fs = require('fs')
     , Handler = require('./middleware/Handler')
-    , Response = require('./core/Response');
+    , Response = require('./core/Response')
+    , cors = require('cors')
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -14,10 +15,9 @@ app.use(cookieParser());
 /**
  * Route Init
  */
-const files = fs.readdirSync('../route');
+const files = fs.readdirSync('route');
 files.forEach(file => {
     const fileNameArr = file.split('.');
-    console.log(fileNameArr[0].toLowerCase);
     app.use('/' + fileNameArr[0].toLowerCase(), require('./route/' + file));
 });
 
@@ -25,7 +25,6 @@ files.forEach(file => {
  * Cross-Domain Request Settings
  */
 app.use(Handler.response());
-
 /**
  * Not support protocol.
  */

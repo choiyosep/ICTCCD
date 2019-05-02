@@ -66,16 +66,16 @@ export class UserStore extends Serializable implements IModel{
     return {
       sellerId: this.sellerId,
       title: this.title,
-      tel: this.tel,
-      operatingHour: this.operatingHour,
       sHour: this.sHour,
       sMinute: this.sMinute,
       eHour: this.eHour,
       eMinute: this.eMinute,
-      mainAddr: this.mainAddr,
-      detailAddr: this.detailAddr,
+      tel: this.tel,
+      lat: this.lat,
+      lng: this.lng,
       address: this.address,
-      category: this.category
+      category: this.category,
+      images: this.images
     }
   }
 }
