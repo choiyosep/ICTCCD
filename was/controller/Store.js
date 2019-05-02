@@ -52,8 +52,35 @@ module.exports = {
         return Store.update();
     },
 
-    create: () =>{
-        return Store.create();
+    create: (sellerId, title, sHour, sMinute, eHour, eMinute, tel, lat, lng, address, category, images) =>{
+        return new Promise( async (resolve, reject ) =>{
+            try{
+                //등록된 상점이 있는지 검사한다.
+                const hasStore = await Store.has(sellerId);
+                console.log(hasStore);
+                //등록된 상점이 없으면
+                if(!hasStore){
+
+                    //시간 변환 ( 09: 30 => 570)
+                    const sTime = Number(sHour) * 60 + Number(sMinute);
+                    const eTime = Number(eHour) * 60 + Number(eMinute);
+
+                    //상점 등록
+                    const rs = await Store.create(sellerId, title, sTime, eTime, tel, lat, lng, address, category);
+
+                    //상점 사진 등록
+                    // const rs2 = await Store_Picture.create(sellerId, images);
+
+                    resolve(rs);
+                }else{//등록된 상점이 있으면
+                    //exception 발생시킴
+                    throw Response.get(Response.type.STORE_ALREADY_EXIST, {});
+                }
+            }catch(err){
+                console.log(err);
+                reject(err);
+            }
+        })
     },
 
     delete: () => {

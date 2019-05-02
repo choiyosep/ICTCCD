@@ -80,6 +80,7 @@ BaseModelForMySql.prototype = {
                         if (err) {
                             reject(Response.get(Response.type.DATABASE_ERROR, err.message));
                         } else {
+                            console.log(results);
                             resolve(results);
                         }
                     });
@@ -146,17 +147,16 @@ BaseModelForMySql.prototype = {
         return new Promise(async (resolve, reject) => {
             let conn = null;
             try {
-                 DB.conn.getConnection()((err, conn) => {
-                         const query = 'SELECT COUNT(*) AS count FROM ' + this.table + ' WHERE ' + field + ' = ?';
-                         conn.query(query, [value], (err, results, fields) => {
-                             if (err) {
-                                 reject(Response.get(Response.type.DATABASE_ERROR, err.message));
-                             } else {
-                                 resolve(results[0].count)
-                             }
-                         });
-                     }
-                 );
+                 DB.conn.getConnection((err, conn) => {
+                     const query = 'SELECT COUNT(*) AS count FROM ' + this.table + ' WHERE ' + field + ' = ?';
+                     conn.query(query, [value], (err, results, fields) => {
+                         if (err) {
+                             reject(Response.get(Response.type.DATABASE_ERROR, err.message));
+                         } else {
+                             resolve(results[0].count)
+                         }
+                     });
+                 });
             } catch (err) {
                 reject(Response.get(Response.type.FAILED_GET_DB, err.message));
             } finally {

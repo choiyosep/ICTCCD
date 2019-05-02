@@ -22,8 +22,21 @@ module.exports = {
 
     },
 
-    create: () => {
-
+    create: (sellerId, title, sTime, eTime, tel, lat, lng, address, category) => {
+        //객체 생성
+        const store_obj = {
+            sellerId : sellerId,
+            title : title,
+            sTime : sTime,
+            eTime : eTime,
+            tel : tel,
+            lat : lat,
+            lng : lng,
+            address : address,
+            category : category,
+            grade : 0
+        };
+        return Store.create(store_obj);
     },
 
     delete: () => {
@@ -31,6 +44,20 @@ module.exports = {
     },
 
     list: () => {
+
+    }
+    ,
+    has: (sellerId) =>{
+        return new Promise( async (resolve, reject) =>{
+            try{
+                const count = await Store.count('sellerId', sellerId);
+                console.log("개수");
+                console.log(count);
+                resolve((count>0)? true: false);
+            }catch(err){
+                reject(err);
+            }
+        })
 
     }
 

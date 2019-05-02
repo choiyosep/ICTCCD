@@ -79,10 +79,14 @@ export class StoreDetailComponent{
   }
 
   ionViewDidEnter(){
+    //페이지가 처음 진입했을 때 실행하는 코드
 
+    //session에 저장되있는, 로그인한 유저의 아이디를 받아온다.
     const id = this.sessionService.getValue("loginId");
+    //서버로 id를 전송해서, 상점이 있는지 없는지 결과를 받아온다.
     this.storeService.get(id).subscribe((res) =>{
       if(res && res.code==1){
+        console.log(res);
         this.userStore=res.data;
         this.userStore.operatingHour =
           Converter.timesTohours(this.userStore.sHour, this.userStore.sMinute, this.userStore.eHour, this.userStore.eMinute)
@@ -94,6 +98,7 @@ export class StoreDetailComponent{
       }
     });
   }
+  
 
 
 

@@ -1,16 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
-// import {environment} from '../../../environments/environment';
-// import {IResponse} from './response.service';
+
+
+
 
 @Injectable()
-export class AwsService {
+export class UploadService {
   constructor(private http: HttpClient) { }
 
   upload(url: string, data: File) {
 
     const headers = new HttpHeaders({
       'Content-Type': ''
+      // 'Origin': ''
     });
     const options = {
       headers: headers,

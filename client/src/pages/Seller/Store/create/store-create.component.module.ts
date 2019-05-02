@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import {StoreCreateComponent} from "./store-create.component";
-import {NgbModule, NgbTimepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
-    StoreCreateComponent,
+    StoreCreateComponent
   ],
   imports: [
     IonicPageModule.forChild(StoreCreateComponent),
