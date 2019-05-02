@@ -26,10 +26,12 @@ export class BuyerMainPage {
       // case 'sign-up' :
       //   this.navCtrl.setRoot('SignupPage');
       //   break;
-      case 'store-detail':
+      case 'store-list':
         this.navCtrl.push('StoreListPage')
         break;
-
+      case 'cart-list':
+        this.navCtrl.push('CartListPage')
+            break;
     }
   }
 

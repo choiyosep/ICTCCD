@@ -44,14 +44,12 @@ export class StoreDetailComponent{
     /* console.log('seller까지 넘어왔음');
     console.log(UserStore);출력 */
     this.contents = "menu";
-
-
-    //   var product:Product = new Product();
-    //   product.prodName = "소보로빵";
-    //   product.salePrice = 1000;
-    //   product.stock = 10;
-    //   product.discountRate = 20 ;
-    //
+    /*  var product:Product = new Product();
+       product.prodName = "소보로빵";
+       product.salePrice = 1000;
+       product.stock = 10;
+      product.discountRate = 20 ;
+    // */
     //   this.userStore.products.push(product);
     // this.userStore.products.push(product);
     // this.userStore.products.push(product);
@@ -122,9 +120,6 @@ export class StoreDetailComponent{
 
       case 'product-create' :
         this.navCtrl.push('ProductCreateComponent');
-        break;
-      case 'product-modify' :
-        this.navCtrl.push('ProductModifyComponent');
         break;
     }
   }

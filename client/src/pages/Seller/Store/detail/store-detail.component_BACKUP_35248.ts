@@ -52,6 +52,7 @@ export class StoreDetailComponent{
     //   product.stock = 10;
     //   product.discountRate = 20 ;
     //
+//>>>>>>> f252737c735dd75ed0dde94ef5dfa6d5db8b7eeb
     //   this.userStore.products.push(product);
     // this.userStore.products.push(product);
     // this.userStore.products.push(product);
