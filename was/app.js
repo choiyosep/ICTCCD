@@ -4,7 +4,8 @@ const app = require('express')()
     , bodyParser = require('body-parser')
     , fs = require('fs')
     , Handler = require('./middleware/Handler')
-    , Response = require('./core/Response');
+    , Response = require('./core/Response')
+    , cors = require('cors')
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -24,7 +25,6 @@ files.forEach(file => {
  * Cross-Domain Request Settings
  */
 app.use(Handler.response());
-
 /**
  * Not support protocol.
  */
