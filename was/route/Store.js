@@ -6,12 +6,12 @@ const Router = require('express').Router()
 /**
  * @desc Logout
  */
-
-
+console.log('initialized store router');
 Router.get(
     '/:sellerId',
     [
     ],
+   
     Handler.request(
         Ctrl.get,
         (req, res, next) => [

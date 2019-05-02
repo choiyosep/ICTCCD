@@ -23,6 +23,9 @@ declare const naver:any;
   templateUrl: 'store-detail.component.html',
 })
 export class StoreDetailComponent{
+
+  
+  
   contents: String;
 
   private userStore : UserStore;
@@ -38,13 +41,15 @@ export class StoreDetailComponent{
               private sessionService: SessionService
               )
   {
+    /* console.log('seller까지 넘어왔음');
+    console.log(UserStore);출력 */
     this.contents = "menu";
-    //   var product:Product = new Product();
-    //   product.prodName = "소보로빵";
-    //   product.salePrice = 1000;
-    //   product.stock = 10;
-    //   product.discountRate = 20 ;
-    //
+    /*  var product:Product = new Product();
+       product.prodName = "소보로빵";
+       product.salePrice = 1000;
+       product.stock = 10;
+      product.discountRate = 20 ;
+    // */
     //   this.userStore.products.push(product);
     // this.userStore.products.push(product);
     // this.userStore.products.push(product);
@@ -79,11 +84,18 @@ export class StoreDetailComponent{
   }
 
   ionViewDidEnter(){
+    //console.log('트리거 실행'); 출력완료
 
     const id = this.sessionService.getValue("loginId");
+    //console.log(id);//sell1
     this.storeService.get(id).subscribe((res) =>{
+      
+      console.log(res);
+      console.log(this.userStore);//undefined
       if(res && res.code==1){
         this.userStore=res.data;
+        console.log(res.code);
+       // console.log(this.userStore);
         this.userStore.operatingHour =
           Converter.timesTohours(this.userStore.sHour, this.userStore.sMinute, this.userStore.eHour, this.userStore.eMinute)
 
