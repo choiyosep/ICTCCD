@@ -19,6 +19,11 @@ BaseModelForMySql.prototype = {
             try {
                 DB.conn.getConnection((err, conn) =>{
                         const query = 'SELECT * FROM ' + this.table + ' WHERE ' + field + ' = ?';
+                        //BaseModelForMySql.call(this, 'review');에서 받아온 'review'값으로
+                        //this.table = review
+                        //const store = Store.getOne('sellerId', sellerId);
+                        //각각 field=sellerId (attribute값)이
+                        //받아온 sellerId(value값)과 일치 하느냐
                         conn.query(query, [value], (err, results, fields) => {
                             if (err) {
                                 reject(Response.get(Response.type.DATABASE_ERROR, err.message));
@@ -80,7 +85,6 @@ BaseModelForMySql.prototype = {
                         if (err) {
                             reject(Response.get(Response.type.DATABASE_ERROR, err.message));
                         } else {
-                            console.log(results);
                             resolve(results);
                         }
                     });

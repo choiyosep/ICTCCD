@@ -87,8 +87,8 @@ export class ProductModifyComponent{
 
   goToPage(str: string) {
     switch (str) {
-      case 'main' :
-        this.navCtrl.setRoot('MainComponent');
+      case 'store-detail' :
+        this.navCtrl.setRoot('StoreDetailComponent');
         break;
     }
   }

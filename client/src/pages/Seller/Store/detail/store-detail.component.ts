@@ -23,6 +23,9 @@ declare const naver:any;
   templateUrl: 'store-detail.component.html',
 })
 export class StoreDetailComponent{
+
+  
+  
   contents: String;
 
   private userStore : UserStore;
@@ -38,7 +41,11 @@ export class StoreDetailComponent{
               private sessionService: SessionService
               )
   {
+    /* console.log('seller까지 넘어왔음');
+    console.log(UserStore);출력 */
     this.contents = "menu";
+
+
     //   var product:Product = new Product();
     //   product.prodName = "소보로빵";
     //   product.salePrice = 1000;
@@ -85,9 +92,14 @@ export class StoreDetailComponent{
     const id = this.sessionService.getValue("loginId");
     //서버로 id를 전송해서, 상점이 있는지 없는지 결과를 받아온다.
     this.storeService.get(id).subscribe((res) =>{
+      
+      console.log(res);
+      console.log(this.userStore);//undefined
       if(res && res.code==1){
         console.log(res);
         this.userStore=res.data;
+        console.log(res.code);
+       // console.log(this.userStore);
         this.userStore.operatingHour =
           Converter.timesTohours(this.userStore.sHour, this.userStore.sMinute, this.userStore.eHour, this.userStore.eMinute)
 
@@ -113,6 +125,9 @@ export class StoreDetailComponent{
 
       case 'product-create' :
         this.navCtrl.push('ProductCreateComponent');
+        break;
+      case 'product-modify' :
+        this.navCtrl.push('ProductModifyComponent');
         break;
     }
   }

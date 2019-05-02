@@ -6,12 +6,11 @@ const Router = require('express').Router()
 /**
  * @desc Logout
  */
-
-
 Router.get(
     '/:sellerId',
     [
     ],
+   
     Handler.request(
         Ctrl.get,
         (req, res, next) => [

@@ -58,6 +58,10 @@ export class UserStore extends Serializable implements IModel{
   isBookMarked: boolean
 
 
+  score: number;
+  icon: any;
+
+
   toObject(): object {
     return {
       sellerId: this.sellerId,
