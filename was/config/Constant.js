@@ -15,7 +15,7 @@ module.exports = {
     },
 
     S3_BUCKET: {
-        NAME: 'soborrow',
+        NAME: 'soborrow2',
     },
 
 

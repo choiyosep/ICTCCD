@@ -80,51 +80,45 @@ export class StoreCreateComponent {
   }
 
   storeAdd() {
+    // this.navCtrl.setRoot("StoreDetailComponent");
 
-    // if(this.items.length<2){
-    //   this.toast("사진을 1장 이상 등록해주세요");
-    //   return false;
-    // }
-    //
-    // if(this.userStore.title==undefined || this.userStore.title == ''){
-    //   this.toast("상점명을 입력해주세요");
-    //   return false;
-    // }
-    //
-    // if(this.openTime==null || this.closingTime==null){
-    //   this.toast("상점 운영시간을 입력해주세요");
-    //   return false;
-    // }
-    //
-    // if(this.userStore.tel==undefined || this.userStore.tel == ''){
-    //   this.toast("연락처를 입력해주세요");
-    //   return false;
-    // }
-    //
-    // if(this.userStore.mainAddr==undefined || this.userStore.mainAddr == ''){
-    //   this.toast("주소를 입력해주세요");
-    //   alert(this.userStore.mainAddr);
-    //   return false;
-    // }
-    //
-    // if(this.userStore.detailAddr==undefined || this.userStore.detailAddr == ''){
-    //   this.toast("상세 주소를 입력해주세요");
-    //   return false;
-    // }
-    //
-    // if(this.userStore.category==undefined || this.userStore.category == ''){
-    //   this.toast("카테고리를 선택해주세요");
-    //   return false;
-    // }
 
-    // this.userStore.hours
-    //   = this.timeToString(this.openTime.hour)
-    //   + ":"
-    //   + this.timeToString(this.openTime.minute)
-    //   + "~"
-    //   + this.timeToString(this.closingTime.hour)
-    //   + ":"
-    //   + this.timeToString(this.closingTime.minute);
+    if(this.items.length<2){
+      this.toast("사진을 1장 이상 등록해주세요");
+      return false;
+    }
+
+    if(this.userStore.title==undefined || this.userStore.title == ''){
+      this.toast("상점명을 입력해주세요");
+      return false;
+    }
+
+    if(this.openTime==null || this.closingTime==null){
+      this.toast("상점 운영시간을 입력해주세요");
+      return false;
+    }
+
+    if(this.userStore.tel==undefined || this.userStore.tel == ''){
+      this.toast("연락처를 입력해주세요");
+      return false;
+    }
+
+    if(this.userStore.mainAddr==undefined || this.userStore.mainAddr == ''){
+      this.toast("주소를 입력해주세요");
+      alert(this.userStore.mainAddr);
+      return false;
+    }
+
+    if(this.userStore.detailAddr==undefined || this.userStore.detailAddr == ''){
+      this.toast("상세 주소를 입력해주세요");
+      return false;
+    }
+
+    if(this.userStore.category==undefined || this.userStore.category == ''){
+      this.toast("카테고리를 선택해주세요");
+      return false;
+    }
+
 
     // 위도 경도 받아옴
     this.daumService.getLocation(this.userStore.mainAddr).subscribe(
@@ -148,7 +142,10 @@ export class StoreCreateComponent {
 
         //상점 추가작업
         this.storeService.add(this.userStore).subscribe((res) =>{
-          console.log(res);
+          if(res&&res.code==1){
+            this.toast("등록 성공!!");
+            // this.navCtrl.setRoot("StoreDetailComponent");
+          }
         });
       }
     );
