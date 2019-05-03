@@ -54,25 +54,22 @@ module.exports = {
                     resolve(store);
                 }else{//상점이 존재하지 않으면
                     //exception 발생시킴
-                    throw Response.get(Response.type.INVALID_PARAMETER, {});
+                    throw Response.get(Response.type.STORE_NOT_FOUND, {});
                 }
             }catch(err){
+                console.log(err);
                 reject(err);
             }
         });
     },
 
 
-    update: () => {
-        return Store.update();
-    },
 
     create: (sellerId, title, sHour, sMinute, eHour, eMinute, tel, lat, lng, address, category, images) =>{
         return new Promise( async (resolve, reject ) =>{
             try{
                 //등록된 상점이 있는지 검사한다.
                 const hasStore = await Store.has(sellerId);
-                console.log(hasStore);
                 //등록된 상점이 없으면 등록하자 ^^
                 if(!hasStore){
 
@@ -82,12 +79,10 @@ module.exports = {
 
                     //상점 등록
                     const rs = await Store.createStore(sellerId, title, sTime, eTime, tel, lat, lng, address, category);
-
                     //상점 사진 등록
                     for(let i=0; i< images.length; i++)
                         await Store.createStorePicture(sellerId, images[i]);
-
-                    resolve(rs);
+                    resolve("등록 완료");
                 }else{//등록된 상점이 있으면
                     //exception 발생시킴
                     throw Response.get(Response.type.STORE_ALREADY_EXIST, {});
@@ -99,8 +94,60 @@ module.exports = {
         })
     },
 
-    delete: () => {
-        return Store.delete();
+    update: (sellerId, title, sHour, sMinute, eHour, eMinute, tel, lat, lng, address, category, images) => {
+        return new Promise( async (resolve, reject ) =>{
+            try{
+                //등록된 상점이 있는지 검사한다.
+                const hasStore = await Store.has(sellerId);
+                //등록된 상점이 있으면 수정하자 ^^
+                if(hasStore){
+
+                    //시간 변환 ( 09: 30 => 570)
+                    const sTime = Number(sHour) * 60 + Number(sMinute);
+                    const eTime = Number(eHour) * 60 + Number(eMinute);
+
+                    //상점 수정
+                    const rs = await Store.updateStore(sellerId, title, sTime, eTime, tel, lat, lng, address, category);
+
+                    //상점 사진 삭제
+
+                    await Store.deleteStorePicture(sellerId);
+
+                    //상점 사진 등록
+                    for(let i=0; i< images.length; i++)
+                        await Store.createStorePicture(sellerId, images[i]);
+
+                    resolve("수정완료");
+                }else{//등록된 상점이 없으면
+                    //exception 발생시킴
+                    throw Response.get(Response.type.STORE_NOT_FOUND, {});
+                }
+            }catch(err){
+                console.log(err);
+                reject(err);
+            }
+        })
+    },
+
+    delete: (sellerId) => {
+        return new Promise( async (resolve, reject) =>{
+            try{
+                //등록된 상점이 있는지 검사한다.
+                const hasStore = await Store.has(sellerId);
+                //등록된 상점이 있으면 삭제하자 ^^
+                if(hasStore){
+                    //상점 삭제   ( 상점 삭제시 상점 사진도 삭제 됩니다. 외래키 ON DELETE CASCADE )
+                    await Store.deleteStore(sellerId);
+                    resolve("삭제 완료");
+                }else{//등록된 상점이 없으면
+                    //exception 발생시킴
+                    throw Response.get(Response.type.STORE_NOT_FOUND, {});
+                }
+            }catch(err){
+                console.log(err);
+                reject(err);
+            }
+        })
     },
 
     list: () => {

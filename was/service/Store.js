@@ -49,6 +49,22 @@ module.exports = {
         return Store.create(store_obj);
     },
 
+    updateStore: (sellerId, title, sTime, eTime, tel, lat, lng, address, category) => {
+        //객체 생성
+        const store_obj = {
+            title : title,
+            sTime : sTime,
+            eTime : eTime,
+            tel : tel,
+            lat : lat,
+            lng : lng,
+            address : address,
+            category : category,
+        };
+        console.log(store_obj);
+        return Store.update(store_obj,"sellerId", sellerId);
+    },
+
     createStorePicture: (sellerId, image) => {
         //객체 생성
         const store_obj = {
@@ -58,10 +74,16 @@ module.exports = {
         return Store_picture.create(store_obj);
     },
 
-    delete: (sellerId) => {
-        const store_delete =Store.update('sellerId',sellerId);
-        return store_delete;
+    deleteStorePicture: (sellerId) => {
+        const rs =Store_picture.delete('sellerId',sellerId);
+        return rs;
 
+    },
+
+
+    deleteStore: (sellerId) => {
+        const rs =Store.delete('sellerId',sellerId);
+        return rs;
     },
 
     list: () => {
@@ -72,8 +94,6 @@ module.exports = {
         return new Promise( async (resolve, reject) =>{
             try{
                 const count = await Store.count('sellerId', sellerId);
-                console.log("개수");
-                console.log(count);
                 resolve((count>0)? true: false);
             }catch(err){
                 reject(err);

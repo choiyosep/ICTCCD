@@ -51,7 +51,41 @@ Router.post(
             req.body['address'],
             req.body['category'],
             req.body['images']
+        ]
+    ));
 
+Router.put(
+    '/:sellerId',
+    [
+
+    ],
+    Handler.request(
+        Ctrl.update,
+        (req, res, next) => [
+            req.params['sellerId'],
+            req.body['title'],
+            req.body['sHour'],
+            req.body['sMinute'],
+            req.body['eHour'],
+            req.body['eMinute'],
+            req.body['tel'],
+            req.body['lat'],
+            req.body['lng'],
+            req.body['address'],
+            req.body['category'],
+            req.body['images']
+        ]
+    ));
+
+Router.delete(
+    '/:sellerId',
+    [
+
+    ],
+    Handler.request(
+        Ctrl.delete,
+        (req, res, next) => [
+            req.params['sellerId'],
         ]
     ));
 

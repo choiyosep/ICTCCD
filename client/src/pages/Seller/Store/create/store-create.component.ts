@@ -80,7 +80,6 @@ export class StoreCreateComponent {
   }
 
   storeAdd() {
-    // this.navCtrl.setRoot("StoreDetailComponent");
 
 
     if(this.items.length<2){
@@ -142,9 +141,16 @@ export class StoreCreateComponent {
 
         //상점 추가작업
         this.storeService.add(this.userStore).subscribe((res) =>{
-          if(res&&res.code==1){
-            this.toast("등록 성공!!");
-            // this.navCtrl.setRoot("StoreDetailComponent");
+          //응답 오면
+          if(res&&res.code!=undefined){
+            //성공이면
+            if(res.code==1) {
+              // this.navCtrl.setRoot("StoreDetailComponent");
+              this.toast("등록 완료");
+            }else{
+              this.toast(res.msg);
+            }
+
           }
         });
       }
