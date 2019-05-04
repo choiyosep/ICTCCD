@@ -21,7 +21,7 @@ export class UploadService {
     });
     const options = {
       headers: headers,
-      // withCredentials: true
+      withCredentials: true
     };
     const httpRequest: HttpRequest<any> = new HttpRequest<any>('PUT', url, data, options);
     return this.http.request<any>(httpRequest)

@@ -99,13 +99,13 @@ BaseModelForMySql.prototype = {
         });
     },
 
-    update: function(object){
+    update: function(object, field, value){
         return new Promise(async (resolve, reject) => {
             let conn = null;
             try {
                 DB.conn.getConnection((err,conn)=>{
-                    const query = 'UPDATE ' + this.table + ' WHERE ' + field + ' = ?';
-                    conn.query(query, object, (err, results, fields) => {
+                    const query = 'UPDATE ' + this.table + ' SET ?' +  ' WHERE ' + field + ' = ?';
+                    conn.query(query, [object,value], (err, results, fields) => {
                         if (err) {
                             reject(Response.get(Response.type.DATABASE_ERROR, err.message));
                         } else {
@@ -128,7 +128,7 @@ BaseModelForMySql.prototype = {
             let conn = null;
             try {
                 DB.conn.getConnection((err,conn)=>{
-                    const query = 'DELETE FROM ' + this.table + ' SET ?';
+                    const query = 'DELETE FROM ' + this.table + ' WHERE ' + field + '=?';
                     conn.query(query, [value], (err, results, fields) => {
                         if (err) {
                             reject(Response.get(Response.type.DATABASE_ERROR, err.message));

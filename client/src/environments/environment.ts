@@ -12,7 +12,7 @@ export const environment = {
 
     S3: {
       BUCKET_NAME: "soborrow",
-      FILE_URL: 'https://soborrow.s3.ap-northeast-2.amazonaws.com/',
+      FILE_URL: 'https://soborrow2.s3.ap-northeast-2.amazonaws.com/',
     }
   },
 
