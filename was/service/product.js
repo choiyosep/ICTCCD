@@ -42,6 +42,43 @@ module.exports = {
 
     list: () => {
 
+    },
+    has: (prodNum) =>{
+        return new Promise( async (resolve, reject) =>{
+            try{
+                const count = await Store_product.count('prodNum', prodNum);
+                console.log("개수");
+                console.log(count);
+                resolve((count>0)? true: false);
+            }catch(err){
+                reject(err);
+            }
+        })
+
+    },
+
+    createProduct: (prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state) => {
+        //객체 생성
+        const product_obj = {
+            prodNum : prodNum,
+            sellerId : sellerId,
+            prodName : prodName,
+            originalPrice : originalPrice,
+            discountRate : discountRate,
+            salePrice : salePrice,
+            stock : stock,
+            state : state
+        };
+        return Store_product.create(product_obj);
+    },
+
+    createProductPicture: (prodNum, image) => {
+        //객체 생성
+        const product_obj = {
+            prodNum : prodNum,
+            pic_src : image
+        };
+        return product_picture.create(product_obj);
     }
 
 }

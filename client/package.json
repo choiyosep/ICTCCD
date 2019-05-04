@@ -27,6 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "2.0.0",
     "@types/node": "^11.13.8",
     "amazon-cognito-identity-js": "^3.0.11",
+    "aws-sdk": "^2.448.0",
     "cordova-android": "7.1.4",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
