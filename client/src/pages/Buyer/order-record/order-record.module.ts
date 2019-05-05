@@ -10,4 +10,6 @@ import { OrderRecordPage } from './order-record';
     IonicPageModule.forChild(OrderRecordPage),
   ],
 })
+
+
 export class OrderRecordPageModule {}

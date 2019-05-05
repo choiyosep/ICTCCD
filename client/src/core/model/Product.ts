@@ -23,8 +23,12 @@ export class Product extends Serializable implements IModel{
   //재고량
   stock : number;
 
+  //구매한 양에 쓰일 변수
+
+  qty: number;
   //이미지
   images =[];
+
 
   //상품상태
   state: string = '1';

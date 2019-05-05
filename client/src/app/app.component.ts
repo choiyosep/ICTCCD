@@ -62,6 +62,10 @@ export class MyApp {
       case 'order-record':
         this.nav.setRoot('OrderRecordPage');
         break;
+
+      case'sell-record':
+        this.nav.push('SellRecordComponent');
+        break;
       default:
         break;
     }

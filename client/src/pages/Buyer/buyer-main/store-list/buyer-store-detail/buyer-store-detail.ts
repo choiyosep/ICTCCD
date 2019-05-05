@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserStore} from "../../../../../core/model/UserStore";
 import {Product} from "../../../../../core/model/Product";
 import {SessionService} from "../../../../../core/service/session.service";
 import {Review} from "../../../../../core/model/Review";
+import {ToastService} from "../../../../../core/service/toast.service";
 
 /**
  * Generated class for the BuyerStoreDetailPage page.
@@ -27,11 +28,14 @@ export class BuyerStoreDetailPage {
   private map;
   private marker;
   private products: Array<Product>;
+private myInput;
 
   constructor(
     protected session: SessionService,
     public navCtrl : NavController,
-    public navParams : NavParams
+    public navParams : NavParams,
+  private alertCtrl: AlertController,
+  private toastService: ToastService
   ) {
 
 
@@ -62,12 +66,14 @@ export class BuyerStoreDetailPage {
     review.buyerId = 'zmfl1230';
     review.content = '짱~ 너무 좋았습니다. 사장님도 친절하시구오래된 제품같지  않았어요 ~~ 잘먹었네여.';
     review.rating = 4.7;
+    review.revise=false;
 
     var review2: Review = new Review();
     review2.buyerId = 'dlgusdn753';
     review2.content = '사장님이 너무 친절하시네요~' +
       '제품도 슈크림도 촉촉하고 맛있었네요!!';
     review2.rating = 5.0;
+    review.revise=false;
 
     this.userStore.reviews.push(review);
     this.userStore.reviews.push(review2);
@@ -135,8 +141,72 @@ export class BuyerStoreDetailPage {
         }
         document.getElementById("product-add-button").style.display="none";
         break;
+
+
     }
   }
+
+  revise(event){
+    document.getElementById('revise').style.display = "none";
+    document.getElementById('delete').style.display = "none";
+    document.getElementById('content').style.display = "none";
+    document.getElementById('complete').style.display = "";
+    document.getElementById('revise_clicked').style.display = "";
+  }
+
+  showUpdatedItem(myInput,i){
+    // let updateItem = this.userStore.reviews.find(this.findIndexToUpdate, newItem.id);
+    //
+    // let index = this.userStore.reviews.indexOf(updateItem);
+
+    this.userStore.reviews[i].content = myInput;
+
+  }
+
+ /* findIndexToUpdate(newItem) {
+    return newItem.id === this;
+  }
+*/
+
+
+
+  hide(){
+    document.getElementById('content').style.display = "none";
+
+  }
+  delete(i:number) {
+    let confirm = this.alertCtrl.create({
+      title: '삭제하시겠습니까??',
+      subTitle: '',
+      cssClass: '',
+      buttons: [
+        {
+          text: '확인',
+          cssClass: '',
+          handler: () => {
+            //즐겨찾기 추가 작업
+
+            //즐겨찾기 속성 변경
+
+            this.userStore.reviews.splice(i,1);
+            //알림메시지
+            this.toastService.presentToast('삭제 완료!!');
+
+          }
+        },
+        {
+          text: '취소',
+          cssClass:'',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+  }
+
+
 
 
 }
