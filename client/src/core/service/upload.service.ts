@@ -25,8 +25,6 @@ export class UploadService {
     };
     const httpRequest: HttpRequest<any> = new HttpRequest<any>('PUT', url, data, options);
     return this.http.request<any>(httpRequest)
-      .map((res: HttpResponse<any>) => {
-        return res.body;
-      });
+
   }
 }

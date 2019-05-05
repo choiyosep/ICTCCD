@@ -10,6 +10,7 @@ import {AwsService} from "../../../../core/api/aws.service";
 import {UploadService} from "../../../../core/service/upload.service";
 import {DaumService} from "../../../../core/service/daum.service";
 import {StoreService} from "../../../../core/api/store.service";
+import {HttpResponse} from "@angular/common/http";
 
 /**
  * Generated class for the StoreDetailPage page.
@@ -175,7 +176,7 @@ export class StoreModifyComponent{
         this.storeService.modify(this.userStore, this.userStore.sellerId).subscribe((res) =>{
           if(res&&res.code!=undefined){
             if(res.code==1) {
-              // this.navCtrl.setRoot("StoreDetailComponent");
+              this.navCtrl.setRoot("StoreDetailComponent");
               this.toast("수정 완료");
             }else{
               this.toast(res.msg);
@@ -261,16 +262,17 @@ export class StoreModifyComponent{
     this.awsService.getUploadUrl(loginId)
       .subscribe((res: IResponse<any>) => {
         if (res&&res.code === RESPONSE_CODE.SUCCESS) {
-          this.uploadService.upload(res.data.url, file).subscribe(() => {
-            const key = Converter.keyToAWSSource(res.data.key);
-            setTimeout(()=>{
+          this.uploadService.upload(res.data.url, file).subscribe((response : HttpResponse<any>) => {
+            if(response&&response.status==200){
+              const key = Converter.keyToAWSSource(res.data.key);
               if(this.userStore.images[i]==undefined){
                 this.userStore.images.push(key);
                 this.items.push(1);
               }else{
                 this.userStore.images[i]=key;
               }
-            }, 1000);
+            }
+
           }, (err) => console.log(err));
         }
       });

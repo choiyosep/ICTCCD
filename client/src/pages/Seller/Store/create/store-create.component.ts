@@ -10,6 +10,7 @@ import {IResponse, RESPONSE_CODE} from "../../../../core/service/response.servic
 import {SessionService} from "../../../../core/service/session.service";
 import {Converter} from "../../../../core/helper/converter";
 import {DaumService} from "../../../../core/service/daum.service";
+import {HttpResponse} from "@angular/common/http";
 
 /**
  * Generated class for the StoreDetailPage page.
@@ -145,7 +146,7 @@ export class StoreCreateComponent {
           if(res&&res.code!=undefined){
             //성공이면
             if(res.code==1) {
-              // this.navCtrl.setRoot("StoreDetailComponent");
+              this.navCtrl.setRoot("StoreDetailComponent");
               this.toast("등록 완료");
             }else{
               this.toast(res.msg);
@@ -197,16 +198,16 @@ export class StoreCreateComponent {
     this.awsService.getUploadUrl(loginId)
       .subscribe((res: IResponse<any>) => {
         if (res&&res.code === RESPONSE_CODE.SUCCESS) {
-          this.uploadService.upload(res.data.url, file).subscribe(() => {
-            const key = Converter.keyToAWSSource(res.data.key);
-            setTimeout(()=>{
+          this.uploadService.upload(res.data.url, file).subscribe((response: HttpResponse<any>) => {
+            if(response && response.status==200){
+              const key = Converter.keyToAWSSource(res.data.key);
               if(this.userStore.images[i]==undefined){
                 this.userStore.images.push(key);
                 this.items.push(1);
               }else{
                 this.userStore.images[i]=key;
               }
-              }, 1000);
+            }
           }, (err) => console.log(err));
         }
       });

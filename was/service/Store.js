@@ -61,7 +61,6 @@ module.exports = {
             address : address,
             category : category,
         };
-        console.log(store_obj);
         return Store.update(store_obj,"sellerId", sellerId);
     },
 

@@ -21,7 +21,6 @@ module.exports = {
                     store.sMinute = store.sTime % 60;
                     store.eHour = Math.floor(store.eTime / 60);
                     store.eMinute = store.eTime % 60;
-
                     //사진 파일 정보 불러옴
                     const images = await Store.getPicturesById(sellerId);
                     store.images=[];
@@ -46,7 +45,6 @@ module.exports = {
 
                      //리뷰 불러옴
                       const reviews = await Review.getReviewById(sellerId);
-
                       //리뷰를 store객체에 넣어준다.
                       store.reviews =reviews
 
