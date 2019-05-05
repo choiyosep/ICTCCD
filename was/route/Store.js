@@ -62,7 +62,7 @@ Router.put(
     Handler.request(
         Ctrl.update,
         (req, res, next) => [
-            req.params['sellerId'],
+            req.body['sellerId'],
             req.body['title'],
             req.body['sHour'],
             req.body['sMinute'],

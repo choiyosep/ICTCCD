@@ -72,10 +72,10 @@ export class ProductCreateComponent{
   add(){
 
 
-    /* if(this.items.length<2){
+     if(this.items.length<2){
       this.toast("사진을 1장 이상 등록해주세요");
       return false;
-    } */
+    } 
 
     if(this.product.prodName==undefined || this.product.prodName == ''){
       this.toast("상품명을 입력해주세요");
