@@ -2,6 +2,8 @@ const Store = require('../service/Store')
     ,Product = require('../service/product')
     ,Review = require('../service/review') 
     ,Response = require('../core/Response')
+    ,GeoPoint = require('geopoint');
+
 //route -> controller -> service -> model
 
 //Controller 계층 : 가장 상위 레벨에서 핵심 비즈니스 로직을 수행한다.
@@ -70,11 +72,9 @@ module.exports = {
                 const hasStore = await Store.has(sellerId);
                 //등록된 상점이 없으면 등록하자 ^^
                 if(!hasStore){
-
                     //시간 변환 ( 09: 30 => 570)
                     const sTime = Number(sHour) * 60 + Number(sMinute);
                     const eTime = Number(eHour) * 60 + Number(eMinute);
-
                     //상점 등록
                     const rs = await Store.createStore(sellerId, title, sTime, eTime, tel, lat, lng, address, category);
                     //상점 사진 등록
@@ -99,22 +99,16 @@ module.exports = {
                 const hasStore = await Store.has(sellerId);
                 //등록된 상점이 있으면 수정하자 ^^
                 if(hasStore){
-
                     //시간 변환 ( 09: 30 => 570)
                     const sTime = Number(sHour) * 60 + Number(sMinute);
                     const eTime = Number(eHour) * 60 + Number(eMinute);
-
                     //상점 수정
                     const rs = await Store.updateStore(sellerId, title, sTime, eTime, tel, lat, lng, address, category);
-
                     //상점 사진 삭제
-
                     await Store.deleteStorePicture(sellerId);
-
                     //상점 사진 등록
                     for(let i=0; i< images.length; i++)
                         await Store.createStorePicture(sellerId, images[i]);
-
                     resolve("수정완료");
                 }else{//등록된 상점이 없으면
                     //exception 발생시킴
@@ -148,8 +142,26 @@ module.exports = {
         })
     },
 
-    list: () => {
-        return Store.list();
+    list: (lat, lng, catNum, radius) => {
+        return new Promise(async (resolve, reject) =>{
+            try{
+                const stores = await Store.getStoreList();
+                const newStores = [];
+                for(let i=0; i<stores.length; i++){
+                   point1 =  new GeoPoint(stores[i].lat, stores[i].lng);
+                   point2 = new GeoPoint(stores[i].lat, stores[i].lng);
+                   var distance = point1.distanceTo(point2, true);
+                   if(distance <radius){
+                       stores[i].distance = distance;
+                       newStores.push(stores[i]);
+                   }
+                }
+                resolve(newStores);
+            }catch(err){
+                console.log(err);
+                reject(err);
+            }
+        })
     }
 
 }

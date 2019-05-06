@@ -110,6 +110,8 @@ export class ProductDetailPage {
   //     this.sessionService.getValue("loginId");
   //   //판매자 아이디
   //   this.cartProduct.sellerId = this.product.sellerId;
+  //   //상품 아이디
+  //   this.cartProduct.prodNum = this.product.prodNum;
   //   //구매할 수량
   //   this.cartProduct.quantity = quantity;
   //   //장바구니 담기

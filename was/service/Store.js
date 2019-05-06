@@ -17,6 +17,9 @@ module.exports = {
         return store;
     },
 
+    getStoreList: ()=>{
+    },
+
     //상점_사진 테이블에서 상점의 사진 파일 정보를 불러온다
     getPicturesById: (sellerId)=> {
         const pictures = Store_picture.getList('sellerId', sellerId);

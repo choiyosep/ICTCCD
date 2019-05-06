@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from "ionic-angular";
 import {UserStore} from "../../../../core/model/UserStore";
 import {TimePick} from "../../../../core/model/timePick";
-import {environment} from "../../../../environments/environment";
 import {StoreService} from "../../../../core/api/store.service";
 import {AwsService} from "../../../../core/api/aws.service";
 import {UploadService} from "../../../../core/service/upload.service";
@@ -34,8 +33,7 @@ export class StoreCreateComponent {
 
   private openTime :TimePick;
   private closingTime :TimePick;
-
-
+  url: any;
 
   constructor(
               private toastCtrl : ToastController,
@@ -54,7 +52,7 @@ export class StoreCreateComponent {
         this.userStore.mainAddr= e.data;
       }
       this.closeDaumIframe();
-    } );
+    } ,false);
     this.userStore = new UserStore();
 
     this.openTime= new TimePick(9,0);
@@ -146,8 +144,9 @@ export class StoreCreateComponent {
           if(res&&res.code!=undefined){
             //성공이면
             if(res.code==1) {
-              this.navCtrl.setRoot("StoreDetailComponent");
               this.toast("등록 완료");
+              this.navCtrl.setRoot("StoreDetailComponent");
+              // this.navCtrl.pop();
             }else{
               this.toast(res.msg);
             }
@@ -172,19 +171,13 @@ export class StoreCreateComponent {
 
   startJusoSearch(){
     let frameElement: HTMLElement = document.getElementById('daumIframe');
-    frameElement.setAttribute(
-      'src',
-      environment.API_ENDPOINT+'daumJuso'
-    );
     frameElement.style.display='block';
     frameElement.style.height="100%";
-
     document.getElementById('formContent').style.display="none";
   }
 
   closeDaumIframe(){
     let frame = document.getElementById("daumIframe");
-    frame.setAttribute('src','about:blank');
     document.getElementById('daumIframe').setAttribute('height','0px');
     document.getElementById('daumIframe').style.height="0px";
     document.getElementById('daumIframe').style.border="0px";

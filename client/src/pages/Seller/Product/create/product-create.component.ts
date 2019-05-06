@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from "ionic-angular";
 import {Product} from "../../../../core/model/Product";
+import{ProductService} from"../../../../core/api/product.service"
 
 /**
  * Generated class for the StoreDetailPage page.
@@ -25,8 +26,10 @@ export class ProductCreateComponent{
 
   constructor(
     private toastCtrl : ToastController,
+    private productService :ProductService,
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+
   ) {
 
     this.product = new Product();
@@ -69,10 +72,10 @@ export class ProductCreateComponent{
   add(){
 
 
-    if(this.items.length<2){
+     if(this.items.length<2){
       this.toast("사진을 1장 이상 등록해주세요");
       return false;
-    }
+    } 
 
     if(this.product.prodName==undefined || this.product.prodName == ''){
       this.toast("상품명을 입력해주세요");
@@ -95,6 +98,11 @@ export class ProductCreateComponent{
       this.toast("수량을 정확히 입력해주세요");
       return false;
     }
+
+    //상품 추가작업
+    this.productService.add(this.product).subscribe((res) =>{
+      console.log(res);
+    });
   }
 
   goToPage(str: string) {
