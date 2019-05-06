@@ -5,6 +5,8 @@ import {Product} from "../../../../../core/model/Product";
 import {SessionService} from "../../../../../core/service/session.service";
 import {Review} from "../../../../../core/model/Review";
 import {ToastService} from "../../../../../core/service/toast.service";
+import {StoreService} from "../../../../../core/api/store.service";
+import {RESPONSE_CODE} from "../../../../../core/service/response.service";
 
 /**
  * Generated class for the BuyerStoreDetailPage page.
@@ -34,9 +36,18 @@ private myInput;
     protected session: SessionService,
     public navCtrl : NavController,
     public navParams : NavParams,
-  private alertCtrl: AlertController,
-  private toastService: ToastService
+    private alertCtrl: AlertController,
+    private toastService: ToastService,
+    private storeService : StoreService
   ) {
+    if(this.navParams.get("sellerId")!=undefined){
+      this.storeService.get(this.navParams.get("sellerId"))
+        .subscribe((res)=>{
+          if(res && res.code ==RESPONSE_CODE.SUCCESS){
+            this.userStore = res.data;
+          }
+        });
+    }
 
 
     this.contents = "review";

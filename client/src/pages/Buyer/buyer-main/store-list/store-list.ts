@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserStore} from "../../../../core/model/UserStore";
 import {ToastService} from "../../../../core/service/toast.service";
+import {RESPONSE_CODE} from "../../../../core/service/response.service";
+import {StoreService} from "../../../../core/api/store.service";
+import {SessionService} from "../../../../core/service/session.service";
 
 
 /**
@@ -25,11 +28,14 @@ export class StoreListPage {
   private sideDishStoreList: UserStore[] = [];
   private riceCakeStoreList: UserStore[] = [];
   private EtcStoreList: UserStore[] = [];
+  private storeList : UserStore[] = [];
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
               private alertCtrl: AlertController,
-              private toastService: ToastService
+              private toastService: ToastService,
+              private storeService : StoreService,
+              private sessionService : SessionService
               )
   {
 
@@ -58,10 +64,10 @@ export class StoreListPage {
     console.log('ionViewDidLoad StoreListPage');
   }
 
-  goToPage(pageName: string) {
+  goToPage(pageName: string, sellerId?: string) {
     switch(pageName){
       case 'store-detail':
-        this.navCtrl.push('BuyerStoreDetailPage');
+        this.navCtrl.push('BuyerStoreDetailPage', {sellerId: sellerId});
     }
   }
 
@@ -125,5 +131,22 @@ export class StoreListPage {
       ]
     });
     confirm.present();
+
   }
+
+
+  getStoresByCatNum(catNum: number){
+    //기기에 저장돼있는 위치 정보를 받아온다.
+    const location= this.sessionService.getValue("location");
+    //위치, 카테고리를 기반으로 상점을 조회한다.
+    this.storeService.getStores(location.lat, location.lng, catNum)
+      .subscribe((res)=> {
+      if (res && res.code == RESPONSE_CODE.SUCCESS) {
+        this.storeList = res.data;
+      }
+    });
+  }
+
+
+
 }

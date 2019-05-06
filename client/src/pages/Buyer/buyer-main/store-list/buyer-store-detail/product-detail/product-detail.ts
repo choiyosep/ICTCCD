@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Product} from "../../../../../../core/model/Product";
 import {ToastService} from "../../../../../../core/service/toast.service";
+import {CartService} from "../../../../../../core/api/cart.service";
+import {CartProduct} from "../../../../../../core/model/CartProduct";
+import {SessionService} from "../../../../../../core/service/session.service";
 
 /**
  * Generated class for the ProductDetailPage page.
@@ -22,13 +25,17 @@ export class ProductDetailPage {
 
   private product: Product;
 
+  private cartProduct: CartProduct;
+
 
   private amount: number = 0;
 
   constructor(private  navParams: NavParams,
               private navCtrl : NavController,
               private toastService : ToastService,
-              private alertCtrl : AlertController
+              private alertCtrl : AlertController,
+              private cartService : CartService,
+              private sessionService : SessionService
   ) {
     this.product = new Product();
 
@@ -95,6 +102,19 @@ export class ProductDetailPage {
     //장바구니 추가 작업
   }
 
+
+  // cartAdd( quantity : number){
+  //   this.cartProduct = new CartProduct();
+  //   //구매자 아이디 (로그인한 아이디)
+  //   this.cartProduct.buyerId =
+  //     this.sessionService.getValue("loginId");
+  //   //판매자 아이디
+  //   this.cartProduct.sellerId = this.product.sellerId;
+  //   //구매할 수량
+  //   this.cartProduct.quantity = quantity;
+  //   //장바구니 담기
+  //   this.cartService.add(this.cartProduct);
+  // }
 
 
 }
