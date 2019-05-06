@@ -99,7 +99,7 @@ export class ProductCreateComponent{
       return false;
     }
 
-    //상점 추가작업
+    //상품 추가작업
     this.productService.add(this.product).subscribe((res) =>{
       console.log(res);
     });

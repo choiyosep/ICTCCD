@@ -194,9 +194,13 @@ export class StoreCreateComponent {
   imageUpload(event, i: number) {
     const file = event.target.files[0];
     const loginId = this.sessionService.getValue("loginId");
+    console.log(loginId);//sell4
     this.awsService.getUploadUrl(loginId)
       .subscribe((res: IResponse<any>) => {
+        console.log(res)
+        
         if (res&&res.code === RESPONSE_CODE.SUCCESS) {
+          //console.log(res.code)
           this.uploadService.upload(res.data.url, file).subscribe(() => {
             const key = Converter.keyToAWSSource(res.data.key);
             setTimeout(()=>{

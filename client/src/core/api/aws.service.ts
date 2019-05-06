@@ -11,6 +11,7 @@ export class AwsService extends BaseService {
   }
 
   getUploadUrl(userName: string): Observable<IResponse<any>> {
+    console.log(userName)//sell4
     return this.http.get<IResponse<any>>(`${this.controllerName}/uploadUrl/${userName}`);
   }
 

@@ -4,9 +4,11 @@ const AWS_SDK = require('aws-sdk')
 
 module.exports = {
 
+   // AWS.config.update({})
+
     getSignedUploadUrl: (bucket, folder, key) => {
         return new Promise((resolve, reject) => {
-            AWS_SDK.config.loadFromPath(CONFIG_PATH);
+            //AWS_SDK.config.loadFromPath(CONFIG_PATH);
             const s3 = new AWS_SDK.S3({signatureVersion: 'v4'});
             const path = (folder)? folder + '/' + key : key;
             const params = {
@@ -28,7 +30,7 @@ module.exports = {
 
     get: (bucket, key) => {
         return new Promise((resolve, reject) => {
-            AWS_SDK.config.loadFromPath(CONFIG_PATH);
+           // AWS_SDK.config.loadFromPath(CONFIG_PATH);
             const s3 = new AWS_SDK.S3({signatureVersion: 'v4'});
             const params = {
                 Bucket: bucket,

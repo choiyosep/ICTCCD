@@ -69,7 +69,7 @@ module.exports = {
                 console.log(prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state,images);
                 //등록된 상품이 있는지 검사한다.
                 const hasProduct = await Product.has(prodNum);
-                //등록된 상점이 있으면 수정하자 ^^
+                //등록된 상품이 있으면 수정하자 ^^
                 console.log(hasProduct);//1
                 if(hasProduct){
                     console.log("상품 수정");
@@ -78,11 +78,11 @@ module.exports = {
                     const rs = await Product.updateProduct(prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state);
                     console.log(rs);
 
-                    //상점 사진 삭제
+                    //상품 사진 삭제
 
                     await Product.deleteProductPicture(prodNum);
 
-                    //상점 사진 등록
+                    //상품 사진 등록
                     for(let i=0; i< images.length; i++)
                         await Product.createProductPicture(prodNum, images[i]);
 
@@ -110,12 +110,8 @@ module.exports = {
                 const hasProduct = await Product.has(prodNum);
                 //product.service파일로 넘긴다.
                 console.log(hasProduct);
-                //등록된 상점이 없으면 등록하자 ^^
+                //등록된 상품이 없으면 등록하자 ^^
                 if(!hasProduct){
-
-                   /*  //시간 변환 ( 09: 30 => 570)
-                    const sTime = Number(sHour) * 60 + Number(sMinute);
-                    const eTime = Number(eHour) * 60 + Number(eMinute); */
 
                     //상품 등록
                     const rs = await Product.createProduct(prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state);
@@ -126,7 +122,7 @@ module.exports = {
 
                     console.log(rs);
                     resolve(rs);
-                }else{//등록된 상점이 있으면
+                }else{//등록된 상품이 있으면
                     //exception 발생시킴
                     throw Response.get(Response.type.PRODUCT_ALREADY_EXIST, {});
                 }
@@ -145,10 +141,10 @@ module.exports = {
                 //등록된 상품이 있으면 삭제하자 ^^
                 console.log(hasProduct);
                 if(hasProduct){
-                    //상점 삭제   ( 상점 삭제시 상점 사진도 삭제 됩니다. 외래키 ON DELETE CASCADE )
+                    //상품 삭제   ( 상품 삭제시 상품 사진도 삭제 됩니다. 외래키 ON DELETE CASCADE )
                     await Product.deleteProduct(prodNum);
                     resolve("삭제 완료");
-                }else{//등록된 상점이 없으면
+                }else{//등록된 상품이 없으면
                     //exception 발생시킴
                     throw Response.get(Response.type.PRODUCT_NOT_FOUND, {});
                 }
