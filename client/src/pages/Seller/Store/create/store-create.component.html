@@ -8,14 +8,13 @@
   <ion-toolbar>
     <div class="flex-area-row-space-between">
       <div class="back" (click)="back()">취소</div>
-      <div class="confirm" (click)="goToMain()">추가</div>
+      <div class="confirm" (click)="storeAdd()">추가</div>
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
 
   <iframe style="display:none;" class="daumIframeStyle" id='daumIframe'></iframe>
-
   <div id="formContent">
     <div class="Title_Input">
       상점사진
@@ -24,14 +23,13 @@
         <div *ngFor="let item of items; let i=index" class="store-create-image">
             <label for="file-input{{i}}">
               <img class="store-create-image" *ngIf="userStore.images[i]==null" src="assets/imgs/picture_add_button.PNG"/>
-              <img  class="store-create-image" *ngIf="userStore.images[i]!=null">
+              <img  class="store-create-image" *ngIf="userStore.images[i]!=null" [src]="userStore.images[i]">
             </label>
             <input id="file-input{{i}}" (change)="imageUpload($event,i)" hidden type="file"/>
             <img *ngIf="userStore.images[i]!=null" (click)="imageDelete(i)" class="image-delete-button" src="assets/imgs/image-delete-button.png"/>
         </div>
       </div>
       <br>
-
       <div class="Title_Input">
         상점명
       </div>
@@ -74,7 +72,8 @@
         <ion-option value="1">베이커리</ion-option>
         <ion-option value="2">떡집</ion-option>
         <ion-option value="3">분식집</ion-option>
-        <ion-option value="4">기타</ion-option>
+        <ion-option value="4">반찬가게</ion-option>
+        <ion-option value="5">기타</ion-option>
       </ion-select>
     </ion-item>
 

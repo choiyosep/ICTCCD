@@ -54,6 +54,7 @@ export class HttpService {
       });
     }
 
+
     if (method === "GET" || method === "DELETE") {
         options['params'] = this.getHttpParams(parameter);
     } else if (withFileUpload) {

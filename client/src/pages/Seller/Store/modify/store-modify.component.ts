@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
-import {AlertController, IonicPage, NavController, ToastController} from "ionic-angular";
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from "ionic-angular";
 import {SessionService} from "../../../../core/service/session.service";
 import {UserStore} from "../../../../core/model/UserStore";
 import {TimePick} from "../../../../core/model/timePick";
 import {environment} from "../../../../environments/environment";
+import {Converter} from "../../../../core/helper/converter";
+import {IResponse, RESPONSE_CODE} from "../../../../core/service/response.service";
+import {AwsService} from "../../../../core/api/aws.service";
+import {UploadService} from "../../../../core/service/upload.service";
+import {DaumService} from "../../../../core/service/daum.service";
+import {StoreService} from "../../../../core/api/store.service";
+import {HttpResponse} from "@angular/common/http";
 
 /**
  * Generated class for the StoreDetailPage page.
@@ -40,21 +47,41 @@ export class StoreModifyComponent{
    protected session: SessionService,
    private alertCtrl: AlertController,
    private toastCtrl: ToastController,
-   private navCtrl : NavController
+   private navCtrl : NavController,
+   private navParam : NavParams,
+   private sessionService : SessionService,
+   private uploadService : UploadService,
+   private awsService : AwsService,
+   private daumService : DaumService,
+   private storeService : StoreService
   )
   {
+    // console.log(this.navParam.get("userStore"));
+    this.userStore = new UserStore();
+
+    //상점 상세 페이지에서 넘겨준 userStore 객체가 존재하면
+    if(this.navParam.get("userStore")!=undefined){
+      //Object type을 UserStore Class type으로 변환해준 뒤 저장한다.
+      this.userStore= Converter.jsonToInstance(UserStore, this.navParam.get("userStore"));
+
+      for(let i=0; i<this.userStore.images.length; i++) {
+        this.items.push(1);
+      }
+
+      this.openTime = new TimePick(this.userStore.sHour, this.userStore.sMinute);
+      this.closingTime = new TimePick(this.userStore.eHour, this.userStore.eMinute);
+      const tempAddress = this.userStore.address.split("/");
+      this.userStore.mainAddr = tempAddress[0];
+      this.userStore.detailAddr = tempAddress[1];
+    }
 
     this.items.push(1);
 
-    this.userStore= new UserStore();
-
     window.addEventListener( 'message', (e) =>{
-      console.log("메세지:"+e.data);
-      if(e.data !=="close"){
-        // (document.getElementById("mainAddr") as HTMLInputElement).value =  e.data;
+      if(e.data !=="close"&& e.data!=''){
+        (document.getElementById("mainAddr") as HTMLInputElement).value =  e.data;
         this.userStore.mainAddr=e.data;
       }
-      // this.back();
       this.closeDaumIframe();
 
     } );
@@ -87,54 +114,77 @@ export class StoreModifyComponent{
     return num<10? '0'+num : num.toString();
   }
 
-  modify() {
+  storeModify() {
 
-    if (this.items.length < 2) {
+    if(this.items.length<2){
       this.toast("사진을 1장 이상 등록해주세요");
       return false;
     }
 
-    if (this.userStore.title == undefined || this.userStore.title == '') {
+    if(this.userStore.title==undefined || this.userStore.title == ''){
       this.toast("상점명을 입력해주세요");
       return false;
     }
 
-    if (this.openTime == null || this.closingTime == null) {
+    if(this.openTime==null || this.closingTime==null){
       this.toast("상점 운영시간을 입력해주세요");
       return false;
     }
 
-    if (this.userStore.tel == undefined || this.userStore.tel == '') {
+    if(this.userStore.tel==undefined || this.userStore.tel == ''){
       this.toast("연락처를 입력해주세요");
       return false;
     }
 
-    if (this.userStore.mainAddr == undefined || this.userStore.mainAddr == '') {
+    if(this.userStore.mainAddr==undefined || this.userStore.mainAddr == ''){
       this.toast("주소를 입력해주세요");
+      alert(this.userStore.mainAddr);
       return false;
     }
 
-    if (this.userStore.detailAddr == undefined || this.userStore.detailAddr == '') {
+    if(this.userStore.detailAddr==undefined || this.userStore.detailAddr == ''){
       this.toast("상세 주소를 입력해주세요");
       return false;
     }
 
-    if (this.userStore.category == undefined || this.userStore.category == '') {
+    if(this.userStore.category==undefined || this.userStore.category == ''){
       this.toast("카테고리를 선택해주세요");
       return false;
     }
-    this.userStore.sHour = this.openTime.hour;
-    this.userStore.sMinute = this.openTime.minute;
-    this.userStore.eHour = this.closingTime.hour;
-    this.userStore.eMinute = this.closingTime.minute;
 
 
-    //위도 경도 받아옴
+    // 위도 경도 받아옴
+    this.daumService.getLocation(this.userStore.mainAddr).subscribe(
+      (res)=>
+      {
+        //경도
+        this.userStore.lng = res.x;
+        //위도
+        this.userStore.lat = res.y;
 
-    //상점 수정 작업
+        this.userStore.sHour=this.openTime.hour;
+        this.userStore.sMinute=this.openTime.minute;
+        this.userStore.eHour=this.closingTime.hour;
+        this.userStore.eMinute=this.closingTime.minute;
 
-    //페이지 이동
-    this.navCtrl.setRoot('MainComponent');
+        //주소 합침
+        this.userStore.address= this.userStore.mainAddr+'/'+this.userStore.detailAddr;
+        //상점 주인 아이디(갖고 있어서 필요없음)
+        // this.userStore.sellerId = this.sessionService.getValue('loginId');
+
+        //상점 수정작업
+        this.storeService.modify(this.userStore, this.userStore.sellerId).subscribe((res) =>{
+          if(res&&res.code!=undefined){
+            if(res.code==1) {
+              this.navCtrl.setRoot("StoreDetailComponent");
+              this.toast("수정 완료");
+            }else{
+              this.toast(res.msg);
+            }
+          }
+        });
+      }
+    );
 
 
   }
@@ -159,8 +209,20 @@ export class StoreModifyComponent{
           text: '삭제',
           cssClass:'del',
           handler: () => {
-            //삭제작업
-
+            this.storeService.delete(this.userStore.sellerId).subscribe(
+              (res) =>{
+                //응답오면
+                if(res&&res.code!=undefined){
+                  //성공시
+                  if(res.code==1) {
+                      this.navCtrl.setRoot("StoreDetailComponent");
+                      this.toast("삭제 완료");
+                    }else{
+                      this.toast(res.msg);
+                    }
+                  }
+              }
+            )
           }
         }
       ]
@@ -189,7 +251,36 @@ export class StoreModifyComponent{
     frame.setAttribute('src','about:blank');
     document.getElementById('daumIframe').setAttribute('height','0px');
     document.getElementById('daumIframe').style.height="0px";
+    document.getElementById('daumIframe').style.border="0px";
     document.getElementById('formContent').style.display="block";
 
+  }
+
+  imageUpload(event, i: number) {
+    const file = event.target.files[0];
+    const loginId = this.sessionService.getValue("loginId");
+    this.awsService.getUploadUrl(loginId)
+      .subscribe((res: IResponse<any>) => {
+        if (res&&res.code === RESPONSE_CODE.SUCCESS) {
+          this.uploadService.upload(res.data.url, file).subscribe((response : HttpResponse<any>) => {
+            if(response&&response.status==200){
+              const key = Converter.keyToAWSSource(res.data.key);
+              if(this.userStore.images[i]==undefined){
+                this.userStore.images.push(key);
+                this.items.push(1);
+              }else{
+                this.userStore.images[i]=key;
+              }
+            }
+
+          }, (err) => console.log(err));
+        }
+      });
+
+  }
+
+  imageDelete(i: number) {
+    this.items.pop();
+    this.userStore.images.splice(i, 1);
   }
 }

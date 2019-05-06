@@ -8,7 +8,7 @@
   <ion-toolbar>
     <div class="flex-area-row-space-between">
       <div class="back" (click)="back()">취소</div>
-      <div class="confirm" (click)="goToPage('store-detail')">완료</div>
+      <div class="confirm" (click)="storeModify()">완료</div>
     </div>
   </ion-toolbar>
 </ion-header>
@@ -24,7 +24,7 @@
       <div *ngFor="let item of items; let i=index" class="store-create-image">
         <label for="file-input{{i}}">
           <img  class="store-create-image" *ngIf="userStore.images[i]==null" src="assets/imgs/picture_add_button.PNG"/>
-          <img  class="store-create-image" *ngIf="userStore.images[i]!=null">
+          <img  class="store-create-image" *ngIf="userStore.images[i]!=null" [src]="this.userStore.images[i]">
         </label>
         <input id="file-input{{i}}" (change)="imageUpload($event,i)" hidden type="file"/>
         <img *ngIf="userStore.images[i]!=null" (click)="imageDelete(i)" class="image-delete-button" src="assets/imgs/image-delete-button.png"/>

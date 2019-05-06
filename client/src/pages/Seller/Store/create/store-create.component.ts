@@ -4,6 +4,13 @@ import {UserStore} from "../../../../core/model/UserStore";
 import {TimePick} from "../../../../core/model/timePick";
 import {environment} from "../../../../environments/environment";
 import {StoreService} from "../../../../core/api/store.service";
+import {AwsService} from "../../../../core/api/aws.service";
+import {UploadService} from "../../../../core/service/upload.service";
+import {IResponse, RESPONSE_CODE} from "../../../../core/service/response.service";
+import {SessionService} from "../../../../core/service/session.service";
+import {Converter} from "../../../../core/helper/converter";
+import {DaumService} from "../../../../core/service/daum.service";
+import {HttpResponse} from "@angular/common/http";
 
 /**
  * Generated class for the StoreDetailPage page.
@@ -34,7 +41,11 @@ export class StoreCreateComponent {
               private toastCtrl : ToastController,
               public navCtrl: NavController,
               public navParams : NavParams,
-              private storeService : StoreService
+              private storeService : StoreService,
+              private awsService : AwsService,
+              private uploadService: UploadService,
+              private sessionService: SessionService,
+              private daumService: DaumService
 ) {
 
     window.addEventListener( 'message', (e) =>{
@@ -67,13 +78,9 @@ export class StoreCreateComponent {
       duration: 2000,
       position: 'top'
     }).present();
-
-    this.storeAdd();
   }
 
   storeAdd() {
-    this.storeService.add(this.userStore);
-
 
 
     if(this.items.length<2){
@@ -111,29 +118,46 @@ export class StoreCreateComponent {
       this.toast("카테고리를 선택해주세요");
       return false;
     }
-    //
-    // this.userStore.hours
-    //   = this.timeToString(this.openTime.hour)
-    //   + ":"
-    //   + this.timeToString(this.openTime.minute)
-    //   + "~"
-    //   + this.timeToString(this.closingTime.hour)
-    //   + ":"
-    //   + this.timeToString(this.closingTime.minute);
 
 
-    this.userStore.sHour=this.openTime.hour;
-    this.userStore.sMinute=this.openTime.minute;
-    this.userStore.eHour=this.closingTime.hour;
-    this.userStore.eMinute=this.closingTime.minute;
+    // 위도 경도 받아옴
+    this.daumService.getLocation(this.userStore.mainAddr).subscribe(
+      (res)=>
+      {
+        //경도
+        this.userStore.lng = res.x;
+        //위도
+        this.userStore.lat = res.y;
+
+        this.userStore.sHour=this.openTime.hour;
+        this.userStore.sMinute=this.openTime.minute;
+        this.userStore.eHour=this.closingTime.hour;
+        this.userStore.eMinute=this.closingTime.minute;
+
+        //주소 합침
+        this.userStore.address= this.userStore.mainAddr+'/'+this.userStore.detailAddr;
+        //상점 주인 아이디
+        this.userStore.sellerId = this.sessionService.getValue('loginId');
+        console.log(this.userStore);
+
+        //상점 추가작업
+        this.storeService.add(this.userStore).subscribe((res) =>{
+          //응답 오면
+          if(res&&res.code!=undefined){
+            //성공이면
+            if(res.code==1) {
+              this.navCtrl.setRoot("StoreDetailComponent");
+              this.toast("등록 완료");
+            }else{
+              this.toast(res.msg);
+            }
+
+          }
+        });
+      }
+    );
 
 
-
-    //위도 경도 받아옴
-
-
-    //상점 추가작업
-    this.navCtrl.setRoot('MainComponent');
   }
 
   goToMain(){
@@ -163,8 +187,36 @@ export class StoreCreateComponent {
     frame.setAttribute('src','about:blank');
     document.getElementById('daumIframe').setAttribute('height','0px');
     document.getElementById('daumIframe').style.height="0px";
+    document.getElementById('daumIframe').style.border="0px";
     document.getElementById('formContent').style.display="block";
 
   }
 
+  imageUpload(event, i: number) {
+    const file = event.target.files[0];
+    const loginId = this.sessionService.getValue("loginId");
+    this.awsService.getUploadUrl(loginId)
+      .subscribe((res: IResponse<any>) => {
+        if (res&&res.code === RESPONSE_CODE.SUCCESS) {
+          this.uploadService.upload(res.data.url, file).subscribe((response: HttpResponse<any>) => {
+            if(response && response.status==200){
+              const key = Converter.keyToAWSSource(res.data.key);
+              if(this.userStore.images[i]==undefined){
+                this.userStore.images.push(key);
+                this.items.push(1);
+              }else{
+                this.userStore.images[i]=key;
+              }
+            }
+          }, (err) => console.log(err));
+        }
+      });
+
+  }
+
+
+  imageDelete(i: number) {
+    this.items.pop();
+    this.userStore.images.splice(i, 1);
+  }
 }

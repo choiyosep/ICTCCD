@@ -72,7 +72,7 @@ export class LoginPage {
         this.navCtrl.push('SignupPage');
         break;
       case 'sellerMain':
-        this.navCtrl.setRoot('StoreDetailComponent');
+        this.navCtrl.push('StoreDetailComponent');
         break;
       case 'buyerMain':
         this.navCtrl.setRoot('BuyerMainPage');
