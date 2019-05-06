@@ -90,6 +90,10 @@ export class MyPageComponent{
       case 'main':
         this.navCtrl.push('MainComponent');
         break;
+
+      // case'sell-record':
+      //   this.navCtrl.push('SellRecordComponent');
+      //   break;
   }
 }
 }

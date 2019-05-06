@@ -79,17 +79,23 @@
     <div *ngSwitchCase="'info'">
     </div>
     <div *ngSwitchCase="'review'">
-      <div *ngFor="let review of userStore.reviews" class="review-card">
-        <div class="review-header">
+      {{userStore.reviews|json}}
+      {{myInput}}
+
+      <div *ngFor="let review of userStore.reviews; let i = index"  class="review-card">
+        <div  class="review-header">
 
           <div class="review-buyer-Id">
             {{review.buyerId}}
           </div>
-          <button class="review-manage-button">
+          <button (click)="revise(i)" id="revise{{i}}" class="review-manage-button">
           수정
           </button>
-          <button class="review-manage-button">
+          <button (click)="delete(i)" id="delete{{i}}" class="review-manage-button">
             삭제
+          </button>
+          <button (click)="showUpdatedItem(i)" id="complete{{i}}" class="review-manage-button"  style="display:none;">
+            완료
           </button>
 
           <img width="20px" height="20px" src="assets/imgs/star-icon.png">
@@ -98,12 +104,21 @@
           </div>
 
         </div>
-        <div class="review-content">
+
+        <!--<div class="input_box {{idStatus}}">-->
+          <!--<img height="24px" width="24px" src="assets/icon/icon_id_grey_03.png">-->
+          <!--<input (blur)="blur('id')" (focus)="onfocus('id')" formControlName="id" type="text" class="Icon_Text_input" placeholder="아이디">-->
+        <!--</div>-->
+        <div id = "content{{i}}"  class="input_box review-content">
           {{review.content}}
+        </div>
+          <div>
+            <input id="revise_clicked{{i}}" style="display:none;" [(ngModel)]="myInput" placeholder="{{review.content}}" type="text"   class="Icon_Text_input">
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
 
   <div id="map" class="store-location-image"></div>
   <img id="product-add-button" ion-fixed="true" *ngIf="userStore!=undefined" (click)="goToPage('product-create')" class="add-circle" src="assets/icon/icon_add.png">

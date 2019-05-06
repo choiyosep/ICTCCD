@@ -17,6 +17,7 @@ export class Review extends Serializable implements IModel{
   //별점
   rating: number;
   grade: number;
+  revise: boolean;
 
 
   toObject(): object {

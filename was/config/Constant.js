@@ -5,7 +5,7 @@ module.exports = {
     },
 
     DATABASE : {
-        POOL_SIZE: 10,
+        POOL_SIZE: 20,
         HOST : 'discountmathcher.civ40vm513a4.ap-northeast-2.rds.amazonaws.com',
         PORT : '3306',
         NAME : 'soborrow',

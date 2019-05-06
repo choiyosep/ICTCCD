@@ -20,7 +20,7 @@
 
 
     <button ion-button gpstoggle>
-      <ion-icon style=".pin-size" name="pin"></ion-icon>
+      <ion-icon  name="pin"></ion-icon>
     </button>
 
 </div>
@@ -29,48 +29,52 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="2">
-        <button (click)="goToPage('store-list')" >
-        <img style=".image-size" src="assets/imgs/bakery.png">
-        </button>
-      </ion-col>
-
-      <ion-col size="2">
-        <button (click)="goToPage('store-list')" >
-        <img style=".image-size" src="assets/imgs/tteokbokki.png">
-        </button>
-      </ion-col>
-
-    </ion-row>
-
-    <ion-row>
-
-      <ion-col>
-
-      </ion-col>
-      <ion-col>
-        <button (click)="goToPage('store-list')" >
-        <img src="assets/imgs/banchan.png" style=".image-size">
-        </button>
 
 
-      </ion-col>
-    </ion-row>
+<div class="line">
+<div class="row" >
+        <div class="col"  align="center"(click)="goToPage('store-list')">
+          <img  src="assets/imgs/bakery.png">
 
-    <ion-row>
-      <ion-col>
-        <button (click)="goToPage('cart-list')" >
-        <img style=".image-size" src="assets/imgs/cart.png">
-        </button>
-      </ion-col>
-      <ion-col>
-        <img style=".image-size" src="assets/imgs/review.png">
-      </ion-col>
-    </ion-row>
+        </div>
 
+
+
+
+  <div class="col" (click)="goToPage('store-list')">
+        <img src="assets/imgs/tteokbokki.png">
+      </div>
+
+</div>
+
+  <div class="row">
+    <div class="col"(click)="goToPage('store-list')">
+    </div>
+
+
+
+    <div class="col"  (click)="goToPage('store-list')">
+      <img  src="assets/imgs/banchan.png">
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col" (click)="goToPage('cart-list')">
+      <img  src="assets/imgs/cart.png">
+    </div>
+
+
+
+    <div class="col"  (click)="goToPage('store-list')">
+      <img  src="assets/imgs/review.png">
+    </div>
+
+  </div>
+
+
+</div>
     <ion-searchbar  placeholder="상품/상점검색" ></ion-searchbar>
-  </ion-grid>
+
 
 </ion-content>

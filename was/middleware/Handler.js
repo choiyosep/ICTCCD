@@ -7,7 +7,6 @@ module.exports = {
             const boundParams = params ? params(req, res, next) : [];
             try {
                 const result = await promise(...boundParams);
-
                 if (typeof isJson === 'undefined' || isJson) {
                     res.json({"code": Response.type.SUCCESS.code, "msg": '', "data": result});
                 } else {

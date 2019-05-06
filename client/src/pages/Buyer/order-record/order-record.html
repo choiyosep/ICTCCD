@@ -18,29 +18,67 @@
 <ion-content padding>
 
 
-  <div>
-    <h2>2019/03/23(토)</h2>
-    이솝베이커리<br>
-    <div class="content-box-underline">
-      소보로 외 3개 5700원
-    </div>
-  </div>
+  <!--<ion-item-divider color="secondary">-->
+    <!--<ion-label>-->
+      <!--Secondary Item Divider-->
+    <!--</ion-label>-->
+  <!--</ion-item-divider>-->
+
+  <!--&lt;!&ndash; Item Dividers in a List &ndash;&gt;-->
+  <!--<ion-list>-->
+    <!--<ion-item-divider>-->
+      <!--<ion-label>-->
+        <!--Section A-->
+      <!--</ion-label>-->
+    <!--</ion-item-divider>-->
+
+    <!--<ion-item><ion-label>A1</ion-label></ion-item>-->
+    <!--<ion-item><ion-label>A2</ion-label></ion-item>-->
+    <!--<ion-item><ion-label>A3</ion-label></ion-item>-->
+    <!--<ion-item><ion-label>A4</ion-label></ion-item>-->
+    <!--<ion-item><ion-label>A5</ion-label></ion-item>-->
+
+    <!--<ion-item-divider>-->
+      <!--<ion-label>-->
+        <!--Section B-->
+      <!--</ion-label>-->
+    <!--</ion-item-divider>-->
+
+    <!--<ion-item><ion-label>B1</ion-label></ion-item>-->
+    <!--<ion-item><ion-label>B2</ion-label></ion-item>-->
+    <!--<ion-item><ion-label>B3</ion-label></ion-item>-->
+    <!--<ion-item><ion-label>B4</ion-label></ion-item>-->
+    <!--<ion-item><ion-label>B5</ion-label></ion-item>-->
+  <!--</ion-list>-->
 
 
-  <div>
-    <h2>2019/03/21(목)</h2>
-    지영이반찬가게<br>
-    <div class="content-box-underline">
-      고사리나물 외 1개 9000원
-    </div>
-  </div>
 
-  <div>
-    <h2>2019/03/15(금)</h2>
-    죠스떡볶이떡볶이 <br>
-    <div class="content-box-underline">
-      2인분 2000원
-    </div>
-  </div>
+
+    <ion-list>
+      <ion-list-header color="secondary" text-center="true">
+        구매이력조회
+      </ion-list-header>
+      <ion-item padding *ngFor="let d of data" (click)="toggleDetails(d)"><ion-icon color="primary" item-right [name]="d.icon"></ion-icon>
+        <div class="Body04">
+        {{d.date}}
+        </div>
+        <div *ngIf="d.showDetails">
+          <!--{{d.details}}-->
+
+
+          <div>
+          {{d.name}} <br>
+            {{d.qty}}개
+          </div>
+          <div class="Body05" align="right" >
+            {{d.price}}원
+          </div>
+
+
+
+        </div>
+      </ion-item>
+    </ion-list>
+
 
 </ion-content>
