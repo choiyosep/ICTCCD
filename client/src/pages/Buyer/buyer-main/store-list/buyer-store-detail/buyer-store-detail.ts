@@ -146,20 +146,26 @@ private myInput;
     }
   }
 
-  revise(event){
-    document.getElementById('revise').style.display = "none";
-    document.getElementById('delete').style.display = "none";
-    document.getElementById('content').style.display = "none";
-    document.getElementById('complete').style.display = "";
-    document.getElementById('revise_clicked').style.display = "";
+  revise(i){
+    document.getElementById(`revise${i}`).style.display = "none";
+    document.getElementById(`delete${i}`).style.display = "none";
+    document.getElementById(`content${i}`).style.display = "none";
+    document.getElementById(`complete${i}`).style.display = "";
+    document.getElementById(`revise_clicked${i}`).style.display = "";
   }
 
-  showUpdatedItem(myInput,i){
+  showUpdatedItem(i){
     // let updateItem = this.userStore.reviews.find(this.findIndexToUpdate, newItem.id);
     //
     // let index = this.userStore.reviews.indexOf(updateItem);
+    console.log(i);
 
-    this.userStore.reviews[i].content = myInput;
+    this.userStore.reviews[i].content = this.myInput;
+    document.getElementById(`revise${i}`).style.display = "";
+    document.getElementById(`delete${i}`).style.display = "";
+    document.getElementById(`content${i}`).style.display = "";
+    document.getElementById(`complete${i}`).style.display = "none";
+    document.getElementById(`revise_clicked${i}`).style.display = "none";
 
   }
 
