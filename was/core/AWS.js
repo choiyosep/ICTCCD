@@ -1,6 +1,6 @@
 const AWS_SDK = require('aws-sdk')
     , Response = require('../core/Response')
-   , CONFIG_PATH = './config/AWS.json';
+   , CONFIG_PATH = '../config/AWS.json';
 
 module.exports = {
 

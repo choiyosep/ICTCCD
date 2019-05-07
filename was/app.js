@@ -16,7 +16,7 @@ app.use(cookieParser());
 /**
  * Route Init
  */
-const files = fs.readdirSync('./route');
+const files = fs.readdirSync('../route');
 files.forEach(file => {
     const fileNameArr = file.split('.');
     app.use('/' + fileNameArr[0].toLowerCase(), require('./route/' + file));

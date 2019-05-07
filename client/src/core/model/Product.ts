@@ -45,6 +45,7 @@ export class Product extends Serializable implements IModel{
       salePrice: this.salePrice,
       discountRate: this.discountRate,
       stock: this.stock,
+      qty: this.qty,
       images: this.images,
       state: this.state
     }
