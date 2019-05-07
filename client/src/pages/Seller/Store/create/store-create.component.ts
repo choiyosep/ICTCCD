@@ -11,7 +11,6 @@ import {SessionService} from "../../../../core/service/session.service";
 import {Converter} from "../../../../core/helper/converter";
 import {DaumService} from "../../../../core/service/daum.service";
 import {HttpResponse} from "@angular/common/http";
-
 /**
  * Generated class for the StoreDetailPage page.
  *
@@ -146,7 +145,7 @@ export class StoreCreateComponent {
           if(res&&res.code!=undefined){
             //성공이면
             if(res.code==1) {
-              this.navCtrl.setRoot("StoreDetailComponent");
+              // this.navCtrl.setRoot("StoreDetailComponent");
               this.toast("등록 완료");
             }else{
               this.toast(res.msg);
@@ -195,16 +194,20 @@ export class StoreCreateComponent {
   imageUpload(event, i: number) {
     const file = event.target.files[0];
     const loginId = this.sessionService.getValue("loginId");
-    console.log(loginId);//sell4
+    
     this.awsService.getUploadUrl(loginId)
-      .subscribe((res: IResponse<any>) => {
-        console.log(res)
-        
+      .subscribe((res: IResponse<any>) => {       
         if (res&&res.code === RESPONSE_CODE.SUCCESS) {
+          
           this.uploadService.upload(res.data.url, file).subscribe((response: HttpResponse<any>) => {
+            console.log(response);
+            //https://soborrow2.s3.amazonaws.com/sell4-1557128535125?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJCYLJU5M3GAAQ2PQ%2F20190506%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20190506T074215Z&X-Amz-Expires=18000&X-Amz-Signature=dcfec1f5fcac25fcdd67403961aa5d0e09bb611fc5846a37772a21212a589ca3&X-Amz-SignedHeaders=host%3Bx-amz-acl&x-amz-acl=public-read
+            
+            //여기를 접근 못함.
             if(response && response.status==200){
+              
               const key = Converter.keyToAWSSource(res.data.key);
-//>>>>>>> 12569d08b392941aac1da2107c925fdc359d3942
+            
               if(this.userStore.images[i]==undefined){
                 this.userStore.images.push(key);
                 this.items.push(1);
