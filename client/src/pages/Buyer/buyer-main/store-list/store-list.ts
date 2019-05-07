@@ -21,7 +21,7 @@ import {SessionService} from "../../../../core/service/session.service";
 })
 export class StoreListPage {
 
-  private contents: string = '제과';
+  private contents: string ;
 
   private bakeryStoreList: UserStore[] = [];
   private flourFoodStoreList: UserStore[] = [];
@@ -38,6 +38,10 @@ export class StoreListPage {
               private sessionService : SessionService
               )
   {
+    let catName = this.navParams.get("catName");
+    if(catName!=undefined){
+      this.setContents(catName);
+    }
 
     var store1 = new UserStore();
     store1.title = "브라운 파파";
@@ -55,6 +59,61 @@ export class StoreListPage {
 
     this.bakeryStoreList.push(store1);
     this.bakeryStoreList.push(store2);
+  }
+
+  setContents(catName: any){
+    this.contents=catName;
+    let location = this.sessionService.getLocation();
+    let lat = location.lat;
+    let lng = location.lng
+    let catNum;
+    switch(catName){
+      case "제과":
+        catNum = 1;
+        break;
+      case "분식":
+        catNum = 2;
+        break;
+      case "반찬":
+        catNum = 3;
+        break;
+      case "떡":
+        catNum = 4;
+        break;
+      case "기타":
+        catNum = 5;
+        break;
+      default:
+        break;
+    }
+    console.log(lat,lng,catNum);
+    let buyerId  = this.sessionService.getValue("loginId");
+    this.storeService.getStores(lat,lng,catNum, buyerId).subscribe((res)=>{
+      console.log(res);
+      if(res&&res.code==RESPONSE_CODE.SUCCESS){
+        this.setStoreList(catNum, res.data);
+      }
+    })
+  }
+
+  setStoreList(catNum: number, data: any){
+    switch(catNum){
+      case 1:
+        this.bakeryStoreList = data;
+        break;
+      case 2:
+        this.flourFoodStoreList= data;
+        break;
+      case 3:
+        this.sideDishStoreList = data;
+        break;
+      case 4:
+        this.riceCakeStoreList = data;
+        break;
+      case 5:
+        this.EtcStoreList = data;
+    }
+
   }
 
 
@@ -133,20 +192,5 @@ export class StoreListPage {
     confirm.present();
 
   }
-
-
-  getStoresByCatNum(catNum: number){
-    //기기에 저장돼있는 위치 정보를 받아온다.
-    const location= this.sessionService.getValue("location");
-    //위치, 카테고리를 기반으로 상점을 조회한다.
-    this.storeService.getStores(location.lat, location.lng, catNum)
-      .subscribe((res)=> {
-      if (res && res.code == RESPONSE_CODE.SUCCESS) {
-        this.storeList = res.data;
-      }
-    });
-  }
-
-
 
 }

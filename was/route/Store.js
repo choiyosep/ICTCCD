@@ -27,7 +27,11 @@ Router.get(
     Handler.request(
         Ctrl.list,
         (req, res, next) => [
-            req
+            req.query['lat'],
+            req.query['lng'],
+            req.query['category'],
+            req.query['buyerId'],
+            req.query['radius']
         ]
     ));
 

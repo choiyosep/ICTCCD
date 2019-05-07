@@ -66,7 +66,6 @@ module.exports = {
     update: (prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state,images) => {
         return new Promise( async (resolve, reject ) =>{
             try{
-                console.log(prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state,images);
                 //등록된 상품이 있는지 검사한다.
                 const hasProduct = await Product.has(prodNum);
                 //등록된 상품이 있으면 수정하자 ^^

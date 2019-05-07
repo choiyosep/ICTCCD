@@ -37,3 +37,16 @@ page-buyer-main {
   padding-right: 42.4px;
 
 }
+
+.address-finder{
+  margin-top:10px;
+  margin-right: 5px;
+  padding-left : 5px;
+  padding-right: 5px;
+  width:100%;
+  @extend .Body01;
+}
+
+.gps-button{
+  margin-top:5px;
+}
