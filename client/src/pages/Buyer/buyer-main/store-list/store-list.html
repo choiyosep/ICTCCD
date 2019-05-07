@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-segment [(ngModel)]="contents"  color="primary" style="height:44px;">
+  <ion-segment [(ngModel)]="contents" (ngModelChange)="setContents($event)"  color="primary" style="height:44px;">
     <ion-segment-button value="제과">
       제과
     </ion-segment-button>
@@ -42,7 +42,7 @@
               <div class="Caption03">{{store.grade}}</div>
             </div>
             <div class="Caption03">
-              거리: {{store.distance}}
+              거리: {{store.distance}}km
             </div>
           </div>
           <div class="flex-content-col">
@@ -55,6 +55,28 @@
       </div>
     </div>
     <div *ngSwitchCase="'분식'">
+      <div *ngFor="let store of flourFoodStoreList" class="store-list-card" >
+        <img (click)="goToPage('store-detail', store.sellerId)" width="100px" height="100px" [src]="store.images[0]">
+        <div class="store-list-info">
+          <div (click)="goToPage('store-detail')" class="store-list-info-detail">
+            <div class="Body02">{{store.title}}</div><br>
+            <div class="flex-area-row">
+              <img width="15px" height="15px" src="assets/imgs/star-icon.png">
+              &nbsp;
+              <div class="Caption03">{{store.grade}}</div>
+            </div>
+            <div class="Caption03">
+              거리: {{store.distance}}m
+            </div>
+          </div>
+          <div class="flex-content-col">
+            <!--즐겨찾기 됐을때-->
+            <img *ngIf="store.isBookMarked" (click)="removeFromBookmark(store)" width="80px" height="80px" src="assets/icon/bookmark-hand-filled.png">
+            <!--즐겨찾기 안됐을때-->
+            <img *ngIf="!store.isBookMarked" (click)="addToBookmark(store)" width="80px" height="80px" src="assets/icon/bookmark-hand-empty.png">
+          </div>
+        </div>
+      </div>
     </div>
     <div *ngSwitchCase="'반찬'">
     </div>

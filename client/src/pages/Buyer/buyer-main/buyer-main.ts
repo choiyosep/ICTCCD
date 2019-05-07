@@ -27,19 +27,23 @@ export class BuyerMainPage {
               private daumService : DaumService,
               private geoLocation : Geolocation,
   ) {
+    this.myAddress = this.sessionService.getLocation();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuyerMainPage');
   }
-  goToPage(str: string, catNum?: number) {
+  goToPage(str: string, catName: string) {
     switch (str) {
       case 'store-list':
-        this.navCtrl.push("StoreListPage",{catNum: catNum});
+        this.navCtrl.push("StoreListPage",{catName: catName});
         break;
       case 'cart-list':
-        this.navCtrl.push('CartListPage')
+        this.navCtrl.setRoot('CartListPage')
             break;
+      case 'book-mark':
+        this.navCtrl.setRoot('BookMarkPage')
+        break;
     }
   }
   setLocationBySearch(address: string){
@@ -59,10 +63,12 @@ export class BuyerMainPage {
         let lng = position.coords.longitude;
         //위치 정보를 기기에 저장
         this.sessionService.setLocation({lat: lat, lng: lng});
-        //위도 경도 정보 -> 도로명 주소로 변환
+        // 위도 경도 정보 -> 도로명 주소로 변환
         this.daumService.getAddress(lng, lat).subscribe(
           (res)=>{
-            this.myAddress = res;
+            if(res){
+              this.sessionService.setAddress(res);
+            }
           }
         )
       }
@@ -70,4 +76,7 @@ export class BuyerMainPage {
   }
 
 
+  getAddress() {
+    return this.sessionService.getAddress();
+  }
 }

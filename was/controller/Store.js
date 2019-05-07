@@ -2,7 +2,8 @@ const Store = require('../service/Store')
     ,Product = require('../service/product')
     ,Review = require('../service/review') 
     ,Response = require('../core/Response')
-    ,GeoPoint = require('geopoint');
+    ,GeoPoint = require('geopoint')
+    ,Bookmark = require('../service/Bookmark');
 
 //route -> controller -> service -> model
 
@@ -39,16 +40,16 @@ module.exports = {
                         products[i].images=[];
                         const images = await Product.getProductPictureById(products[i].prodNum);
                         for(let j=0; j<images.length; j++){
-                            products[j].images.push(images[j].pic_src);
+                            products[i].images.push(images[j].pic_src);
                         }
                      }
                      //상품을 store객체에 넣어준다.
-                     store.products= products;     
+                     store.products= products;
 
                      //리뷰 불러옴
                       const reviews = await Review.getReviewById(sellerId);
                       //리뷰를 store객체에 넣어준다.
-                      store.reviews =reviews
+                      store.reviews =reviews;
 
                     //상점 객체 반환
                     resolve(store);
@@ -142,17 +143,26 @@ module.exports = {
         })
     },
 
-    list: (lat, lng, catNum, radius) => {
+    list: (lat, lng, category, buyerId, radius) => {
         return new Promise(async (resolve, reject) =>{
             try{
-                const stores = await Store.getStoreList();
+                const stores = await Store.getStoreListByCategory(category);
                 const newStores = [];
                 for(let i=0; i<stores.length; i++){
-                   point1 =  new GeoPoint(stores[i].lat, stores[i].lng);
-                   point2 = new GeoPoint(stores[i].lat, stores[i].lng);
+                   let point1 =  new GeoPoint(Number(lat), Number(lng));
+                   let point2 = new GeoPoint(stores[i].lat, stores[i].lng);
                    var distance = point1.distanceTo(point2, true);
                    if(distance <radius){
-                       stores[i].distance = distance;
+                       //거리 설정(소수점 셋째자리)
+                       stores[i].distance = distance.toFixed(3);
+                       //즐겨찾기 여부 설정
+                       const isBookmarked = await Bookmark.isBookMarked(buyerId, stores[i].sellerId);
+                       stores[i].isBookMarked = isBookmarked;
+                       //사진 정보
+                       const images = await Store.getPicturesById(stores[i].sellerId);
+                       stores[i].images=[];
+                       //첫번째 사진
+                       stores[i].images.push(images[0].pic_src);
                        newStores.push(stores[i]);
                    }
                 }

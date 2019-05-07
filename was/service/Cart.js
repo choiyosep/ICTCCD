@@ -1,7 +1,6 @@
-const Store = require('../model/Store'),
-    Store_picture = require('../model/Store_picture'),
-    Store_product = require('../model/product'),
-    Store_review = require('../model/review')
+const Cart = require('../model/Cart')
+    , DB = require('../core/Database')
+    , Response = require('../core/Response');
 
 //route -> controller -> service -> model
 
