@@ -70,22 +70,14 @@ module.exports = {
                 //등록된 상품이 있는지 검사한다.
                 const hasProduct = await Product.has(prodNum);
                 //등록된 상품이 있으면 수정하자 ^^
-                console.log(hasProduct);//1
                 if(hasProduct){
-                    console.log("상품 수정");
-
                     //상품 수정
                     const rs = await Product.updateProduct(prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state);
-                    console.log(rs);
-
                     //상품 사진 삭제
-
                     await Product.deleteProductPicture(prodNum);
-
                     //상품 사진 등록
                     for(let i=0; i< images.length; i++)
                         await Product.createProductPicture(prodNum, images[i]);
-
                     resolve("수정완료");
                 }else{//등록된 상품이 없으면
                     //exception 발생시킴
@@ -103,24 +95,16 @@ module.exports = {
     
         return new Promise( async (resolve, reject ) =>{
             try{
-                console.log("이미지:");
-                console.log(images);
-                console.log(prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state);
                 //등록된 상품이 있는지 검사한다.
                 const hasProduct = await Product.has(prodNum);
                 //product.service파일로 넘긴다.
-                console.log(hasProduct);
                 //등록된 상품이 없으면 등록하자 ^^
                 if(!hasProduct){
-
                     //상품 등록
                     const rs = await Product.createProduct(prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state);
-
                     //상품 사진 등록
                     for(let i=0; i< images.length; i++)
                         await Product.createProductPicture(prodNum, images[i]); 
-
-                    console.log(rs);
                     resolve(rs);
                 }else{//등록된 상품이 있으면
                     //exception 발생시킴
@@ -139,7 +123,6 @@ module.exports = {
                 //등록된 상품이 있는지 검사한다.
                 const hasProduct = await Product.has(prodNum);
                 //등록된 상품이 있으면 삭제하자 ^^
-                console.log(hasProduct);
                 if(hasProduct){
                     //상품 삭제   ( 상품 삭제시 상품 사진도 삭제 됩니다. 외래키 ON DELETE CASCADE )
                     await Product.deleteProduct(prodNum);

@@ -42,8 +42,6 @@ module.exports = {
         return new Promise( async (resolve, reject) =>{
             try{
                 const count = await Store_product.count('prodNum', prodNum);
-                console.log("개수");
-                console.log(count);
                 resolve((count>0)? true: false);
             }catch(err){
                 reject(err);
@@ -54,7 +52,6 @@ module.exports = {
 //상품,상품 사진 추가
     createProduct: (prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state) => {
         //객체 생성
-        console.log("createProduct");
         const product_obj = {
             prodNum : prodNum,
             sellerId : sellerId,
@@ -65,7 +62,6 @@ module.exports = {
             stock : stock,
             state : state
         };
-        console.log(product_obj);
         return Store_product.create(product_obj);
     },
 

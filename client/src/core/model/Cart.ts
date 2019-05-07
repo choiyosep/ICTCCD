@@ -1,7 +1,7 @@
 import {Serializable} from "../helper/serializable";
 import {IModel} from "./interface";
 import {CartProduct} from "./CartProduct";
-export class Product extends Serializable implements IModel{
+export class Cart extends Serializable implements IModel{
 
   //장바구니 번호
   cartNum: number;

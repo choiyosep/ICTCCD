@@ -59,8 +59,8 @@ export class SessionService {
     localStorage.clear();
   }
 
-  // private isExpired(expire: string): boolean {
-  //   const expireDate = Date.parse(expire);
-  //   return expireDate <= Date.now();
-  // }
+  public setLocation(locationData: any){
+    localStorage.setItem("location", JSON.stringify(locationData));
+  }
+
 }
