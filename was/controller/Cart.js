@@ -1,5 +1,5 @@
 const Cart = require('../service/Cart')
-    ,Product = require('../service/Product')
+    ,Product = require('../service/product')
     ,Response = require('../core/Response')
     ,GeoPoint = require('geopoint');
 

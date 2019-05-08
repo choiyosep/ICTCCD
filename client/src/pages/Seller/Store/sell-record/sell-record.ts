@@ -54,7 +54,7 @@ export class SellRecordPage{
       this.Product3.qty=3,
       this.Product3.salePrice=500;
 
-
+//각각의 product객체들을 sellArray에 넣어줌
     this.sellArray.push(this.Product1);
     this.sellArray.push(this.Product2);
     this.sellArray.push(this.Product3);
@@ -72,7 +72,7 @@ export class SellRecordPage{
         icon: 'ios-add-circle-outline',
         showDetails: false
       });
-    }
+    } 
 
   }
 

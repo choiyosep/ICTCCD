@@ -90,25 +90,27 @@ module.exports = {
        
     },
 
-    create: (prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state,images) =>{
+    create: ( sellerId, prodName, originalPrice, discountRate, salePrice, stock, state,images) =>{
     
         return new Promise( async (resolve, reject ) =>{
             try{
                 //등록된 상품이 있는지 검사한다.
-                const hasProduct = await Product.has(prodNum);
+                //const hasProduct = await Product.has(prodNum);
                 //product.service파일로 넘긴다.
                 //등록된 상품이 없으면 등록하자 ^^
-                if(!hasProduct){
+                
                     //상품 등록
-                    const rs = await Product.createProduct(prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state);
+                    const rs = await Product.createProduct( sellerId, prodName, originalPrice, discountRate, salePrice, stock, state);
                     //상품 사진 등록
+                    const prodNum =rs.insertId;
+                    console.log(rs);
                     for(let i=0; i< images.length; i++)
                         await Product.createProductPicture(prodNum, images[i]); 
                     resolve(rs);
-                }else{//등록된 상품이 있으면
+               /*  }else{//등록된 상품이 있으면
                     //exception 발생시킴
                     throw Response.get(Response.type.PRODUCT_ALREADY_EXIST, {});
-                }
+                } */
             }catch(err){
                 console.log(err);
                 reject(err);

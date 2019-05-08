@@ -50,10 +50,10 @@ module.exports = {
 
     },
 //상품,상품 사진 추가
-    createProduct: (prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state) => {
+    createProduct: (sellerId, prodName, originalPrice, discountRate, salePrice, stock, state) => {
         //객체 생성
         const product_obj = {
-            prodNum : prodNum,
+            //prodNum : prodNum,
             sellerId : sellerId,
             prodName : prodName,
             originalPrice : originalPrice,

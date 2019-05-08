@@ -39,7 +39,7 @@ Router.post(
     Handler.request(
         Ctrl.create,
         (req, res, next) => [
-            req.body['prodNum'],
+            //req.body['prodNum'],
             req.body['sellerId'],
             req.body['prodName'],
             req.body['originalPrice'],

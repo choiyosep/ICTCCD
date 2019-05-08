@@ -166,6 +166,7 @@ module.exports = {
                        newStores.push(stores[i]);
                    }
                 }
+                //거리순으로 sorting
                 resolve(newStores);
             }catch(err){
                 console.log(err);
