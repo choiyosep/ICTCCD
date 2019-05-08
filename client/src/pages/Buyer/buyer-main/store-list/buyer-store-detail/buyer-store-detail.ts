@@ -81,7 +81,9 @@ private myInput;
     }
   }
 
-  goToPage(str: string, productId: string) {
+  goToPage(str: string, product?: Product) {
+
+    console.log(product);
     switch (str) {
       case 'store-create':
         this.navCtrl.push('StoreCreateComponent');
@@ -91,7 +93,7 @@ private myInput;
         break;
 
       case 'product-detail' :
-        this.navCtrl.push('ProductDetailPage');
+        this.navCtrl.push('ProductDetailPage', {product: product});
         break;
     }
   }

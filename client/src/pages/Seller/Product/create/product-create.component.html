@@ -21,7 +21,7 @@
     <div *ngFor="let item of items; let i=index" class="store-create-image">
       <label for="file-input{{i}}">
         <img class="store-create-image"  *ngIf="product.images[i]==null" src="assets/imgs/picture_add_button.PNG"/>
-        <img class="store-create-image" *ngIf="product.images[i]!=null">
+        <img class="store-create-image" *ngIf="product.images[i]!=null" [src]="product.images[i]">
       </label>
       <input id="file-input{{i}}" (change)="imageUpload($event,i)" hidden type="file"/>
       <img *ngIf="product.images[i]!=null" (click)="imageDelete(i)" class="image-delete-button" src="assets/imgs/image-delete-button.png"/>

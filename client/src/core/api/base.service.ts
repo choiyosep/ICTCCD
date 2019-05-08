@@ -15,6 +15,7 @@ export class BaseService {
   }
 
   public add<T>(item: IModel, withFile: boolean = false): Observable<IResponse<T>> {
+    console.log(item.toObject());
     return this.http.post(`${this.controllerName}`, item.toObject(), withFile);
   }
 

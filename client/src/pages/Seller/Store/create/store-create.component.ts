@@ -173,6 +173,7 @@ export class StoreCreateComponent {
     let frameElement: HTMLElement = document.getElementById('daumIframe');
     frameElement.style.display='block';
     frameElement.style.height="100%";
+    frameElement.setAttribute('src','assets/juso.html');
     document.getElementById('formContent').style.display="none";
   }
 
@@ -188,7 +189,7 @@ export class StoreCreateComponent {
   imageUpload(event, i: number) {
     const file = event.target.files[0];
     const loginId = this.sessionService.getValue("loginId");
-    this.awsService.getUploadUrl(loginId)
+    this.awsService.getUploadUrl(loginId+"-store")
       .subscribe((res: IResponse<any>) => {
         if (res&&res.code === RESPONSE_CODE.SUCCESS) {
           this.uploadService.upload(res.data.url, file).subscribe((response: HttpResponse<any>) => {

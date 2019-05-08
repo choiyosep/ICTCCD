@@ -82,7 +82,7 @@
       <div *ngSwitchCase="'menu'">
         <div class="product-card-area">
           <product-card
-            (click)="goToPage('product-modify', product._id)"
+            (click)="goToPage('product-modify', product)"
             *ngFor="let product of userStore.products"
             [product]="product"></product-card>
         </div>

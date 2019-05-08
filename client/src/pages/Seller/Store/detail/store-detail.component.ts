@@ -4,6 +4,7 @@ import {SessionService} from "../../../../core/service/session.service";
 import {UserStore} from "../../../../core/model/UserStore";
 import {StoreService} from "../../../../core/api/store.service";
 import {Converter} from "../../../../core/helper/converter";
+import {Product} from "../../../../core/model/Product";
 /**
  * Generated class for the StoreDetailPage page.
  *
@@ -79,7 +80,7 @@ export class StoreDetailComponent{
 
 
 
-  goToPage(str: string) {
+  goToPage(str: string, product?:Product) {
     switch (str) {
       case 'store-create':
         this.navCtrl.push('StoreCreateComponent');
@@ -92,7 +93,7 @@ export class StoreDetailComponent{
         this.navCtrl.push('ProductCreateComponent');
         break;
       case 'product-modify' :
-        this.navCtrl.push('ProductModifyComponent');
+        this.navCtrl.push('ProductModifyComponent',{product: product});
         break;
 
     }

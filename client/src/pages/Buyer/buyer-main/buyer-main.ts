@@ -31,6 +31,9 @@ export class BuyerMainPage {
   }
 
   ionViewDidLoad() {
+    if(this.sessionService.getLocation()==null){
+      this.setLocationBySearch("경기 수원시 영통구 월드컵로 206");
+    }
     console.log('ionViewDidLoad BuyerMainPage');
   }
   goToPage(str: string, catName: string) {
@@ -47,6 +50,7 @@ export class BuyerMainPage {
     }
   }
   setLocationBySearch(address: string){
+    this.sessionService.setAddress(address);
     //도로명 주소로 위도, 경도를 받아온다.
     this.daumService.getLocation(address).subscribe
     ( (res) =>{
