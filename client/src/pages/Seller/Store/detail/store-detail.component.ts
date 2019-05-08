@@ -64,7 +64,7 @@ export class StoreDetailComponent{
     this.storeService.get(id).subscribe((res) =>{
       if(res && res.code==1){
         this.userStore=res.data;
-       // console.log(this.userStore);
+        console.log(this.userStore);
         this.userStore.operatingHour =
           Converter.timesTohours(this.userStore.sHour, this.userStore.sMinute, this.userStore.eHour, this.userStore.eMinute)
 

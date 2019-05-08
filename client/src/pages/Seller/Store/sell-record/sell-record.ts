@@ -33,7 +33,7 @@ export class SellRecordPage{
   constructor(public navCtrl: NavController, public navParams: NavParams)
   {
 
-     this.DateArray.push("2019-04-30");
+    this.DateArray.push("2019-04-30");
     this.DateArray.push("2019-04-29");
     this.DateArray.push("2019-04-28");
 

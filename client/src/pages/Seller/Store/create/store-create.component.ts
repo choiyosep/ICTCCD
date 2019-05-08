@@ -169,10 +169,13 @@ export class StoreCreateComponent {
     this.navCtrl.pop();
   }
 
+  //store-create.component.html 에서 다음 주소 API이용할때 부름
   startJusoSearch(){
     let frameElement: HTMLElement = document.getElementById('daumIframe');
     frameElement.style.display='block';
     frameElement.style.height="100%";
+    frameElement.setAttribute('src','assets/juso.html');
+    //frameElement.setAttribute('src','http://localhost:3000/daumJuso');
     document.getElementById('formContent').style.display="none";
   }
 
