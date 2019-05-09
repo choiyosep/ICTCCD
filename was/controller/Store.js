@@ -195,7 +195,7 @@ module.exports = {
                     await newStores.push(sorting_Store[i]);
                     console.log(sorting_Store[i].distance)
                 }
-                console.log("최종"+sorting_Store[1].distance)
+                // console.log("최종"+sorting_Store[1].distance)
                 resolve(newStores);
             }catch(err){
                 console.log(err);

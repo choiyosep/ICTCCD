@@ -8,9 +8,8 @@
   <ion-toolbar>
   <div class="flex-area-row-space-between">
     <div class="back" (click)="goToPage('store-detail')">홈으로</div>
-    <div class="confirm" (click)="goToPage('store-detail')">저장</div>
+    <div class="confirm">저장</div>
   </div>
-
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -23,16 +22,18 @@
         <div *ngFor="let item of items; let i=index" class="store-create-image">
           <label for="file-input{{i}}">
             <img class="store-create-image" *ngIf="product.images[i]==null" src="assets/imgs/picture_add_button.PNG"/>
-            <img class="store-create-image" *ngIf="product.images[i]!=null">
+            <img class="store-create-image" *ngIf="product.images[i]!=null" [src]="product.images[i]">
           </label>
-          <input [disabled]="product.state==1 || product.state==2" id="file-input{{i}}" (change)="imageUpload($event,i)" hidden type="file"/>
-          <img *ngIf="product.images[i]!=null&&(product.state==0||product.state==3)" (click)="imageDelete(i)" class="image-delete-button" src="assets/imgs/image-delete-button.png"/>
+          <input id="file-input{{i}}" (change)="imageUpload($event,i)" hidden type="file"/>
+          <img *ngIf="product.images[i]!=null" (click)="imageDelete(i)" class="image-delete-button" src="assets/imgs/image-delete-button.png"/>
         </div>
       </div>
       <br style="line-height: 16px;">
+  {{product.state}}<br>
+  {{onsale}}
       <div class="Title_Input">
         상품명<span class="Red Body04">&nbsp;*</span>
-        <!--<ion-toggle (ngModelChange)="changeState()" [(ngModel)]="product.state"></ion-toggle>-->
+        <ion-toggle (ionChange)="changeState($event)" [(ngModel)]="onsale"></ion-toggle>
       </div>
       <input class="input_box" [(ngModel)]="product.prodName">
       <br style="line-height: 16px;">
@@ -49,7 +50,7 @@
         </div>
         <div class="semi-content-area">
           <div class="Title_Input">
-            할인가격
+            판매가격
             <span class="Red Body04">&nbsp;*</span>
           </div>
           <div class="flex-area-row" style="position:relative">
