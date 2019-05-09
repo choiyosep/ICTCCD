@@ -148,10 +148,12 @@ module.exports = {
             try{
                 const stores = await Store.getStoreListByCategory(category);
                 const newStores = [];
+                const sorting_Store = [];
                 for(let i=0; i<stores.length; i++){
                    let point1 =  new GeoPoint(Number(lat), Number(lng));
                    let point2 = new GeoPoint(stores[i].lat, stores[i].lng);
                    var distance = point1.distanceTo(point2, true);
+                   //point1과 point2 거리 계산해서 삽입
                    if(distance <radius){
                        //거리 설정(소수점 셋째자리)
                        stores[i].distance = distance.toFixed(3);
@@ -162,11 +164,38 @@ module.exports = {
                        const images = await Store.getPicturesById(stores[i].sellerId);
                        stores[i].images=[];
                        //첫번째 사진
-                       stores[i].images.push(images[0].pic_src);
-                       newStores.push(stores[i]);
-                   }
+                        stores[i].images.push(images[0].pic_src);
+                       // console.log("store:["+i+"]:"+stores[i]);
+                        
+                        //sorting_Store
+                        sorting_Store.push(stores[i]);
+                        //console.log(sorting_Store);//undefined
+                        
+              
+                    }
+                    
+                }//for 문끝남. 거리순으로 sorting
+                 for (let i = 1; i < sorting_Store.length; i++) {
+                    //console.log(sorting_Store.length)22
+                    const key = sorting_Store[i];
+                    //console.log(i+":"+key)
+                    let position=i-1;
+                    //console.log(key.distance)//12.222
+                    while (position >=0 && key.distance < sorting_Store[position].distance) {
+                        sorting_Store[position+1]=sorting_Store[position] ;
+                        position--;
+                    }
+                       sorting_Store[position+1]=key;
+                       console.log("111"+JSON.stringify(sorting_Store[position+1]))
+
+                } 
+                
+               //sorting한 데이터 삽입
+                for(let i = 0; i < sorting_Store.length; i++){
+                    await newStores.push(sorting_Store[i]);
+                    console.log(sorting_Store[i].distance)
                 }
-                //거리순으로 sorting
+                console.log("최종"+sorting_Store[1].distance)
                 resolve(newStores);
             }catch(err){
                 console.log(err);

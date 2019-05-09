@@ -102,6 +102,14 @@ module.exports = {
             }
         })
 
+    },
+    insertAlgo: (sorting_Store,key,position)=>{
+        while (position > 0 && key.distance < sorting_Store[position - 1].distance) {
+            sorting_Store[position] = sorting_Store[position - 1];
+            position--;
+        }
+        sorting_Store[position] = key;
+        console.log(sorting_Store[position]);
     }
 
 }
