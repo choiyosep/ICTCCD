@@ -1,16 +1,11 @@
 const AWS_SDK = require('aws-sdk')
     , Response = require('../core/Response')
-   , CONFIG_PATH = '../config/AWS.json';
+   , CONFIG_PATH = './config/AWS.json';
 
 module.exports = {
-
-   // AWS.config.update({})
-
     getSignedUploadUrl: (bucket, folder, key) => {
         return new Promise((resolve, reject) => {
-
             AWS_SDK.config.loadFromPath(CONFIG_PATH);
-
             const s3 = new AWS_SDK.S3({signatureVersion: 'v4'});
             const path = (folder)? folder + '/' + key : key;
             const params = {

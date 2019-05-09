@@ -32,7 +32,7 @@ Router.get(
     ));
 
 Router.post(
-    '/create',
+    '',
     [
 
     ],
@@ -53,7 +53,7 @@ Router.post(
         ]
     ));
 Router.put(
-    '/update/:prodNum',
+    '/:prodNum',
     [
 
     ],
@@ -73,7 +73,7 @@ Router.put(
     ));
 
 Router.delete(
-    '/delete/:prodNum',
+    '/:prodNum',
     [
 
     ],

@@ -107,7 +107,10 @@ export class ProductCreateComponent{
 
     //상품 추가작업
     this.productService.add(this.product).subscribe((res) =>{
-      console.log(res);
+      if(res&& res.code == RESPONSE_CODE.SUCCESS){
+        this.toast("등록 완료");
+        this.navCtrl.setRoot("StoreDetailComponent");
+      }
     });
   }
 

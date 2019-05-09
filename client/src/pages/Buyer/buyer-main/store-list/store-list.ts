@@ -42,23 +42,6 @@ export class StoreListPage {
     if(catName!=undefined){
       this.setContents(catName);
     }
-
-    var store1 = new UserStore();
-    store1.title = "브라운 파파";
-    store1.grade = 4.5;
-    store1.distance = 130;
-    store1.isBookMarked=true;
-    store1.images.push("http://www.reputation.kr/news/photo/201803/56_121_2159.jpg");
-
-    var store2 = new UserStore();
-    store2.title = "라두스 베이커리";
-    store2.grade = 4.9;
-    store2.distance = 190;
-    store2.isBookMarked=false;
-    store2.images.push("https://fastly.4sqi.net/img/general/600x600/29176994_bX10YpLlXDPjcq-f0LXaPG02fwyq5XLEkXQg_L7ACro.jpg");
-
-    this.bakeryStoreList.push(store1);
-    this.bakeryStoreList.push(store2);
   }
 
   setContents(catName: any){
