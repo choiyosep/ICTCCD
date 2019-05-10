@@ -39,7 +39,7 @@ private myInput;
   ) {
 
 
-    this.contents = "review";
+    this.contents = "menu";
     this.userStore= new UserStore();
 
     this.userStore.title="이솝베이커리";
@@ -63,7 +63,7 @@ private myInput;
 
 
     var review: Review = new Review();
-    review.buyerId = 'zmfl1230';
+    review.buyerId = 'kkssjj0702';
     review.content = '짱~ 너무 좋았습니다. 사장님도 친절하시구오래된 제품같지  않았어요 ~~ 잘먹었네여.';
     review.rating = 4.7;
     review.revise=false;
@@ -118,6 +118,10 @@ private myInput;
       case 'product-detail' :
         this.navCtrl.push('ProductDetailPage');
         break;
+
+      // case 'review-create' :
+      //   this.navCtrl.push('ProductDetailPage');
+      //   break;
     }
   }
 
@@ -127,7 +131,7 @@ private myInput;
         if(document.getElementById("map")){
           document.getElementById("map").style.display="none";
         }
-        document.getElementById("product-add-button").style.display="";
+        document.getElementById("product-add-button").style.display="none";
         break;
       case 'info':
         if(document.getElementById("map")) {
@@ -138,8 +142,10 @@ private myInput;
       case 'review':
         if(document.getElementById("map")){
           document.getElementById("map").style.display="none";
+
         }
-        document.getElementById("product-add-button").style.display="none";
+        if (!this.check())
+          document.getElementById("product-add-button").style.display="";
         break;
 
 
@@ -147,6 +153,9 @@ private myInput;
   }
 
   revise(i){
+
+
+    this.myInput=this.userStore.reviews[i].content;
     document.getElementById(`revise${i}`).style.display = "none";
     document.getElementById(`delete${i}`).style.display = "none";
     document.getElementById(`content${i}`).style.display = "none";
@@ -169,17 +178,20 @@ private myInput;
 
   }
 
- /* findIndexToUpdate(newItem) {
-    return newItem.id === this;
-  }
-*/
+check() :boolean {
+  const loginId = this.session.getValue("loginId");
+  let flag = false;
+            for(let i=0; i< this.userStore.reviews.length; i++){
+              if(loginId==this.userStore.reviews[i].buyerId)
+                flag=true;
+            }
+            return flag;
 
-
-
-  hide(){
+}
+/*  hide(){
     document.getElementById('content').style.display = "none";
 
-  }
+  }*/
   delete(i:number) {
     let confirm = this.alertCtrl.create({
       title: '삭제하시겠습니까??',
@@ -212,6 +224,12 @@ private myInput;
 
   }
 
+  getId(){
+
+    const loginId = this.session.getValue("loginId");
+    return loginId;
+
+  }
 
 
 
