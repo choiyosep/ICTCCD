@@ -1,8 +1,6 @@
-const Cart = require('../service/Cart')
-   
-    ,Sale = require('../service/sale')
+const Sale = require('../service/sale')
     ,Response = require('../core/Response')
-    ,GeoPoint = require('geopoint');
+
 
 //route -> controller -> service -> model
 
@@ -12,14 +10,17 @@ module.exports = {
     saleList : (sellerId) => {
         return new Promise (async (resolve, reject ) =>{
             try{
-                //판매이력 받아오기
-                console.log(sellerId);
-                const rs = await Sale.saleList(sellerId);
-                console.log(rs);
+                const hasStore = await Store.has(sellerId);
+                if (hasStore) {
+                    //판매이력 받아오기
+                    const rs = await Sale.getSaleList(sellerId);
+
+                    resolve(rs);
+                }else
+                    throw Response.get(Response.type.STORE_NOT_FOUND,{});
                 //판매이력 삭제
-                await Sale.deleteSaleRecord(saleNum);
-                
-                resolve(rs);
+                //await Sale.deleteSaleRecord(saleNum);
+           
             }catch(err){
                 console.log(err);
                 reject(err);

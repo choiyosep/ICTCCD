@@ -26,10 +26,11 @@ module.exports = {
         console.log(sellerId);
         return new Promise(async (resolve, reject) => {
             try {
+                const isBookmarked = await bookMark.isBookMarked(buyerId, sellerId);
                 DB.conn.getConnection((err, conn) => {
                     const query = `DELETE FROM bookmark WHERE buyerId = '${buyerId}' and sellerId = '${sellerId}'`;
                     conn.query(query, null, (err, results, fields) => {
-                        const isBookmarked = await bookMark.isBookMarked(buyerId, sellerId);
+                        
                         if (!isBookmarked) {
                             reject(Response.get(Response.type.HAVE_NO_BOOKMARK,{} ));
                         } else {

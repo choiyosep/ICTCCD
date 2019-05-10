@@ -6,7 +6,7 @@ const Router = require('express').Router()
 
 
 Router.get(
-    '/salelist/:sellerId',
+    '/:sellerId',
     [
 
     ],
