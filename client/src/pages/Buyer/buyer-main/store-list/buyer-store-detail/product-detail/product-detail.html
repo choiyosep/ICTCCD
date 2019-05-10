@@ -17,7 +17,7 @@
   </ion-slides>
   <br style="line-height: 30px">
   <div class="Heading">
-    {{product.prodName}}
+    {{product?.prodName}}
   </div>
   <br style="line-height: 30px">
 
@@ -25,14 +25,14 @@
     <div class="semi-content-area">
       <div class="product-property-name">가격</div>
       <div class="product-property-value">
-        {{product.originalPrice|number}}
+        {{product?.originalPrice|number}}
         <span class="product-property-measure">원</span>
       </div>
     </div>
     <div class="semi-content-area">
       <div class="product-property-name">판매가격</div>
       <div class="product-property-value-gold">
-        {{product.salePrice|number}}
+        {{product?.salePrice|number}}
         <span class="product-property-measure-gold">원</span>
       </div>
     </div>
@@ -42,14 +42,14 @@
     <div class="semi-content-area">
       <div class="product-property-name">할인률</div>
       <div class="product-property-value">
-        {{product.discountRate|number}}
+        {{product?.discountRate|number}}
         <span class="product-property-measure">%</span>
       </div>
     </div>
     <div class="semi-content-area">
       <div class="product-property-name">수량</div>
       <div class="product-property-value">
-        {{product.stock|number}}
+        {{product?.stock|number}}
         <span class="product-property-measure">개</span>
       </div>
     </div>

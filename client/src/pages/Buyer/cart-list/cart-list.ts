@@ -1,8 +1,8 @@
 import {Component, EventEmitter} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Product} from "../../../core/model/Product"
-import { QueryBindingType } from '@angular/compiler/src/core';
-import { CheckboxRequiredValidator } from '@angular/forms';
+import {Cart} from "../../../core/model/Cart";
+import {CartService} from "../../../core/api/cart.service";
 
 /**
  * Generated class for the CartListPage page.
@@ -28,7 +28,11 @@ export class CartListPage {
   private product2: Product;
   private product3: Product;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private cart: Cart ;
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private cartService : CartService) {
     this.totalPrice = 0;
     this.allChecked = false;
 
@@ -74,6 +78,12 @@ export class CartListPage {
       product.checked = this.allChecked;
     }
   }
+
+
+  order(){
+    this.cartService.order(this.cart);
+  }
+
 }
 
 

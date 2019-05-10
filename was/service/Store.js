@@ -12,9 +12,12 @@ module.exports = {
     //상점 테이블에서 상점 정보 불러온다
     getStoreById: (sellerId)=> {
         const store = Store.getOne('sellerId', sellerId);
-        //Store.getOne은 basemodelformysql 
-        //상점에 대한 정보를 getOne으로 불러온다.
         return store;
+    },
+
+    getStoreListByCategory: (category)=>{
+        const stores = Store.getList('category', category);
+        return stores;
     },
 
     //상점_사진 테이블에서 상점의 사진 파일 정보를 불러온다
@@ -100,5 +103,6 @@ module.exports = {
         })
 
     }
+    
 
 }

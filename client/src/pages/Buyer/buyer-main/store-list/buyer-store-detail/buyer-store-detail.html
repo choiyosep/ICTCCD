@@ -13,12 +13,10 @@
   <div>
     <ion-slides class="slides" >
       <!--ngFor 이용-->
-      <ion-slide>
-        <img src="http://files.mirweb.co.kr/mwa_m128/0601_2/81aaafa49cad328ad782a5489f928761.jpg">
+      <ion-slide *ngFor="let image of userStore?.images">
+        <img [src]="image">
       </ion-slide>
-      <ion-slide>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQytD96PuRxFJc17oDzA8ZQ5K0uLtYNSh3PRNWlORF2qQJz62BOUQ">
-      </ion-slide>
+
     </ion-slides>
   </div>
 
@@ -49,7 +47,7 @@
       주소
     </div>
     <div class="store-property-value">
-      {{userStore?.mainAddr}} {{userStore?.detailAddr}}
+      {{userStore?.address}}
     </div>
   </div>
   <br>
@@ -71,18 +69,17 @@
     <div *ngSwitchCase="'menu'">
       <div class="product-card-area">
         <product-card2
-          (click)="goToPage('product-detail', product._id)"
-          *ngFor="let product of userStore.products"
+          (click)="goToPage('product-detail', product)"
+          *ngFor="let product of userStore?.products"
           [product]="product"></product-card2>
       </div>
     </div>
     <div *ngSwitchCase="'info'">
     </div>
     <div *ngSwitchCase="'review'">
-      <!--{{userStore.reviews|json}}-->
-      <!--{{myInput}}-->
 
-      <div *ngFor="let review of userStore.reviews; let i = index"  class="review-card">
+      <div *ngFor="let review of userStore?.reviews; let i = index"  class="review-card">
+
         <div  class="review-header">
 
           <div class="review-buyer-Id">
@@ -127,7 +124,9 @@
 
 
   <div id="map" class="store-location-image"></div>
+
   <img id="product-add-button" ion-fixed="true" style="display:none;" class="add-circle" src="assets/icon/icon_add.png">
+
 
 
 

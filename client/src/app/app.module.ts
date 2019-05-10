@@ -14,6 +14,11 @@ import {StoreService} from "../core/api/store.service";
 import {UploadService} from "../core/service/upload.service";
 import {AwsService} from "../core/api/aws.service";
 import {DaumService} from "../core/service/daum.service";
+import { Geolocation } from '@ionic-native/geolocation';
+import {CartService} from "../core/api/cart.service";
+import {ProductService} from "../core/api/product.service";
+import { BookmarkService } from '../core/api/bookmark.service';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +48,11 @@ import {DaumService} from "../core/service/daum.service";
     HttpClient,
     StoreService,
     UploadService,
-    DaumService
+    DaumService,
+    Geolocation,
+    CartService,
+    ProductService,
+    BookmarkService
   ]
 })
 export class AppModule {}

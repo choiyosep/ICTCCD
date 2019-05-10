@@ -4,77 +4,48 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header xmlns:text-align="http://www.w3.org/1999/xhtml">
-
+<ion-header>
   <ion-toolbar>
-
-
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
-
     </button>
-
-
     <div class="flex-area-row">
-    <ion-searchbar width="40px" placeholder="위치검색"  ></ion-searchbar>
-
-
-    <button ion-button gpstoggle>
-      <ion-icon  name="pin"></ion-icon>
-    </button>
-
-</div>
+      <input class="address-finder" [value]="getAddress()" placeholder="주소검색">
+      <button class="gps-button" (click)="setLocationByGPS()" ion-button gpstoggle>
+        <ion-icon style="zoom:0.5;" name="pin"></ion-icon>
+      </button>
+    </div>
   </ion-toolbar>
-
 </ion-header>
 
 <ion-content padding>
-
-
-<div class="line">
-<div class="row" >
-        <div class="col"  align="center"(click)="goToPage('store-list')">
-          <img  src="assets/imgs/bakery.png">
-
-        </div>
-
-
-
-
-  <div class="col" (click)="goToPage('store-list')">
-        <img src="assets/imgs/tteokbokki.png">
+  <div class="line">
+    <div class="row">
+      <div class="col" align="center" (click)="goToPage('store-list', '제과')">
+        <img src="assets/imgs/bakery.jpg">
       </div>
-
-</div>
-
-  <div class="row">
-    <div class="col"(click)="goToPage('store-list')">
+      <div class="col" (click)="goToPage('store-list', '분식')">
+        <img src="assets/imgs/tteokbokki.jpg">
+      </div>
     </div>
-
-
-
-    <div class="col"  (click)="goToPage('store-list')">
-      <img  src="assets/imgs/banchan.png">
+    <div class="row">
+      <div class="col" (click)="goToPage('store-list', '반찬')">
+        <img src="assets/imgs/banchan.jpg">
+      </div>
+      <div class="col" (click)="goToPage('store-list', '떡')">
+        <img src="assets/imgs/ricecake.jpg">
+      </div>
     </div>
-
+    <div class="row">
+      <div class="col" (click)="goToPage('cart-list')">
+        <img src="assets/imgs/cart.png">
+      </div>
+      <div class="col" (click)="goToPage('book-mark')">
+        <img src="assets/imgs/review.png">
+      </div>
+    </div>
   </div>
-
-  <div class="row">
-    <div class="col" (click)="goToPage('cart-list')">
-      <img  src="assets/imgs/cart.png">
-    </div>
-
-
-
-    <div class="col"  (click)="goToPage('store-list')">
-      <img  src="assets/imgs/review.png">
-    </div>
-
-  </div>
-
-
-</div>
-    <ion-searchbar  placeholder="상품/상점검색" ></ion-searchbar>
+  <ion-searchbar placeholder="상품/상점검색"></ion-searchbar>
 
 
 </ion-content>

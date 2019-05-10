@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Product} from "../../../../../../core/model/Product";
 import {ToastService} from "../../../../../../core/service/toast.service";
+import {CartService} from "../../../../../../core/api/cart.service";
+import {CartProduct} from "../../../../../../core/model/CartProduct";
+import {SessionService} from "../../../../../../core/service/session.service";
+import {RESPONSE_CODE} from "../../../../../../core/service/response.service";
+import {Converter} from "../../../../../../core/helper/converter";
 
 /**
  * Generated class for the ProductDetailPage page.
@@ -22,24 +27,24 @@ export class ProductDetailPage {
 
   private product: Product;
 
+  private cartProduct: CartProduct;
+
 
   private amount: number = 0;
 
   constructor(private  navParams: NavParams,
               private navCtrl : NavController,
               private toastService : ToastService,
-              private alertCtrl : AlertController
+              private alertCtrl : AlertController,
+              private cartService : CartService,
+              private sessionService : SessionService
   ) {
-    this.product = new Product();
 
-    this.product.prodName="소보로빵";
-    this.product.discountRate=20;
-    this.product.originalPrice=1000;
-    this.product.stock=10;
-    this.product.salePrice=800;
-    this.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
-    this.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
+    if(this.navParams.get("product")!=undefined){
+      this.product = this.navParams.get("product");
+    }
 
+    console.log(this.navParams.get("product"));
   }
 
 
@@ -95,6 +100,21 @@ export class ProductDetailPage {
     //장바구니 추가 작업
   }
 
+
+  // cartAdd( quantity : number){
+  //   this.cartProduct = new CartProduct();
+  //   //구매자 아이디 (로그인한 아이디)
+  //   this.cartProduct.buyerId =
+  //     this.sessionService.getValue("loginId");
+  //   //판매자 아이디
+  //   this.cartProduct.sellerId = this.product.sellerId;
+  //   //상품 아이디
+  //   this.cartProduct.prodNum = this.product.prodNum;
+  //   //구매할 수량
+  //   this.cartProduct.quantity = quantity;
+  //   //장바구니 담기
+  //   this.cartService.add(this.cartProduct);
+  // }
 
 
 }

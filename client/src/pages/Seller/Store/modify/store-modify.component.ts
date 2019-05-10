@@ -36,7 +36,6 @@ export class StoreModifyComponent{
   private openTime : TimePick;
   private closingTime : TimePick;
 
-  private endPoint: string = environment.API_ENDPOINT;
 
   element: any;
 
@@ -176,8 +175,8 @@ export class StoreModifyComponent{
         this.storeService.modify(this.userStore, this.userStore.sellerId).subscribe((res) =>{
           if(res&&res.code!=undefined){
             if(res.code==1) {
-              this.navCtrl.setRoot("StoreDetailComponent");
               this.toast("수정 완료");
+              this.navCtrl.setRoot("StoreDetailComponent");
             }else{
               this.toast(res.msg);
             }
@@ -236,10 +235,6 @@ export class StoreModifyComponent{
 
   startJusoSearch(){
     let frameElement: HTMLElement = document.getElementById('daumIframe');
-    frameElement.setAttribute(
-      'src',
-      environment.API_ENDPOINT+'daumJuso'
-    );
     frameElement.style.display='block';
     frameElement.style.height="100%";
 
@@ -248,7 +243,6 @@ export class StoreModifyComponent{
 
   closeDaumIframe(){
     let frame = document.getElementById("daumIframe");
-    frame.setAttribute('src','about:blank');
     document.getElementById('daumIframe').setAttribute('height','0px');
     document.getElementById('daumIframe').style.height="0px";
     document.getElementById('daumIframe').style.border="0px";

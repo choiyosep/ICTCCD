@@ -21,7 +21,7 @@ export class Product extends Serializable implements IModel{
   salePrice: number;
 
   //재고량
-  stock : number;
+  stock : number = 0 ;
 
   //구매한 양에 쓰일 변수
 
@@ -39,14 +39,14 @@ export class Product extends Serializable implements IModel{
   toObject(): object {
     return {
       prodNum: this.prodNum,
-      prodName: this.prodName,
       sellerId: this.sellerId,
+      prodName: this.prodName,
       originalPrice: this.originalPrice,
-      salePrice: this.salePrice,
       discountRate: this.discountRate,
+      salePrice: this.salePrice,
       stock: this.stock,
-      images: this.images,
-      state: this.state
+      state: this.state,
+      images: this.images
     }
   }
 

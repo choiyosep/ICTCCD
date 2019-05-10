@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, ToastController} from "ionic-angular";
 import {Product} from "../../../../core/model/Product";
+import {Converter} from "../../../../core/helper/converter";
+import {UserStore} from "../../../../core/model/UserStore";
+import {TimePick} from "../../../../core/model/timePick";
+import {IResponse, RESPONSE_CODE} from "../../../../core/service/response.service";
+import {HttpResponse} from "@angular/common/http";
+import {SessionService} from "../../../../core/service/session.service";
+import {AwsService} from "../../../../core/api/aws.service";
+import {UploadService} from "../../../../core/service/upload.service";
 
 /**
  * Generated class for the StoreDetailPage page.
@@ -20,19 +28,29 @@ import {Product} from "../../../../core/model/Product";
 export class ProductModifyComponent{
   private product: Product;
   private items = [];
-
-
-  private originalPrice: number;
+  private onsale: boolean;
 
   constructor(
-              private navParams: NavParams,
+              private navParam: NavParams,
               private alertCtrl: AlertController,
               private toastCtrl : ToastController,
-              public navCtrl: NavController
+              public navCtrl: NavController,
+              private sessionService : SessionService,
+              private awsService : AwsService,
+              private uploadService : UploadService
   ) {
     this.product= new Product();
-
     this.items.push(1);
+
+    if(this.navParam.get("product")!=undefined){
+      this.product= Converter.jsonToInstance(Product, this.navParam.get("product"));
+
+      this.onsale = (this.product.state=="1")? true: false;
+
+      for(let i=0; i<this.product.images.length; i++) {
+        this.items.push(1);
+      }
+    }
 
   }
 
@@ -134,4 +152,34 @@ export class ProductModifyComponent{
     confirm.present();
   }
 
+  imageUpload(event, i: number) {
+    const file = event.target.files[0];
+    const loginId = this.sessionService.getValue("loginId");
+    this.awsService.getUploadUrl(loginId+"-product")
+      .subscribe((res: IResponse<any>) => {
+        if (res&&res.code === RESPONSE_CODE.SUCCESS) {
+          this.uploadService.upload(res.data.url, file).subscribe((response: HttpResponse<any>) => {
+            if(response && response.status==200){
+              const key = Converter.keyToAWSSource(res.data.key);
+              if(this.product.images[i]==undefined){
+                this.product.images.push(key);
+                this.items.push(1);
+              }else{
+                this.product.images[i]=key;
+              }
+            }
+          }, (err) => console.log(err));
+        }
+      });
+
+  }
+
+  imageDelete(i: number) {
+    this.items.pop();
+    this.product.images.splice(i, 1);
+  }
+
+  changeState($event) {
+    this.product.state = ($event.value==true)? "1": "0";
+  }
 }

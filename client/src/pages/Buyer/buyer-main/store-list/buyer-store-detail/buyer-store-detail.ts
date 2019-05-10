@@ -5,6 +5,9 @@ import {Product} from "../../../../../core/model/Product";
 import {SessionService} from "../../../../../core/service/session.service";
 import {Review} from "../../../../../core/model/Review";
 import {ToastService} from "../../../../../core/service/toast.service";
+import {StoreService} from "../../../../../core/api/store.service";
+import {RESPONSE_CODE} from "../../../../../core/service/response.service";
+import {Converter} from "../../../../../core/helper/converter";
 
 /**
  * Generated class for the BuyerStoreDetailPage page.
@@ -34,53 +37,29 @@ private myInput;
     protected session: SessionService,
     public navCtrl : NavController,
     public navParams : NavParams,
-  private alertCtrl: AlertController,
-  private toastService: ToastService
+    private alertCtrl: AlertController,
+    private toastService: ToastService,
+    private storeService : StoreService
   ) {
+    if(this.navParams.get("sellerId")!=undefined){
+      this.storeService.get(this.navParams.get("sellerId"))
+        .subscribe((res)=>{
+          if(res && res.code ==RESPONSE_CODE.SUCCESS) {
+            this.userStore = res.data;
+            // console.log(this.userStore);
+            this.userStore.operatingHour =
+              Converter.timesTohours(this.userStore.sHour, this.userStore.sMinute, this.userStore.eHour, this.userStore.eMinute)
+
+            this.makeMap(this.userStore.lat, this.userStore.lng);
+            if (document.getElementById("map")) {
+              document.getElementById("map").style.display = "none";
+            }
+          }
+        });
+    }
 
 
     this.contents = "menu";
-    this.userStore= new UserStore();
-
-    this.userStore.title="이솝베이커리";
-    this.userStore.operatingHour = "09:00~22:00";
-    this.userStore.tel="010-123-1234";
-    this.userStore.mainAddr ="수원시 팔달구 우만동 11";
-    this.userStore.detailAddr="이솝베이커리";
-
-
-
-    var product:Product = new Product();
-    product.prodName = "소보로빵";
-    product.salePrice = 1000;
-    product.stock = 10;
-    product.discountRate = 20 ;
-
-    this.userStore.products.push(product);
-    this.userStore.products.push(product);
-    this.userStore.products.push(product);
-    this.userStore.products.push(product);
-
-
-    var review: Review = new Review();
-    review.buyerId = 'kkssjj0702';
-    review.content = '짱~ 너무 좋았습니다. 사장님도 친절하시구오래된 제품같지  않았어요 ~~ 잘먹었네여.';
-    review.rating = 4.7;
-    review.revise=false;
-
-    var review2: Review = new Review();
-    review2.buyerId = 'dlgusdn753';
-    review2.content = '사장님이 너무 친절하시네요~' +
-      '제품도 슈크림도 촉촉하고 맛있었네요!!';
-    review2.rating = 5.0;
-    review.revise=false;
-
-    this.userStore.reviews.push(review);
-    this.userStore.reviews.push(review2);
-
-
-
-
 
   }
 
@@ -99,14 +78,14 @@ private myInput;
 
   ionViewDidEnter() {
     console.log('ionViewDidLoad StoreDetailPage');
-    this.makeMap(37,127 );
     if(document.getElementById("map")){
       document.getElementById("map").style.display="none";
     }
-
   }
 
-  goToPage(str: string, productId: string) {
+  goToPage(str: string, product?: Product) {
+
+    console.log(product);
     switch (str) {
       case 'store-create':
         this.navCtrl.push('StoreCreateComponent');
@@ -116,7 +95,7 @@ private myInput;
         break;
 
       case 'product-detail' :
-        this.navCtrl.push('ProductDetailPage');
+        this.navCtrl.push('ProductDetailPage', {product: product});
         break;
 
       // case 'review-create' :
@@ -186,6 +165,7 @@ check() :boolean {
                 flag=true;
             }
             return flag;
+
 
 }
 /*  hide(){

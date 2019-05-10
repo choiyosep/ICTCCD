@@ -23,11 +23,8 @@ export class BaseService {
     return this.http.get<IResponse<T>>(`${this.controllerName}/${id}`);
   }
 
-  public list<T>(offset: number, count: number, keyword?: string): Observable<IResponse<T>> {
-    console.log(offset + count+ keyword);
+  public list<T>(keyword?: string): Observable<IResponse<T>> {
     const params = {
-      offset: offset,
-      count: count,
       keyword: keyword
     };
     return this.http.get<IResponse<T>>(`${this.controllerName}`, params);

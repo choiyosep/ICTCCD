@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from "ionic-angular";
 import {UserStore} from "../../../../core/model/UserStore";
 import {TimePick} from "../../../../core/model/timePick";
-import {environment} from "../../../../environments/environment";
 import {StoreService} from "../../../../core/api/store.service";
 import {AwsService} from "../../../../core/api/aws.service";
 import {UploadService} from "../../../../core/service/upload.service";
@@ -11,7 +10,6 @@ import {SessionService} from "../../../../core/service/session.service";
 import {Converter} from "../../../../core/helper/converter";
 import {DaumService} from "../../../../core/service/daum.service";
 import {HttpResponse} from "@angular/common/http";
-
 /**
  * Generated class for the StoreDetailPage page.
  *
@@ -34,8 +32,7 @@ export class StoreCreateComponent {
 
   private openTime :TimePick;
   private closingTime :TimePick;
-
-
+  url: any;
 
   constructor(
               private toastCtrl : ToastController,
@@ -54,7 +51,7 @@ export class StoreCreateComponent {
         this.userStore.mainAddr= e.data;
       }
       this.closeDaumIframe();
-    } );
+    } ,false);
     this.userStore = new UserStore();
 
     this.openTime= new TimePick(9,0);
@@ -146,8 +143,10 @@ export class StoreCreateComponent {
           if(res&&res.code!=undefined){
             //성공이면
             if(res.code==1) {
-              this.navCtrl.setRoot("StoreDetailComponent");
+
               this.toast("등록 완료");
+              this.navCtrl.setRoot("StoreDetailComponent");
+              // this.navCtrl.pop();
             }else{
               this.toast(res.msg);
             }
@@ -170,21 +169,18 @@ export class StoreCreateComponent {
     this.navCtrl.pop();
   }
 
+  //store-create.component.html 에서 다음 주소 API이용할때 부름
   startJusoSearch(){
     let frameElement: HTMLElement = document.getElementById('daumIframe');
-    frameElement.setAttribute(
-      'src',
-      environment.API_ENDPOINT+'daumJuso'
-    );
     frameElement.style.display='block';
     frameElement.style.height="100%";
-
+    frameElement.setAttribute('src','assets/juso.html');
+    //fx`rameElement.setAttribute('src','http://localhost:3000/daumJuso');
     document.getElementById('formContent').style.display="none";
   }
 
   closeDaumIframe(){
     let frame = document.getElementById("daumIframe");
-    frame.setAttribute('src','about:blank');
     document.getElementById('daumIframe').setAttribute('height','0px');
     document.getElementById('daumIframe').style.height="0px";
     document.getElementById('daumIframe').style.border="0px";
@@ -195,12 +191,20 @@ export class StoreCreateComponent {
   imageUpload(event, i: number) {
     const file = event.target.files[0];
     const loginId = this.sessionService.getValue("loginId");
-    this.awsService.getUploadUrl(loginId)
+    this.awsService.getUploadUrl(loginId+"-store")
       .subscribe((res: IResponse<any>) => {
+
         if (res&&res.code === RESPONSE_CODE.SUCCESS) {
+          
           this.uploadService.upload(res.data.url, file).subscribe((response: HttpResponse<any>) => {
+            console.log(response);
+            //https://soborrow2.s3.amazonaws.com/sell4-1557128535125?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJCYLJU5M3GAAQ2PQ%2F20190506%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20190506T074215Z&X-Amz-Expires=18000&X-Amz-Signature=dcfec1f5fcac25fcdd67403961aa5d0e09bb611fc5846a37772a21212a589ca3&X-Amz-SignedHeaders=host%3Bx-amz-acl&x-amz-acl=public-read
+            
+            //여기를 접근 못함.
             if(response && response.status==200){
+              
               const key = Converter.keyToAWSSource(res.data.key);
+
               if(this.userStore.images[i]==undefined){
                 this.userStore.images.push(key);
                 this.items.push(1);

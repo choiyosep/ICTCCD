@@ -4,6 +4,7 @@ import {SessionService} from "../../../../core/service/session.service";
 import {UserStore} from "../../../../core/model/UserStore";
 import {StoreService} from "../../../../core/api/store.service";
 import {Converter} from "../../../../core/helper/converter";
+import {Product} from "../../../../core/model/Product";
 /**
  * Generated class for the StoreDetailPage page.
  *
@@ -64,7 +65,7 @@ export class StoreDetailComponent{
     this.storeService.get(id).subscribe((res) =>{
       if(res && res.code==1){
         this.userStore=res.data;
-       // console.log(this.userStore);
+        console.log(this.userStore);
         this.userStore.operatingHour =
           Converter.timesTohours(this.userStore.sHour, this.userStore.sMinute, this.userStore.eHour, this.userStore.eMinute)
 
@@ -79,7 +80,7 @@ export class StoreDetailComponent{
 
 
 
-  goToPage(str: string) {
+  goToPage(str: string, product?:Product) {
     switch (str) {
       case 'store-create':
         this.navCtrl.push('StoreCreateComponent');
@@ -92,7 +93,7 @@ export class StoreDetailComponent{
         this.navCtrl.push('ProductCreateComponent');
         break;
       case 'product-modify' :
-        this.navCtrl.push('ProductModifyComponent');
+        this.navCtrl.push('ProductModifyComponent',{product: product});
         break;
 
     }
@@ -123,3 +124,4 @@ export class StoreDetailComponent{
 
 
 }
+
