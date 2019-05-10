@@ -1,4 +1,5 @@
-const DB = require('../core/Database')
+const bookmark = require('../model/bookmark')
+,DB = require('../core/Database')
     , Response = require('../core/Response');
 
 
@@ -28,8 +29,13 @@ module.exports = {
             }
         });
 
+    },
+    bookmarkObject: (buyerId, sellerId) => {
+        const product_obj = {
+            buyerId : buyerId,
+            sellerId : sellerId,
+            
+        };
+        return bookmark.create(product_obj);
     }
-
-
-
 }

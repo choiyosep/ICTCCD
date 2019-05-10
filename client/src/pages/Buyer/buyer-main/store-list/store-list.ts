@@ -5,7 +5,8 @@ import {ToastService} from "../../../../core/service/toast.service";
 import {RESPONSE_CODE} from "../../../../core/service/response.service";
 import {StoreService} from "../../../../core/api/store.service";
 import {SessionService} from "../../../../core/service/session.service";
-
+import {Bookmark} from "../../../../core/model/Bookmark";
+import {BookmarkService} from "../../../../core/api/bookmark.service";
 
 /**
  * Generated class for the StoreListPage page.
@@ -29,12 +30,14 @@ export class StoreListPage {
   private riceCakeStoreList: UserStore[] = [];
   private EtcStoreList: UserStore[] = [];
   private storeList : UserStore[] = [];
+  //private createBookmark : Bookmark[] = [];
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
               private alertCtrl: AlertController,
               private toastService: ToastService,
               private storeService : StoreService,
+              private bookmarkService : BookmarkService,
               private sessionService : SessionService
               )
   {
@@ -105,6 +108,13 @@ export class StoreListPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad StoreListPage');
   }
+  /* toast(str: string = '') {
+    this.toastCtrl.create({
+      message: str,
+      duration: 2000,
+      position: 'top'
+    }).present();
+  } */
 
   goToPage(pageName: string, sellerId?: string) {
     switch(pageName){
@@ -124,12 +134,30 @@ export class StoreListPage {
           cssClass: '',
           handler: () => {
             //즐겨찾기 추가 작업
+           //const sellerId = this.sessionService.getValue('loginId');
+            let bookMark = new Bookmark();
+            bookMark.buyerId = this.sessionService.getValue('loginId');
+            bookMark.sellerId = store.sellerId;
+            console.log(bookMark.buyerId);
+            console.log(bookMark.sellerId);
 
-            //즐겨찾기 속성 변경
-            store.isBookMarked=true;
-
-            //알림메시지
-            this.toastService.presentToast('즐겨찾기 추가 완료!!');
+             this.bookmarkService.add(bookMark).subscribe(
+              (res) =>{
+                //응답오면
+                 if (res && res.code != undefined) {
+                   //성공시
+                   if (res.code == 1) {
+                     //즐겨찾기 속성 변경(UserStore)
+                     store.isBookMarked = true;
+                     //알림메시지
+                     this.toastService.presentToast('즐겨찾기 추가 완료!!');
+                   } else {
+                     this.toastService.presentToast(res.msg);
+                   }
+                 }
+               }
+            ) 
+            
 
           }
         },
