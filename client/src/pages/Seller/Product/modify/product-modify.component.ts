@@ -9,6 +9,8 @@ import {HttpResponse} from "@angular/common/http";
 import {SessionService} from "../../../../core/service/session.service";
 import {AwsService} from "../../../../core/api/aws.service";
 import {UploadService} from "../../../../core/service/upload.service";
+import {ProductService} from "../../../../core/api/product.service";
+
 
 /**
  * Generated class for the StoreDetailPage page.
@@ -30,6 +32,7 @@ export class ProductModifyComponent{
   private items = [];
   private onsale: boolean;
 
+
   constructor(
               private navParam: NavParams,
               private alertCtrl: AlertController,
@@ -37,7 +40,8 @@ export class ProductModifyComponent{
               public navCtrl: NavController,
               private sessionService : SessionService,
               private awsService : AwsService,
-              private uploadService : UploadService
+              private uploadService : UploadService,
+              private productService: ProductService
   ) {
     this.product= new Product();
     this.items.push(1);
@@ -61,7 +65,8 @@ export class ProductModifyComponent{
       position: 'top'
     }).present();
   }
-  modify(){
+
+  prodmodify(){
 
     if(this.items.length<2){
       this.toast("사진을 1장 이상 등록해주세요");
@@ -77,6 +82,8 @@ export class ProductModifyComponent{
       this.toast("정상 가격을 입력해주세요");
       return false;
     }
+
+
 
     let confirm = this.alertCtrl.create({
       title: '변경사항을 저장 하시겠습니까?',
@@ -94,6 +101,17 @@ export class ProductModifyComponent{
           cssClass: 'del',
           handler: () => {
             //수정작업
+
+            this.productService.modify(this.product, this.product.prodNum).subscribe((res) =>{
+              if(res&&res.code!=undefined){
+                if(res.code==1) {
+                  this.toast("수정 완료");
+                  this.navCtrl.setRoot("StoreDetailComponent");
+                }else{
+                  this.toast(res.msg);
+                }
+              }
+            });
           }
         }
       ]
@@ -103,12 +121,17 @@ export class ProductModifyComponent{
 
 
 
-  goToPage(str: string) {
+  goToPage(str: string,product?: Product) {
     switch (str) {
       case 'store-detail' :
         this.navCtrl.setRoot('StoreDetailComponent');
         break;
+      case 'product-modify' :
+        this.navCtrl.push('ProductModifyComponent',{product: product});
+        break;
     }
+
+
   }
 
 
@@ -145,12 +168,31 @@ export class ProductModifyComponent{
           cssClass: 'del',
           handler: () => {
             //삭제작업
+
+            this.productService.delete(this.product.prodNum).subscribe(
+              (res) =>{
+                //응답오면
+                if(res&&res.code!=undefined){
+                  //성공시
+                  if(res.code==1) {
+                    this.navCtrl.setRoot("StoreDetailComponent");
+                    this.toast("삭제 완료");
+                  }else{
+                    this.toast(res.msg);
+                  }
+                }
+              }
+            )
           }
         }
       ]
     });
     confirm.present();
   }
+
+
+
+
 
   imageUpload(event, i: number) {
     const file = event.target.files[0];
