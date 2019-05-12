@@ -33,18 +33,18 @@
     </div>
 
 
-  <div class='product-list' *ngFor="let item of cartProductArray">
+  <div class='product-list' *ngFor="let item of cart.products">
       <div class='box check'>
         <ion-checkbox [(ngModel)]="item.checked" (ionChange)="checked($event.checked)"></ion-checkbox>
       </div>
       <div class='box sub-photo'>
-        <img src="{{ item.product.images }}">
+        <img [src]="item.product.images[0]">
       </div>
       <div class='box sub-name Body04'>
         {{ item.product.prodName }}
       </div>
       <div class='box qnty Body03'>
-        {{ item.qnty }}개
+        {{ item.quantity }}개
       </div>
       <div class='box price Body03'>
         {{item.product.salePrice }}원
@@ -57,10 +57,8 @@
         </button>
     </div>
 
-  
-
   <div class='totalPrice Grey05 Body04'>
-    총 상품 가격: {{ totalPrice }}원
+    총 상품 가격: {{ cart.totalPrice }}원
   </div>
  
 <div class='agreement Body01'>

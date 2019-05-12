@@ -18,15 +18,15 @@ Router.post(
         ]
     ));
     Router.delete(
-        '/:buyerId',
+        '',
         [
     
         ],
         Handler.request(
             Ctrl.BookmarkDelete,
             (req, res, next) => [
-                req.params["buyerId"],
-                req.params["sellerId"]
+                req.query["buyerId"],
+                req.query["sellerId"]
             ]
         ));
     

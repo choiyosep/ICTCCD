@@ -138,9 +138,6 @@ export class StoreListPage {
             let bookMark = new Bookmark();
             bookMark.buyerId = this.sessionService.getValue('loginId');
             bookMark.sellerId = store.sellerId;
-            console.log(bookMark.buyerId);
-            console.log(bookMark.sellerId);
-
              this.bookmarkService.add(bookMark).subscribe(
               (res) =>{
                 //응답오면
@@ -183,31 +180,27 @@ export class StoreListPage {
           text: '확인',
           cssClass: '',
           handler: () => {
-            //즐겨찾기 추가 작업(로그인한 구매자 아이디와 해당 상점의 판매자 아이디 서버로 전송)
-/* 
             let bookMark = new Bookmark();
             bookMark.buyerId = this.sessionService.getValue('loginId');
             bookMark.sellerId = store.sellerId;
-            console.log(bookMark.buyerId);
-            console.log(bookMark.sellerId); */
-
-             this.bookmarkService.delete(store.sellerId).subscribe(
+            //즐겨찾기 제거 작업(로그인한 구매자 아이디와 해당 상점의 판매자 아이디 서버로 전송)
+            this.bookmarkService.deleteBookMark(bookMark).subscribe(
               (res) =>{
+                console.log(res);
                 //응답오면
-                 if (res && res.code != undefined) {
-                   //성공시
-                   if (res.code == 1) {
-                     //즐겨찾기 속성 변경
-                     store.isBookMarked = false;
-                     //알림메시지
-                     this.toastService.presentToast('즐겨찾기 제거 완료!');
-                   } else {
-                     this.toastService.presentToast(res.msg);
-                   }
-                 }
-               }
-            ) 
-           
+                if (res && res.code != undefined) {
+                  //성공시
+                  if (res.code == 1) {
+                    //즐겨찾기 속성 변경
+                    store.isBookMarked = false;
+                    //알림메시지
+                    this.toastService.presentToast('즐겨찾기 제거 완료!');
+                  } else {
+                    this.toastService.presentToast(res.msg);
+                  }
+                }
+              }
+            )
           }
         },
         {

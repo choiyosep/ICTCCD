@@ -10,16 +10,17 @@ export class CartProduct extends Serializable implements IModel {
   //상품 번호
   prodNum: string;
 
-  product: Product;
+  product: Product = new Product();
   //수량
   quantity: number;
-  checked: boolean;
-
-
+  checked: boolean = false;
 
   toObject(): object {
     return {
-
+      buyerId: this.buyerId,
+      sellerId: this.sellerId,
+      prodNum: this.prodNum,
+      quantity: this.quantity
     };
   }
 
