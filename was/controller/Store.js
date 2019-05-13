@@ -147,7 +147,8 @@ module.exports = {
         return new Promise(async (resolve, reject) =>{
             try{
                 const stores = await Store.getStoreListByCategory(category);
-                const newStores = [];
+                //console.log(JSON.stringify(stores));
+                //const newStores = [];
                 const sorting_Store = [];
                 for(let i=0; i<stores.length; i++){
                    let point1 =  new GeoPoint(Number(lat), Number(lng));
@@ -165,37 +166,14 @@ module.exports = {
                        stores[i].images=[];
                        //첫번째 사진
                         stores[i].images.push(images[0].pic_src);
-                       // console.log("store:["+i+"]:"+stores[i]);
-                        
+                   
                         //sorting_Store
                         sorting_Store.push(stores[i]);
-                        //console.log(sorting_Store);//undefined
-                        
-              
                     }
                     
                 }//for 문끝남. 거리순으로 sorting
-                 for (let i = 1; i < sorting_Store.length; i++) {
-                    //console.log(sorting_Store.length)22
-                    const key = sorting_Store[i];
-                    //console.log(i+":"+key)
-                    let position=i-1;
-                    //console.log(key.distance)//12.222
-                    while (position >=0 && key.distance < sorting_Store[position].distance) {
-                        sorting_Store[position+1]=sorting_Store[position] ;
-                        position--;
-                    }
-                       sorting_Store[position+1]=key;
-                       console.log("111"+JSON.stringify(sorting_Store[position+1]))
-
-                } 
-                
-               //sorting한 데이터 삽입
-                for(let i = 0; i < sorting_Store.length; i++){
-                    await newStores.push(sorting_Store[i]);
-                    console.log(sorting_Store[i].distance)
-                }
-                // console.log("최종"+sorting_Store[1].distance)
+                const newStores = await Store.sortingStore(sorting_Store);
+                //console.log(JSON.stringify(newStores))
                 resolve(newStores);
             }catch(err){
                 console.log(err);
@@ -203,5 +181,5 @@ module.exports = {
             }
         })
     }
-
+    
 }
