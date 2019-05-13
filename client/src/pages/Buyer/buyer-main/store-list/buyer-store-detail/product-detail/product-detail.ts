@@ -74,47 +74,43 @@ export class ProductDetailPage {
     }
 
 
-    let confirm = this.alertCtrl.create({
-      title: '장바구니 담기 완료',
-      subTitle: '장바구니로 이동하시겠습니까?',
-      cssClass: '',
-      buttons: [
-        {
-          text: '확인',
-          cssClass: '',
-          handler: () => {
-            this.navCtrl.setRoot('CartListPage');
-          }
-        },
-        {
-          text: '취소',
-          cssClass:'',
-          handler: () => {
-          }
+      this.cartProduct = new CartProduct();
+      //구매자 아이디 (로그인한 아이디)
+      this.cartProduct.buyerId =
+        this.sessionService.getValue("loginId");
+      //판매자 아이디
+      this.cartProduct.sellerId = this.product.sellerId;
+      //상품 아이디
+      this.cartProduct.prodNum = this.product.prodNum;
+      //구매할 수량
+      this.cartProduct.quantity = this.amount;
+      //장바구니 담기
+      this.cartService.cartAdd(this.cartProduct).subscribe((res)=>{
+        if(res&&res.code == 1){
+          this.product.stock -= this.amount;
+          let confirm = this.alertCtrl.create({
+            title: '장바구니 담기 완료',
+            subTitle: '장바구니로 이동하시겠습니까?',
+            cssClass: '',
+            buttons: [
+              {
+                text: '확인',
+                cssClass: '',
+                handler: () => {
+                  this.navCtrl.setRoot('CartListPage');
+                }
+              },
+              {
+                text: '취소',
+                cssClass:'',
+                handler: () => {
+                }
+              }
+            ]
+          });
+          confirm.present();
         }
-      ]
-    });
-    confirm.present();
-
-
-    //장바구니 추가 작업
+      });
   }
-
-
-  // cartAdd( quantity : number){
-  //   this.cartProduct = new CartProduct();
-  //   //구매자 아이디 (로그인한 아이디)
-  //   this.cartProduct.buyerId =
-  //     this.sessionService.getValue("loginId");
-  //   //판매자 아이디
-  //   this.cartProduct.sellerId = this.product.sellerId;
-  //   //상품 아이디
-  //   this.cartProduct.prodNum = this.product.prodNum;
-  //   //구매할 수량
-  //   this.cartProduct.quantity = quantity;
-  //   //장바구니 담기
-  //   this.cartService.add(this.cartProduct);
-  // }
-
 
 }

@@ -10,7 +10,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <div class="flex-area-row">
-      <input class="address-finder" [value]="getAddress()" placeholder="주소검색">
+      <input class="address-finder"  (click)="startSearch()" [value]="getAddress()" placeholder="주소검색">
       <button class="gps-button" (click)="setLocationByGPS()" ion-button gpstoggle>
         <ion-icon style="zoom:0.5;" name="pin"></ion-icon>
       </button>
@@ -18,8 +18,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <div class="line">
+<ion-content>
+  <iframe style="display:none;" src="assets/juso.html"  class="daumIframeStyle" id='daumIframe'></iframe>
+    <div id="formContent" class="line">
     <div class="row">
       <div class="col" align="center" (click)="goToPage('store-list', '제과')">
         <img src="assets/imgs/bakery.jpg">

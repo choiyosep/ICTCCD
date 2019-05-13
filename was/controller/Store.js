@@ -172,8 +172,10 @@ module.exports = {
                     }
                     
                 }//for 문끝남. 거리순으로 sorting
+
                 const newStores = await Store.sortingStore(sorting_Store);
                 //console.log(JSON.stringify(newStores))
+
                 resolve(newStores);
             }catch(err){
                 console.log(err);

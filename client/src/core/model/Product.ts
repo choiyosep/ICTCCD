@@ -32,8 +32,6 @@ export class Product extends Serializable implements IModel{
 
   //상품상태
   state: string = '1';
-  discountPrice: number;
-  name: undefined;
 
 
   toObject(): object {

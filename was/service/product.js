@@ -1,6 +1,6 @@
 const Store = require('../model/Store'),
     product_picture = require('../model/product_picture'),
-    Store_product = require('../model/product')
+    Product = require('../model/product')
     
 
 //route -> controller -> service -> model
@@ -9,9 +9,23 @@ const Store = require('../model/Store'),
 
 module.exports = {
 
-    
+    getProductByProdNum:(prodNum)=>{
+        return new Promise (async (resolve, reject) =>{
+            try{
+                const product = await Product.getOne('prodNum',prodNum);
+                product.images = [];
+                const image = await product_picture.getOne('prodNum',prodNum);
+                product.images.push(image.pic_src);
+                resolve(product);
+            }catch(err){
+                reject(err);
+            }}
+        );
+    },
+
+
     getProductsById:(sellerId)=>{
-        const products = Store_product.getList('sellerId',sellerId);
+        const products = Product.getList('sellerId',sellerId);
         return products;
     }, 
     getProductPictureById:(prodNum)=>{
@@ -25,7 +39,7 @@ module.exports = {
    
 
     deleteProduct: (prodNum) => {
-        const product_delete =Store_product.delete('prodNum',prodNum);
+        const product_delete =Product.delete('prodNum',prodNum);
         return product_delete;
 
     },
@@ -41,7 +55,7 @@ module.exports = {
     has: (prodNum) =>{
         return new Promise( async (resolve, reject) =>{
             try{
-                const count = await Store_product.count('prodNum', prodNum);
+                const count = await Product.count('prodNum', prodNum);
                 resolve((count>0)? true: false);
             }catch(err){
                 reject(err);
@@ -62,7 +76,7 @@ module.exports = {
             stock : stock,
             state : state
         };
-        return Store_product.create(product_obj);
+        return Product.create(product_obj);
     },
 
     createProductPicture: (prodNum, image) => {
@@ -86,7 +100,7 @@ module.exports = {
             stock : stock,
             state : state
         };
-        return Store_product.update(product_obj,'prodNum', prodNum);
+        return Product.update(product_obj,'prodNum', prodNum);
        // return Store.update(store_obj,"sellerId", sellerId);
     },
     /* updateProductPicture:(prodNum, image) =>{

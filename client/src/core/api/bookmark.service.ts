@@ -5,12 +5,16 @@ import {Observable} from "rxjs";
 import {IResponse} from "../service/response.service";
 import {IModel} from "../model/interface";
 
+import {Bookmark} from "../model/Bookmark";
+
+
 @Injectable()
 export class BookmarkService extends BaseService {
 
   constructor(http: HttpService) {
     super('bookmark', http);
   }
+
 
   public BMdelete<T>(item: IModel): Observable<IResponse<T>> {
     console.log("object"+item.toObject());
@@ -19,5 +23,14 @@ export class BookmarkService extends BaseService {
     return this.http.delete(`${this.controllerName}`,item.toObject());
   }
 
-  
+  public deleteBookMark<T>(bookMark:Bookmark): Observable<IResponse<T>> {
+    return this.http.delete(`${this.controllerName}?buyerId=${bookMark.buyerId}&sellerId=${bookMark.sellerId}`);
+  }
+
 }
+
+
+
+
+ 
+

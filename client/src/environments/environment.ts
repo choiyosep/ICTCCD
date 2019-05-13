@@ -4,7 +4,8 @@ export const environment = {
   //web
   API_ENDPOINT: 'http://localhost:8100/api/',
   //mobile
-  // API_ENDPOINT: 'http://192.168.13.210:3000/',
+
+  // API_ENDPOINT: 'http://192.168.43.77:3000/',
 
   AWS:{
 

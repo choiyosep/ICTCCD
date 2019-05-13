@@ -13,7 +13,8 @@ module.exports = {
         PRODUCT_ALREADY_EXIST   : { code: 10, msg: '상품이 이미 존재합니다.'},
         PRODUCT_NOT_FOUND       : { code: 11, msg: '해당 상품을 찾을 수 없습니다.'},
         ALREADY_BOOKMARKED      : { code: 12, msg: '이미 즐겨찾기되어 있는 상점입니다.'},
-        HAVE_NO_BOOKMARK        : { code: 13, msg: '즐겨찻기 되어 있는 상품이 아닙니다.'},        
+        HAVE_NO_BOOKMARK        : { code: 13, msg: '즐겨찻기 되어 있는 상품이 아닙니다.'},
+        IS_EXIST_OTHER_CART     : { code: 14, msg: '다른 상점의 장바구니가 존재합니다.'},
         INTERNAL_ERROR          : { code: 99, msg: '서버 오류'},
         NOT_SUPPORT             : { code: 100, msg: '지원하지 않는 프로토콜 입니다.'}
     },

@@ -191,8 +191,7 @@ export class StoreListPage {
 
             console.log(bookMark);
 
-            
-              this.bookmarkService.BMdelete(bookMark).subscribe(
+              this.bookmarkService.deleteBookMark(bookMark).subscribe(
               (res) =>{
                 //응답오면
                 console.log("res:"+ JSON.stringify(res))

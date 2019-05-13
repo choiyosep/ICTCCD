@@ -58,7 +58,9 @@ private myInput;
         });
     }
 
+
     this.contents = "menu";
+
   }
 
   makeMap(lat, lng){
@@ -95,6 +97,10 @@ private myInput;
       case 'product-detail' :
         this.navCtrl.push('ProductDetailPage', {product: product});
         break;
+
+      // case 'review-create' :
+      //   this.navCtrl.push('ProductDetailPage');
+      //   break;
     }
   }
 
@@ -104,7 +110,7 @@ private myInput;
         if(document.getElementById("map")){
           document.getElementById("map").style.display="none";
         }
-        document.getElementById("product-add-button").style.display="";
+        document.getElementById("product-add-button").style.display="none";
         break;
       case 'info':
         if(document.getElementById("map")) {
@@ -115,8 +121,10 @@ private myInput;
       case 'review':
         if(document.getElementById("map")){
           document.getElementById("map").style.display="none";
+
         }
-        document.getElementById("product-add-button").style.display="none";
+        if (!this.check())
+          document.getElementById("product-add-button").style.display="";
         break;
 
 
@@ -124,6 +132,9 @@ private myInput;
   }
 
   revise(i){
+
+
+    this.myInput=this.userStore.reviews[i].content;
     document.getElementById(`revise${i}`).style.display = "none";
     document.getElementById(`delete${i}`).style.display = "none";
     document.getElementById(`content${i}`).style.display = "none";
@@ -146,11 +157,21 @@ private myInput;
 
   }
 
+check() :boolean {
+  const loginId = this.session.getValue("loginId");
+  let flag = false;
+            for(let i=0; i< this.userStore.reviews.length; i++){
+              if(loginId==this.userStore.reviews[i].buyerId)
+                flag=true;
+            }
+            return flag;
 
-  hide(){
+
+}
+/*  hide(){
     document.getElementById('content').style.display = "none";
 
-  }
+  }*/
   delete(i:number) {
     let confirm = this.alertCtrl.create({
       title: '삭제하시겠습니까??',
@@ -183,6 +204,12 @@ private myInput;
 
   }
 
+  getId(){
+
+    const loginId = this.session.getValue("loginId");
+    return loginId;
+
+  }
 
 
 
