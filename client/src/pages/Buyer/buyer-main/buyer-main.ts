@@ -4,6 +4,9 @@ import {SessionService} from "../../../core/service/session.service";
 import {DaumService} from "../../../core/service/daum.service";
 import { Geolocation } from '@ionic-native/geolocation';
 
+import {user_FirstName} from "aws-sdk/clients/alexaforbusiness";
+import {User} from "../../../core/model/user";
+
 
 /**
  * Generated class for the BuyerMainPage page.
@@ -27,7 +30,20 @@ export class BuyerMainPage {
               private daumService : DaumService,
               private geoLocation : Geolocation,
   ) {
-    this.myAddress = this.sessionService.getLocation();
+
+    window.addEventListener( 'message', (e) =>{
+      console.log("메세지:"+e.data);
+      if(e.data !=="close"){
+        this.myAddress= e.data;
+        //this.setLocationBySearch(this.myAddress);
+      }
+
+      this.closeDaumIframe();
+      this.setLocationBySearch(this.myAddress);
+     console.log(this.myAddress);
+    } ,false);
+
+
   }
 
   ionViewDidLoad() {
@@ -40,24 +56,33 @@ export class BuyerMainPage {
     switch (str) {
       case 'store-list':
         this.navCtrl.push("StoreListPage",{catName: catName});
+
         break;
       case 'cart-list':
-        this.navCtrl.setRoot('CartListPage')
+        this.navCtrl.setRoot('CartListPage');
             break;
       case 'book-mark':
-        this.navCtrl.setRoot('BookMarkPage')
+        this.navCtrl.setRoot('BookMarkPage');
         break;
     }
   }
   setLocationBySearch(address: string){
     this.sessionService.setAddress(address);
+    // string 형태 주소로 위도 경도 받아옴
     //도로명 주소로 위도, 경도를 받아온다.
     this.daumService.getLocation(address).subscribe
     ( (res) =>{
+      if(res){
+      let lng = res.x;
+      let lat = res.y;
       //위치정보를 기기에 저장
-      this.sessionService.setLocation({lat: res.x, lng: res.y});
-    });
+      this.sessionService.setLocation({lat: lat , lng: lng});
+    }});
   }
+
+
+
+
 
   setLocationByGPS(){
     //현재 기기의 위치값을 받아온다.
@@ -83,4 +108,29 @@ export class BuyerMainPage {
   getAddress() {
     return this.sessionService.getAddress();
   }
+
+  startSearch(){
+
+    let frameElement: HTMLElement = document.getElementById('daumIframe');
+    frameElement.style.display='block';
+    frameElement.style.height="100%";
+    frameElement.setAttribute('src','assets/juso.html');
+
+
+    document.getElementById('formContent').style.display="none";
+   // this.setLocationBySearch(this.myAddress);
+
+
+  }
+
+  closeDaumIframe(){
+    let frame = document.getElementById("daumIframe");
+    document.getElementById('daumIframe').setAttribute('height','0px');
+    document.getElementById('daumIframe').style.height="0px";
+    document.getElementById('daumIframe').style.border="0px";
+    document.getElementById('formContent').style.display="block";
+
+  }
 }
+
+

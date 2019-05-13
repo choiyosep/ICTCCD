@@ -117,7 +117,7 @@ export class StoreCreateComponent {
     }
 
 
-    // 위도 경도 받아옴
+    // string 형태 (mainAddr)주소로 위도 경도 받아옴
     this.daumService.getLocation(this.userStore.mainAddr).subscribe(
       (res)=>
       {
@@ -175,6 +175,7 @@ export class StoreCreateComponent {
     frameElement.style.display='block';
     frameElement.style.height="100%";
     frameElement.setAttribute('src','assets/juso.html');
+    //frameElement.setAttribute('src','assets/juso.html');
     //fx`rameElement.setAttribute('src','http://localhost:3000/daumJuso');
     document.getElementById('formContent').style.display="none";
   }

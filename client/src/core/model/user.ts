@@ -14,6 +14,14 @@ export class User extends Serializable implements IModel {
   phone: string;
   level: number;
 
+  //위도
+  lat: number;
+  //경도
+  lng: number;
+
+  //주소
+  myAddress: string='';
+
   toObject(): object {
     return {
       _id: this._id,
