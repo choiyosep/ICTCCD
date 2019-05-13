@@ -186,7 +186,6 @@ module.exports = {
                         position--;
                     }
                        sorting_Store[position+1]=key;
-                       console.log("111"+JSON.stringify(sorting_Store[position+1]))
 
                 } 
                 

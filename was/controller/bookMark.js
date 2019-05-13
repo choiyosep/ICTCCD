@@ -22,8 +22,6 @@ module.exports = {
         })  
     },
     BookmarkDelete: (buyerId, sellerId) =>{
-        console.log(buyerId);
-        console.log(sellerId);
         return new Promise(async (resolve, reject) => {
             try {
                 const isBookmarked = await bookMark.isBookMarked(buyerId, sellerId);

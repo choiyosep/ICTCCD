@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Product} from "../../../core/model/Product"
 import {Cart} from "../../../core/model/Cart";
 import {CartService} from "../../../core/api/cart.service";
+import {CartProduct} from "../../../core/model/CartProduct";
 
 /**
  * Generated class for the CartListPage page.
@@ -20,46 +21,45 @@ import {CartService} from "../../../core/api/cart.service";
 })
 export class CartListPage {
 
-  cartProductArray: cartProduct[];
-  totalPrice: number;
   allChecked: boolean;
-  // dummy product
-  private product1: Product;
-  private product2: Product;
-  private product3: Product;
 
   private cart: Cart ;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private cartService : CartService) {
-    this.totalPrice = 0;
+
+    this.cart = new Cart();
+
+    let cartProduct1 = new CartProduct();
+    cartProduct1.product.prodName = "소보로빵";
+    cartProduct1.quantity = 2;
+    cartProduct1.product.salePrice=1000;
+    cartProduct1.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
+
+
+    let cartProduct2 = new CartProduct();
+    cartProduct2.product.prodName = "단팥빵";
+    cartProduct2.quantity = 1;
+    cartProduct2.product.salePrice=1200;
+    cartProduct2.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
+
+
+    let cartProduct3 = new CartProduct();
+    cartProduct3.product.prodName = "슈크림빵";
+    cartProduct3.quantity = 3;
+    cartProduct3.product.salePrice=900;
+    cartProduct3.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
+
+    this.cart.totalPrice = 5900;
+
+    this.cart.products.push(cartProduct1);
+    this.cart.products.push(cartProduct2);
+    this.cart.products.push(cartProduct3);
+
     this.allChecked = false;
 
-    this.product1 = new Product();
-    this.product1.prodName="소보로빵",
-    this.product1.salePrice=1000,
-    this.product1.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
 
-    this.product2 = new Product();
-    this.product2.prodName="단팥빵",
-    this.product2.salePrice=1200,
-    this.product2.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
-
-    this.product3 = new Product();
-    this.product3.prodName="슈크림빵",
-    this.product3.salePrice=900.
-    this.product3.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
-
-    this. cartProductArray = [
-      { product: this.product1, qnty: 2, checked: false },
-      { product: this.product2, qnty: 1, checked: false },
-      { product: this.product3, qnty: 3, checked: false },
-    ];
-    
-    for(let product of this.cartProductArray) {
-      this.totalPrice += product.product.salePrice * product.qnty;
-    }
   }
 
   ionViewDidLoad() {
@@ -74,7 +74,7 @@ export class CartListPage {
   }
 
   checkedAll() {
-    for (let product of this.cartProductArray) {
+    for (let product of this.cart.products) {
       product.checked = this.allChecked;
     }
   }
@@ -85,15 +85,6 @@ export class CartListPage {
   }
 
 }
-
-
-class cartProduct {
-  product: Product;
-  qnty: number;
-  checked: boolean;
-
-}
-
 
 // 버튼 활성화/비활성화
 /*
