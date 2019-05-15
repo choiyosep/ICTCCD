@@ -162,7 +162,50 @@ module.exports = {
 
     getCartProductList: (cartNum) =>{
         return  Cart_product.getList("cartNum", cartNum);
+    },
+
+    getCartProduct: (cartNum, prodNum)=>{
+        return new Promise( async(resolve, reject) =>{
+            try {
+                DB.conn.getConnection((err, conn) => {
+                    const query = `select * from cart_product WHERE cartNum = '${cartNum}' and prodNum = '${prodNum}'`;
+                    conn.query(query, null, (err, results, fields) => {
+                        if (err) {
+                            reject(Response.get(Response.type.DATABASE_ERROR, err.message));
+                        } else {
+                            resolve(results[0]);
+                        }
+                    });
+                });
+            } catch (err) {
+                console.log(err);
+                reject(Response.get(Response.type.FAILED_GET_DB, err.message));
+            }
+        })
+    },
+
+    deleteProduct: (cartNum, prodNum) =>{
+        return new Promise( async(resolve, reject) =>{
+            try {
+                DB.conn.getConnection((err, conn) => {
+                    const query = `delete from cart_product WHERE cartNum = '${cartNum}' and prodNum = '${prodNum}'`;
+                    conn.query(query, null, (err, results, fields) => {
+                        if (err) {
+                            reject(Response.get(Response.type.DATABASE_ERROR, err.message));
+                        } else {
+                            resolve(results);
+                        }
+                    });
+                });
+            } catch (err) {
+                console.log(err);
+                reject(Response.get(Response.type.FAILED_GET_DB, err.message));
+            }
+        })
     }
+
+
+
 
 
 

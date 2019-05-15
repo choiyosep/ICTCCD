@@ -43,6 +43,32 @@ Router.post(
         ]
     ));
 
+Router.delete(
+    '/product',
+    [
+
+    ],
+    Handler.request(
+        Ctrl.deleteProduct,
+        (req, res, next) => [
+            req.body['cartNum'],
+            req.body['prodNumList']
+
+        ]
+    ));
+
+Router.delete(
+    '/:cartNum',
+    [
+
+    ],
+    Handler.request(
+        Ctrl.delete,
+        (req, res, next) => [
+            req.params['cartNum']
+
+        ]
+    ));
 
 
 module.exports = Router;

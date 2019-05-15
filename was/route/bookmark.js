@@ -40,7 +40,7 @@ Router.get(
     Handler.request(
         Ctrl.BookmarkedList,
         (req, res, next) => [
-            req.body['buyerId']
+            req.query['buyerId']
            
         ]
     ));
