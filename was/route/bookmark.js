@@ -33,7 +33,7 @@ Router.delete(
     ));
 
 Router.get(
-    '',
+    '/:buyerId',
     [
 
     ],
