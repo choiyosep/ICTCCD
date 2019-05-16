@@ -33,9 +33,9 @@
     </div>
 
 
-  <div class='product-list' *ngFor="let item of cart.products">
+  <div id="{{i}}"  class='product-list' *ngFor="let item of cart.products; let i = index">
       <div class='box check'>
-        <ion-checkbox [(ngModel)]="item.checked" (ionChange)="checked($event.checked)"></ion-checkbox>
+        <ion-checkbox  [(ngModel)]='item.checked'  (ionChange)="checked($event.checked)"></ion-checkbox>
       </div>
       <div class='box sub-photo'>
         <img [src]="item.product.images[0]">
@@ -52,7 +52,7 @@
     </div>
     
     <div class='button-wrapper'>
-        <button class='delete-button'>
+        <button (click)="delete()" class='delete-button'>
             선택삭제
         </button>
     </div>

@@ -18,11 +18,14 @@ import { Geolocation } from '@ionic-native/geolocation';
 import {CartService} from "../core/api/cart.service";
 import {ProductService} from "../core/api/product.service";
 import { BookmarkService } from '../core/api/bookmark.service';
-
+//import {IonicRatingModule} from "ionic4-rating/dist";
+//import {IonicPageModule} from "ionic-angular";
+//import {CreateReviewPage} from "../pages/Buyer/create-review/create-review";
 
 @NgModule({
   declarations: [
     MyApp
+
 ],
   imports: [
     BrowserModule,
@@ -31,11 +34,14 @@ import { BookmarkService } from '../core/api/bookmark.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    //IonicRatingModule
+    //StarRatingModule,
     // NgbModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    MyApp
+
   ],
   providers: [
     StatusBar,
@@ -52,7 +58,8 @@ import { BookmarkService } from '../core/api/bookmark.service';
     Geolocation,
     CartService,
     ProductService,
-    BookmarkService
+    BookmarkService,
+
   ]
 })
 export class AppModule {}

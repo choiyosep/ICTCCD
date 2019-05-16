@@ -37,10 +37,10 @@ export class BuyerMainPage {
         this.myAddress= e.data;
         //this.setLocationBySearch(this.myAddress);
       }
-
-      this.closeDaumIframe();
       this.setLocationBySearch(this.myAddress);
-     console.log(this.myAddress);
+      this.closeDaumIframe();
+
+      //console.log(this.myAddress);
     } ,false);
 
 
@@ -115,8 +115,6 @@ export class BuyerMainPage {
     frameElement.style.display='block';
     frameElement.style.height="100%";
     frameElement.setAttribute('src','assets/juso.html');
-
-
     document.getElementById('formContent').style.display="none";
    // this.setLocationBySearch(this.myAddress);
 

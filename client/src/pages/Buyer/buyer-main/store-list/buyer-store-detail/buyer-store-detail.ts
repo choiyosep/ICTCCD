@@ -98,9 +98,9 @@ private myInput;
         this.navCtrl.push('ProductDetailPage', {product: product});
         break;
 
-      // case 'review-create' :
-      //   this.navCtrl.push('ProductDetailPage');
-      //   break;
+      case 'review-create' :
+        this.navCtrl.push('CreateReviewPage');
+        break;
     }
   }
 
