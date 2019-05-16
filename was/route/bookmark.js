@@ -17,19 +17,35 @@ Router.post(
             req.body["sellerId"]
         ]
     ));
-    Router.delete(
-        '',
-        [
-    
-        ],
-        Handler.request(
-            Ctrl.BookmarkDelete,
-            (req, res, next) => [
-                req.query["buyerId"],
-                req.query["sellerId"]
-            ]
-        ));
-    
+
+Router.delete(
+    '',
+    [
+
+    ],
+    Handler.request(
+        Ctrl.BookmarkDelete,
+        (req, res, next) => [
+            req.query["buyerId"],
+            req.query["sellerId"]
+
+        ]
+    ));
+
+Router.get(
+    '',
+    [
+
+    ],
+    Handler.request(
+        Ctrl.BookmarkedList,
+        (req, res, next) => [
+            req.query['buyerId']
+           
+        ]
+    ));
+
+
 
 
 module.exports = Router;

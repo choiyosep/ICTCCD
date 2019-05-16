@@ -107,6 +107,27 @@ module.exports = {
         })
     },
 
+    delete: (cartNum) =>{
+        return new Promise( async (resolve, reject) =>{
+            try{
+
+                //장바구니를 삭제하기 전에, 장바구니에 담겨있던 상품 내역을 불러온다.
+                const cartProducts = await Cart.getCartProductList(cartNum);
+                for(let i=0; i<cartProducts.length; i++){
+                    //장바구니에 담겨있던 상품의 수량을 상품테이블의 재고량에 다시 더해준다.
+                    await Cart.increaseProductQuantity(cartProducts[i].prodNum, cartProducts[i].quantity);
+                    console.log("증가");
+                }
+                //기존 장바구니를 삭제한다.
+                rs = await Cart.deleteCart(cartNum);
+                resolve(rs);
+            }catch(err){
+                console.log(err);
+                reject(err);
+            }
+        })
+    },
+
     cartOrder : (cartNum) =>{
         return new Promise (async (resolve, reject ) =>{
             try{
@@ -126,6 +147,36 @@ module.exports = {
 
         })
 
+    },
+
+    deleteProduct : (cartNum, prodNumList) =>{
+        return new Promise (async (resolve, reject) =>{
+            try{
+                console.log(cartNum, prodNumList);
+
+                for(let i=0; i<prodNumList.length; i++){
+                    //장바구니와 상품번호로 장바구니에 담긴 상품을 불러온다
+                    const product = await Cart.getCartProduct(cartNum, prodNumList[i]);
+                    //장바구니에 담겨있던 상품의 수량을 상품테이블의 재고량에 다시 더해준다.
+                    await Cart.increaseProductQuantity(prodNumList[i], product.quantity);
+                    //장바구니에서 상품을 삭제한다
+                    await Cart.deleteProduct(cartNum, prodNumList[i]);
+                }
+
+                const cartProducts = await Cart.getCartProductList(cartNum);
+                console.log("length:"+cartProducts.length);
+                //장바구니가 비어있으면 장바구니를 삭제한다.
+                if(cartProducts.length==0){
+                    await Cart.deleteCart(cartNum);
+                }
+
+                resolve("삭제 성공");
+            }catch(err){
+                console.log(err);
+                reject(err);
+            }
+
+        });
     }
 
 

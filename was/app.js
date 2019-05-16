@@ -16,7 +16,10 @@ app.use(cookieParser());
 /**
  * Route Init
  */
+
 const files = fs.readdirSync('./route');
+//fs.readdirSync('../route'); 지영
+
 files.forEach(file => {
     const fileNameArr = file.split('.');
     app.use('/' + fileNameArr[0].toLowerCase(), require('./route/' + file));
