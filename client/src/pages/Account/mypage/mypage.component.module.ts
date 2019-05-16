@@ -7,6 +7,7 @@ import { MyPageComponent } from './mypage.component';
     MyPageComponent
   ],
   imports: [
+
     IonicPageModule.forChild(MyPageComponent)
   ]
 })

@@ -96,6 +96,7 @@ export class StoreDetailComponent{
         this.navCtrl.push('ProductModifyComponent',{product: product});
         break;
 
+
     }
   }
 

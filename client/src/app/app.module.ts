@@ -18,9 +18,9 @@ import { Geolocation } from '@ionic-native/geolocation';
 import {CartService} from "../core/api/cart.service";
 import {ProductService} from "../core/api/product.service";
 import { BookmarkService } from '../core/api/bookmark.service';
-//import {IonicRatingModule} from "ionic4-rating/dist";
+//import {IonicRatingModule} from "../ionic4-rating';
 //import {IonicPageModule} from "ionic-angular";
-//import {CreateReviewPage} from "../pages/Buyer/create-review/create-review";
+
 
 @NgModule({
   declarations: [

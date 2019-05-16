@@ -27,7 +27,9 @@ export class CartListPage {
   allChecked: boolean;
 
   private cart: Cart ;
-   deleteSelected: any[] = [];
+  deleteSelected: any[] = [];
+  private data: { prodNumList: any[]; cartNum: number };
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private cartService : CartService,
@@ -37,32 +39,32 @@ export class CartListPage {
 
     this.cart = new Cart();
 
-
-    let cartProduct1 = new CartProduct();
-    cartProduct1.product.prodName = "소보로빵";
-    cartProduct1.quantity = 2;
-    cartProduct1.product.salePrice=1000;
-    cartProduct1.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
-    cartProduct1.checked=false;
-   let cartProduct2 = new CartProduct();
-    cartProduct2.product.prodName = "단팥빵";
-    cartProduct2.quantity = 1;
-    cartProduct2.product.salePrice=1200;
-    cartProduct2.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
-    cartProduct2.checked=false;
-
-    let cartProduct3 = new CartProduct();
-    cartProduct3.product.prodName = "슈크림빵";
-    cartProduct3.quantity = 3;
-    cartProduct3.product.salePrice=900;
-    cartProduct3.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
-    cartProduct3.checked=false;
-
-    this.cart.totalPrice = 5900;
-
-    this.cart.products.push(cartProduct1);
-    this.cart.products.push(cartProduct2);
-    this.cart.products.push(cartProduct3);
+   //
+   //  let cartProduct1 = new CartProduct();
+   //  cartProduct1.product.prodName = "소보로빵";
+   //  cartProduct1.quantity = 2;
+   //  cartProduct1.product.salePrice=1000;
+   //  cartProduct1.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
+   //  cartProduct1.checked=false;
+   // let cartProduct2 = new CartProduct();
+   //  cartProduct2.product.prodName = "단팥빵";
+   //  cartProduct2.quantity = 1;
+   //  cartProduct2.product.salePrice=1200;
+   //  cartProduct2.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
+   //  cartProduct2.checked=false;
+   //
+   //  let cartProduct3 = new CartProduct();
+   //  cartProduct3.product.prodName = "슈크림빵";
+   //  cartProduct3.quantity = 3;
+   //  cartProduct3.product.salePrice=900;
+   //  cartProduct3.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
+   //  cartProduct3.checked=false;
+   //
+   //  this.cart.totalPrice = 5900;
+   //
+   //  this.cart.products.push(cartProduct1);
+   //  this.cart.products.push(cartProduct2);
+   //  this.cart.products.push(cartProduct3);
 
     this.allChecked = false;
 
@@ -117,7 +119,20 @@ export class CartListPage {
   delete() {
 
 
+    for(let i=0; i < this.cart.products.length; i++) {
+      if (this.cart.products[i].checked == true) {
+        this.deleteSelected.push(i)
+      }
+    }
 
+    this.data = {
+      "cartNum" : this.cart.cartNum,
+      "prodNumList": this.deleteSelected
+    };
+      //
+      // for(let i=0; i < this.deleteSelected.length; i++){
+      //     this.deleteSelected.pop()
+      //   }
     let confirm = this.alertCtrl.create({
       title: '삭제하시겠습니까??',
       subTitle: '',
@@ -133,17 +148,24 @@ export class CartListPage {
               i++;
 
             }*/
-              for(let i=0; i < this.cart.products.length; i++){
-               if( this. cart.products[i].checked==false) {
-                 this.deleteSelected.push(this.cart.products[i])
-                 //this.cart.products.splice(i, 1);
-               }
+          console.log(this.data);
+
+
+
+            this.cartService.cartDelete(this.data).subscribe(
+              (res) =>{
+                //응답오면
+                if(res&&res.code!=undefined){
+                  //성공시
+                  if(res.code==1) {
+                    this.navCtrl.setRoot("CartListPage");
+                    this.toastService.presentToast("삭제 완료");
+                  }else{
+                    this.toastService.presentToast(res.msg);
+                  }
+                }
               }
-
-
-
-            //알림메시지
-            this.toastService.presentToast('삭제 완료!!');
+            )
 
           }
         },

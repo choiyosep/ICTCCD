@@ -26,3 +26,13 @@ page-create-review {
   align-items: center;
 }
 
+  .rating {
+    .ion-icon {
+    color: gray;
+
+    &.filled {
+      color: #ffb400;
+    }
+  }
+}
+

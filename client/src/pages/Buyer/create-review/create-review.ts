@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Events } from 'ionic-angular';
+// import { Events } from 'ionic-angular';
 
 import {FormGroup} from "@angular/forms";
 import {UserStore} from "../../../core/model/UserStore";
@@ -26,7 +26,7 @@ export class CreateReviewPage {
 
   // rating : number= 4;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public events: Events) {
+             ) {
 
     // events.subscribe('star-rating:changed', (starRating) => {
     //   console.log(starRating);
