@@ -183,6 +183,7 @@ check() :boolean {
           cssClass: '',
           handler: () => {
             //즐겨찾기 추가 작업
+            
 
             //즐겨찾기 속성 변경
 

@@ -75,7 +75,7 @@ export class StoreListPage {
     console.log(lat,lng,catNum);
     let buyerId  = this.sessionService.getValue("loginId");
     this.storeService.getStores(lat,lng,catNum, buyerId).subscribe((res)=>{
-      console.log(res);
+      console.log(JSON.stringify(res));
       if(res&&res.code==RESPONSE_CODE.SUCCESS){
         this.setStoreList(catNum, res.data);
       }
@@ -184,7 +184,6 @@ export class StoreListPage {
           cssClass: '',
           handler: () => {
             //즐겨찾기 추가 작업(로그인한 구매자 아이디와 해당 상점의 판매자 아이디 서버로 전송)
-
             let bookMark = new Bookmark();
             bookMark.buyerId = this.sessionService.getValue('loginId');
             bookMark.sellerId = store.sellerId;

@@ -14,6 +14,7 @@ export class BookmarkService extends BaseService {
   constructor(http: HttpService) {
     super('bookmark', http);
   }
+  //public getBookmarkList
 
 
   public BMdelete<T>(item: IModel): Observable<IResponse<T>> {
