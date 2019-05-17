@@ -27,8 +27,7 @@ export class CartListPage {
   allChecked: boolean;
 
   private cart: Cart ;
-  deleteSelected: any[] = [];
-  private data: { prodNumList: any[]; cartNum: number };
+  private data: {  cartNum: number ; prodNumList: any[]};
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -118,40 +117,44 @@ export class CartListPage {
   }*/
   delete() {
 
+    let deleteSelected: any[] = [];
 
-    for(let i=0; i < this.cart.products.length; i++) {
+    console.log(this.cart.products);
+
+
+    for (let i = 0; i < this.cart.products.length; i++) {
       if (this.cart.products[i].checked == true) {
-        this.deleteSelected.push(i)
+        deleteSelected.push(this.cart.products[i].product.prodNum);
       }
     }
 
     this.data = {
-      "cartNum" : this.cart.cartNum,
-      "prodNumList": this.deleteSelected
+      "cartNum": this.cart.cartNum,
+      "prodNumList":deleteSelected
     };
-      //
-      // for(let i=0; i < this.deleteSelected.length; i++){
-      //     this.deleteSelected.pop()
-      //   }
+
+    console.log(this.data);
+    //
+    // for(let i=0; i < this.deleteSelected.length; i++){
+    //     this.deleteSelected.pop()
+    //   }
+
     let confirm = this.alertCtrl.create({
-      title: '삭제하시겠습니까??',
+      title: '삭제 하시겠습니까?',
       subTitle: '',
-      cssClass: '',
+      cssClass: 'storeDelete',
       buttons: [
         {
-          text: '확인',
-          cssClass: '',
+          text: '취소',
+          cssClass: 'cancle',
           handler: () => {
-
-            /*while(!this. cart.products[i].checked && i<this.cart.products.length){
-              this.cart.products.splice(i, 1);
-              i++;
-
-            }*/
-          console.log(this.data);
-
-
-
+            console.log("취소");
+          }
+        },
+        {
+          text: '삭제',
+          cssClass:'del',
+          handler: () => {
             this.cartService.cartDelete(this.data).subscribe(
               (res) =>{
                 //응답오면
@@ -161,24 +164,16 @@ export class CartListPage {
                     this.navCtrl.setRoot("CartListPage");
                     this.toastService.presentToast("삭제 완료");
                   }else{
-                    this.toastService.presentToast(res.msg);
+                   this.toastService.presentToast(res.msg);
                   }
                 }
               }
             )
-
-          }
-        },
-        {
-          text: '취소',
-          cssClass:'',
-          handler: () => {
           }
         }
       ]
     });
     confirm.present();
-
   }
 }
 
