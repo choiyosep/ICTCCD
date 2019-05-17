@@ -70,7 +70,7 @@ export class CreateReviewPage {
     console.log('ionViewDidLoad CreateReviewPage');
   }
   back() {
-    this.navCtrl.setRoot('StoreDetailComponent');
+    this.navCtrl.pop();
   }
 
   add(){
