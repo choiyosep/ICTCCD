@@ -1,5 +1,8 @@
 const Cart = require('../service/Cart')
     ,Product = require('../service/product')
+    ,Sale = require('../service/sale')
+    ,Order = require('../service/order')
+    ,Store = require('../service/Store')
     ,Response = require('../core/Response')
     ,GeoPoint = require('geopoint');
 
@@ -12,7 +15,7 @@ module.exports = {
     get: (buyerId) =>{
         return new Promise (async (resolve, reject) =>{
             try{
-                const cart = await Cart.getCart(buyerId);
+                const cart = await Cart.getCartByBuyerId(buyerId);
                 cart.products = [];
                 cart.totalPrice = 0;
                 const cartProducts = await Cart.getCartProductList(cart.cartNum);
@@ -42,7 +45,7 @@ module.exports = {
             try{
                 console.log("장바구니 추가 시작");
                 //장바구니가 있는지 확인한다.
-                const cart = await Cart.getCart(buyerId);
+                const cart = await Cart.getCartByBuyerId(buyerId);
                 //장바구니가 존재하지 않으면
                 if(! cart){
                     console.log("장바구니 존재하지 않음");
@@ -177,6 +180,40 @@ module.exports = {
             }
 
         });
+    },
+
+
+    order :(cartNum) =>{
+        return new Promise( async (resolve, reject) =>{
+
+            try{
+                //판매이력 저장
+                const cart = await Cart.getCartByCartNum(cartNum);
+                cart.totalPrice = 0;
+                const cartProducts = await Cart.getCartProductList(cartNum);
+                const saleDate = new Date();
+                let product;
+                for(let i= 0; i<cartProducts.length; i++){
+                    product = await Product.getProductByProdNum(cartProducts[i].prodNum);
+                    // await Sale.createSale(cart.sellerId, product.prodName, cartProducts[i].quantity, product.salePrice * cartProducts[i].quantity, saleDate);
+                    cart.totalPrice += cartProducts[i].quantity * product.salePrice;
+                }
+                console.log("totalPrice:"+cart.totalPrice);
+
+                //구매이력 저장
+                const store = await Store.getStoreById(cart.sellerId);
+                const orderDetail = product.prodName + " 등 " + cartProducts.length + "개 " + cart.totalPrice+ "원";
+                console.log(orderDetail);
+                rs= await Order.createOrder(cart.buyerId, store.title, orderDetail, saleDate);
+                console.log(rs);
+
+                resolve("성공");
+            }catch(err){
+                console.log(err);
+                reject(err);
+            }
+        })
+
     }
 
 
