@@ -4,7 +4,9 @@ import {UserStore} from "../../../core/model/UserStore";
 import {Bookmark} from "../../../core/model/Bookmark";
 import {ToastService} from "../../../core/service/toast.service";
 import {BookmarkService} from "../../../core/api/bookmark.service";
+import {StoreService} from "../../../core/api/store.service";
 import {SessionService} from "../../../core/service/session.service";
+import { resolve } from 'path';
 
 /**
  * Generated class for the BookMarkPage page.
@@ -36,6 +38,7 @@ export class BookMarkPage {
     private alertCtrl: AlertController,
     private toastService: ToastService,
     private bookmarkService: BookmarkService,
+    private storeService:StoreService,
     private sessionService: SessionService
   ) {
     /* this.bookmarkStore1 = new UserStore();
@@ -66,18 +69,7 @@ export class BookMarkPage {
     //   { store: this.bookmarkStore2 ,title: this.bookmarkStore2.title, score: this.bookmarkStore2.score ,images: this.bookmarkStore2.images},
     //   { store: this.bookmarkStore3 ,title: this.bookmarkStore3.title, score: this.bookmarkStore3.score ,images: this.bookmarkStore3.images},
     // ];*/
- 
-    let buyerId  = this.sessionService.getValue("loginId");
-    this.bookmarkService.get(buyerId).subscribe(
-      (res) =>{if (res && res.code != undefined){
-          console.log(JSON.stringify(res));
-          console.log(buyerId)
-
-        }
-
-      }
-    )
-
+         this.getBookmarkList(); 
   }
 
   ionViewDidLoad() {
@@ -187,18 +179,21 @@ export class BookMarkPage {
     });
     confirm.present();
   }
-  /* bookmarkList(store: UserStore){
+   getBookmarkList(){
 
     
     let bookMark = new Bookmark();
     bookMark.buyerId = this.sessionService.getValue('loginId');
-    this.bookmarkService.list(bookMark.buyerId).subscribe(
+    this.bookmarkService.get(bookMark.buyerId).subscribe(
       (res) => {
         //응답오면
+        console.log(JSON.stringify(res))
          if (res && res.code != undefined) {
            //성공시
            if (res.code == 1) {
-            this.store=res.data;
+             console.log(JSON.stringify(res.data))
+            this.bookMarkArray=res.data;
+
            } else {
              this.toastService.presentToast(res.msg);
            }
@@ -206,7 +201,7 @@ export class BookMarkPage {
        }
     ) 
   }
-*/
+
 
 
 } 
