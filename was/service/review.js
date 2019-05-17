@@ -16,20 +16,34 @@ module.exports = {
     
    
 
-    update: (reviewNum) => {
-        const review_update =Store_Review.update('reviewNum',reviewNum);
+    update: (reviewNum,buyerId,sellerId,content,rating) => {
+        const review__obj = {
+             reviewNum: reviewNum,
+             buyerId: buyerId,
+             sellerId: sellerId,
+             content: content,
+             rating: rating
+         }
+        const review_update =Store_Review.update(review__obj,'reviewNum',reviewNum);
         return review_update;
-
     },
 
-    create: (reviewNum) => {
-        const review_create =Store_Review.update('reviewNum',reviewNum);
+    create: (buyerId,sellerId,content,rating) => {
+        
+        const review__obj = {
+           
+            buyerId: buyerId,
+            sellerId: sellerId,
+            content: content,
+            rating: rating
+        }
+        const review_create = Store_Review.create(review__obj);
         return review_create;
 
     },
 
     delete: (reviewNum) => {
-        const review_delete =Store_Review.update('reviewNum',reviewNum);
+        const review_delete =Store_Review.delete('reviewNum',reviewNum);
         return review_delete;
 
     },

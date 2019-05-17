@@ -98,9 +98,9 @@ private myInput;
         this.navCtrl.push('ProductDetailPage', {product: product});
         break;
 
-      // case 'review-create' :
-      //   this.navCtrl.push('ProductDetailPage');
-      //   break;
+      case 'review-create' :
+        this.navCtrl.push('CreateReviewPage');
+        break;
     }
   }
 
@@ -183,6 +183,7 @@ check() :boolean {
           cssClass: '',
           handler: () => {
             //즐겨찾기 추가 작업
+            
 
             //즐겨찾기 속성 변경
 

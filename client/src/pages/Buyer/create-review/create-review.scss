@@ -1,0 +1,38 @@
+page-create-review {
+
+}
+
+.review-container {
+  .scroll-content {
+    padding-top: 40px !important;
+  }
+}
+  .review_box{
+   // @extend .flex-area-row;
+    height: 200px;
+    width: 300px;
+    //padding: 14px 14px;
+    background-color: $Grey01;
+    text-align: center;
+  }
+
+  .title_Input{
+  //@extend .Grey06;
+  //@extend .Caption02;
+  width: 175px;
+  height: 20px;
+  padding: 9px 0px;
+  display: flex;
+  align-items: center;
+}
+
+  .rating {
+    .ion-icon {
+    color: gray;
+
+    &.filled {
+      color: #ffb400;
+    }
+  }
+}
+

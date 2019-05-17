@@ -33,14 +33,16 @@ Router.delete(
     ));
 
 Router.get(
-    '',
+    '/:buyerId',
     [
 
     ],
     Handler.request(
         Ctrl.BookmarkedList,
         (req, res, next) => [
-            req.query['buyerId']
+
+            req.params['buyerId']
+
            
         ]
     ));

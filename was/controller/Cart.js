@@ -157,6 +157,9 @@ module.exports = {
             try{
                 console.log(cartNum, prodNumList);
 
+                console.log(typeof(cartNum));
+                console.log(typeof(prodNumList[0]))
+
                 for(let i=0; i<prodNumList.length; i++){
                     //장바구니와 상품번호로 장바구니에 담긴 상품을 불러온다
                     const product = await Cart.getCartProduct(cartNum, prodNumList[i]);
