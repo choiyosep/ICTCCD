@@ -40,7 +40,9 @@ Router.get(
     Handler.request(
         Ctrl.BookmarkedList,
         (req, res, next) => [
+
             req.params['buyerId']
+
            
         ]
     ));

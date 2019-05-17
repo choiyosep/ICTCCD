@@ -207,12 +207,7 @@ export class StoreListPage {
                    }
                  }
                }
-            )   
-            
-           //즐겨찾기 속성 변경
-           store.isBookMarked = false;
-           //알림메시지
-           this.toastService.presentToast('즐겨찾기 제거 완료!');
+            )
           }
         },
         {
