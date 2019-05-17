@@ -563,3 +563,15 @@ input[_ngcontent-c0] {
 ion-page, .nav-decor, content-md, content-ios,ion-app.ios,.fixed-content,.scroll-content{
   background-color: transparent !important;
 }
+
+
+
+.no-contents-message{
+  @extend .Grey05;
+  @extend .Body01;
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 0%;
+}

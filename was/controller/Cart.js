@@ -16,21 +16,27 @@ module.exports = {
         return new Promise (async (resolve, reject) =>{
             try{
                 const cart = await Cart.getCartByBuyerId(buyerId);
-                cart.products = [];
-                cart.totalPrice = 0;
-                const cartProducts = await Cart.getCartProductList(cart.cartNum);
-                for(let i=0; i<cartProducts.length; i++){
-                    const cartProduct = {};
-                    //장바구니에 담긴 수량
-                    cartProduct.quantity = cartProducts[i].quantity;
-                    //상품 상세정보
-                    cartProduct.product =  await Product.getProductByProdNum(cartProducts[i].prodNum);
-                    cart.products.push(cartProduct);
-                    //총 가격 가산
-                    cart.totalPrice += cartProduct.quantity * cartProduct.product.salePrice;
+
+                if(cart){
+                    cart.products = [];
+                    cart.totalPrice = 0;
+                    const cartProducts = await Cart.getCartProductList(cart.cartNum);
+                    for(let i=0; i<cartProducts.length; i++){
+                        const cartProduct = {};
+                        //장바구니에 담긴 수량
+                        cartProduct.quantity = cartProducts[i].quantity;
+                        //상품 상세정보
+                        cartProduct.product =  await Product.getProductByProdNum(cartProducts[i].prodNum);
+                        cart.products.push(cartProduct);
+                        //총 가격 가산
+                        cart.totalPrice += cartProduct.quantity * cartProduct.product.salePrice;
+                    }
+                    //장바구니 반환
+                    console.log(cart);
+                    resolve(cart);
+                }else{
+                    throw Response.get(Response.type.IS_EMPTY_CART,{});
                 }
-                //장바구니 반환
-                resolve(cart);
             }catch(err){
                 console.log(err);
                 reject(err);
