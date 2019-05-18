@@ -4,15 +4,11 @@ const User = require('../service/User')
 
 module.exports = {
 
-    get: (id) => {
-        console.log(id)
+    get: (Userid) => {
         return new Promise(async (resolve, reject) => {
-            console.log(id)
             try {
-                console.log(id)
-
                 //받아온 ID로 getUserbyID 호출해서 User정보 가져오기
-                const user = await User.getUserById(id);
+                const user = await User.getUserById(Userid);
                 //id, nickname, level,push_con 가져오기 ->service에서 처리
 
                 if (user) {//사용자가 존재하면
