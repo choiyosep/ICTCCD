@@ -31,17 +31,6 @@ Router.put(
         ]
     ));
 
-Router.post(
-    '/order',
-    [
-
-    ],
-    Handler.request(
-        Ctrl.cartOrder,
-        (req, res, next) => [
-
-        ]
-    ));
 
 Router.delete(
     '/product',
@@ -67,6 +56,19 @@ Router.delete(
         (req, res, next) => [
             req.params['cartNum']
 
+        ]
+    ));
+
+
+Router.post(
+    '/order',
+    [
+
+    ],
+    Handler.request(
+        Ctrl.order,
+        (req, res, next) => [
+            req.body['cartNum']
         ]
     ));
 

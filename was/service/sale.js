@@ -13,4 +13,15 @@ module.exports ={
         return record_delete;
 
     },
+
+    createSale: (sellerId, prodName, quantity, price, saleDate) =>{
+        const sale_obj = {
+            sellerId : sellerId,
+            prodName : prodName,
+            quantity : quantity,
+            price : price,
+            saleDate : saleDate
+        };
+        return Sale.create(sale_obj);
+    }
 }

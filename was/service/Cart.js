@@ -11,7 +11,11 @@ const Cart = require('../model/Cart')
 
 module.exports = {
 
-    getCart: (buyerId)=>{
+    getCartByCartNum: (cartNum)=>{
+       return  Cart.getOne("cartNum", cartNum);
+    },
+
+    getCartByBuyerId: (buyerId)=>{
         return new Promise( async(resolve, reject) =>{
             try {
                 DB.conn.getConnection((err, conn) => {
