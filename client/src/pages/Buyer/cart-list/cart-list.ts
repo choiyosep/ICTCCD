@@ -28,6 +28,7 @@ export class CartListPage {
 
   private cart: Cart ;
   private data: {  cartNum: number ; prodNumList: any[]};
+  private agreeState: boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -35,35 +36,6 @@ export class CartListPage {
               private sessionService: SessionService,
   private alertCtrl: AlertController,
   private toastService: ToastService) {
-
-    this.cart = new Cart();
-
-   //
-   //  let cartProduct1 = new CartProduct();
-   //  cartProduct1.product.prodName = "소보로빵";
-   //  cartProduct1.quantity = 2;
-   //  cartProduct1.product.salePrice=1000;
-   //  cartProduct1.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
-   //  cartProduct1.checked=false;
-   // let cartProduct2 = new CartProduct();
-   //  cartProduct2.product.prodName = "단팥빵";
-   //  cartProduct2.quantity = 1;
-   //  cartProduct2.product.salePrice=1200;
-   //  cartProduct2.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
-   //  cartProduct2.checked=false;
-   //
-   //  let cartProduct3 = new CartProduct();
-   //  cartProduct3.product.prodName = "슈크림빵";
-   //  cartProduct3.quantity = 3;
-   //  cartProduct3.product.salePrice=900;
-   //  cartProduct3.product.images.push("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Soboro-ppang.jpg/330px-Soboro-ppang.jpg");
-   //  cartProduct3.checked=false;
-   //
-   //  this.cart.totalPrice = 5900;
-   //
-   //  this.cart.products.push(cartProduct1);
-   //  this.cart.products.push(cartProduct2);
-   //  this.cart.products.push(cartProduct3);
 
     this.allChecked = false;
 
@@ -90,7 +62,38 @@ export class CartListPage {
 
 
   order(){
-    this.cartService.order(this.cart);
+    let confirm = this.alertCtrl.create({
+      title: '결제 하시겠습니까?',
+      subTitle: '',
+      cssClass: 'storeDelete',
+      buttons: [
+        {
+          text: '취소',
+          cssClass: 'cancle',
+          handler: () => {
+          }
+        },
+        {
+          text: '결제',
+          cssClass:'del',
+          handler: () => {
+            this.cartService.order(this.cart.cartNum).subscribe((res)=>{
+              if(res&&res.code!=undefined) {
+                //성공시
+                if (res.code == 1) {
+                  this.toastService.presentToast("결제 성공!!");
+                  this.navCtrl.setRoot("OrderRecordPage");
+                } else {
+                  this.toastService.presentToast(res.msg);
+                }
+              }
+            }
+          )
+        }
+      }
+    ]
+  });
+    confirm.present();
   }
 
 
@@ -176,14 +179,3 @@ export class CartListPage {
     confirm.present();
   }
 }
-
-
-
-// 버튼 활성화/비활성화
-/*
-var btn = document.getElementById('buyBtn') as HTMLInputElement;
-var clickedCheck = document.getElementById('buyAgreement') as HTMLInputElement;
-clickedCheck.onchange = function() {
-  btn.disabled = !clickedCheck;
-}
-*/

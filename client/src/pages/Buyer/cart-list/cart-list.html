@@ -17,54 +17,61 @@
 
 <ion-content padding>
 
-  <div class='table'>
-    <div class='box check'>
-      <ion-checkbox [(ngModel)]="allChecked" (click)="checkedAll()" ></ion-checkbox>
-      </div>
-      <div class='box name Body04'>
-        상품명
-      </div>
-      <div class='box qnty Body04'>
-        수량
-      </div>
-      <div class='box price Body04'>
-        가격
-      </div>
-    </div>
 
-
-  <div id="{{i}}"  class='product-list' *ngFor="let item of cart.products; let i = index">
-      <div class='box check'>
-        <ion-checkbox  [(ngModel)]='item.checked'  (ionChange)="checked($event.checked)"></ion-checkbox>
-      </div>
-      <div class='box sub-photo'>
-        <img [src]="item.product.images[0]">
-      </div>
-      <div class='box sub-name Body04'>
-        {{ item.product.prodName }}
-      </div>
-      <div class='box qnty Body03'>
-        {{ item.quantity }}개
-      </div>
-      <div class='box price Body03'>
-        {{item.product.salePrice }}원
-      </div>
-    </div>
-    <div class='button-wrapper'>
-        <button (click)="delete()" class='delete-button'>
-            선택삭제
-        </button>
-    </div>
-
-  <div class='totalPrice Grey05 Body04'>
-    총 상품 가격: {{ cart.totalPrice }}원
+  <div class="no-contents-message" *ngIf="cart==undefined || cart==null">
+    장바구니가 비어있습니다.
   </div>
- 
-<div class='agreement Body01'>
-  <ion-checkbox id='buyAgreement'></ion-checkbox> &nbsp;&nbsp; 주문 상품의 내역을 확인하였습니다.
-</div>
 
-  <br>
 
-  <button class='buy' id='buyBtn'>구매하기</button>
+  <div *ngIf="cart!=undefined">
+    <div class='table'>
+      <div class='box check'>
+        <ion-checkbox [(ngModel)]="allChecked" (click)="checkedAll()" ></ion-checkbox>
+        </div>
+        <div class='box name Body04'>
+          상품명
+        </div>
+        <div class='box qnty Body04'>
+          수량
+        </div>
+        <div class='box price Body04'>
+          가격
+        </div>
+      </div>
+
+
+    <div id="{{i}}"  class='product-list' *ngFor="let item of cart?.products; let i = index">
+        <div class='box check'>
+          <ion-checkbox  [(ngModel)]='item.checked'  (ionChange)="checked($event.checked)"></ion-checkbox>
+        </div>
+        <div class='box sub-photo'>
+          <img [src]="item.product.images[0]">
+        </div>
+        <div class='box sub-name Body04'>
+          {{ item.product.prodName }}
+        </div>
+        <div class='box qnty Body03'>
+          {{ item.quantity }}개
+        </div>
+        <div class='box price Body03'>
+          {{item.product.salePrice }}원
+        </div>
+      </div>
+      <div class='button-wrapper'>
+          <button (click)="delete()" class='delete-button'>
+              선택삭제
+          </button>
+      </div>
+
+    <div class='totalPrice Grey05 Body04'>
+      총 상품 가격: {{ cart.totalPrice }}원
+    </div>
+
+  <div class='agreement Body01'>
+    <ion-checkbox [(ngModel)]="agreeState"></ion-checkbox> &nbsp;&nbsp; 주문 상품의 내역을 확인하였습니다.
+  </div>
+    <br>
+    <button [disabled]="!agreeState" (click)="order()" class='buy' id='buyBtn'>구매하기</button>
+  </div>
+
 </ion-content>
