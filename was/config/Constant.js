@@ -6,7 +6,7 @@ module.exports = {
 
     DATABASE : {
         POOL_SIZE: 20,
-        HOST : 'discountmatcher.ciamwtfipsh2.ap-northeast-2.rds.amazonaws.com',
+        HOST : 'discountmatcher2.ciamwtfipsh2.ap-northeast-2.rds.amazonaws.com',
         PORT : '3306',
         NAME : 'soborrow',
         USER_ID : 'soborrow',
