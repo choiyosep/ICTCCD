@@ -28,6 +28,7 @@ export class CartListPage {
 
   private cart: Cart ;
   private data: {  cartNum: number ; prodNumList: any[]};
+  private agreeState: boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -61,7 +62,38 @@ export class CartListPage {
 
 
   order(){
-    this.cartService.order(this.cart);
+    let confirm = this.alertCtrl.create({
+      title: '결제 하시겠습니까?',
+      subTitle: '',
+      cssClass: 'storeDelete',
+      buttons: [
+        {
+          text: '취소',
+          cssClass: 'cancle',
+          handler: () => {
+          }
+        },
+        {
+          text: '결제',
+          cssClass:'del',
+          handler: () => {
+            this.cartService.order(this.cart.cartNum).subscribe((res)=>{
+              if(res&&res.code!=undefined) {
+                //성공시
+                if (res.code == 1) {
+                  this.toastService.presentToast("결제 성공!!");
+                  this.navCtrl.setRoot("OrderRecordPage");
+                } else {
+                  this.toastService.presentToast(res.msg);
+                }
+              }
+            }
+          )
+        }
+      }
+    ]
+  });
+    confirm.present();
   }
 
 
@@ -147,14 +179,3 @@ export class CartListPage {
     confirm.present();
   }
 }
-
-
-
-// 버튼 활성화/비활성화
-/*
-var btn = document.getElementById('buyBtn') as HTMLInputElement;
-var clickedCheck = document.getElementById('buyAgreement') as HTMLInputElement;
-clickedCheck.onchange = function() {
-  btn.disabled = !clickedCheck;
-}
-*/

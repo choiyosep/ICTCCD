@@ -13,8 +13,8 @@ export class CartService extends BaseService {
     super('Cart', http);
   }
 
-  public order(item: IModel): Observable<IResponse<any>> {
-    return this.http.post(`${this.controllerName}/order`, item.toObject());
+  public order(cartNum: number): Observable<IResponse<any>> {
+    return this.http.post(`${this.controllerName}/order`, {cartNum: cartNum});
   }
   public cartAdd<T>(cartProduct : CartProduct): Observable<IResponse<T>> {
     return this.http.put(`${this.controllerName}`, cartProduct.toObject(), false);

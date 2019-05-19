@@ -2,7 +2,7 @@ const BaseModelForMySql = require('./BaseModelForMySql')
     , Util = require('util');
 
 function SmsModel() {
-    BaseModelForMySql.call(this, 'order');
+    BaseModelForMySql.call(this, 'soborrow.order');
     return this;
 }
 

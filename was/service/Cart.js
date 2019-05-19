@@ -56,7 +56,6 @@ module.exports = {
     },
 
     createCartProduct: (cartNum, prodNum, quantity)=>{
-        console.log(cartNum, prodNum, quantity);
         let obj = {
             cartNum : cartNum,
             prodNum : prodNum,

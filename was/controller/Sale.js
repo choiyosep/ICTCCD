@@ -1,5 +1,6 @@
 const Sale = require('../service/sale')
     ,Response = require('../core/Response')
+    ,Store = require('../service/store')
 
 
 //route -> controller -> service -> model

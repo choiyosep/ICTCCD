@@ -23,7 +23,7 @@ export class Cart extends Serializable implements IModel{
 
   toObject(): object {
     return {
-
+      cartNum : this.cartNum
     }
   }
 z
