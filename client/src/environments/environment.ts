@@ -23,8 +23,8 @@ export const environment = {
 
 
   _POOL_DATA : {
-    UserPoolId: "ap-northeast-2_2FNqQpToV",
-    ClientId: "17mvqqbsnj8lf3psl7k0q8fnq5",
+    UserPoolId: "ap-northeast-2_AcVZp4GhT",
+    ClientId: "2n2l5jvqvbg2vbqhf32df9lkk8",
     region: 'ap-northeast-2',
   }
 };
