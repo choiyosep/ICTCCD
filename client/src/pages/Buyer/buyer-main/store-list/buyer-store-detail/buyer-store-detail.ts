@@ -176,6 +176,11 @@ check() :boolean {
     document.getElementById('content').style.display = "none";
 
   }*/
+  revise1(i:number){
+    let confirm = this.alertCtrl.create({
+      title: ''
+    })
+  }
   delete(i:number) {
     let confirm = this.alertCtrl.create({
       title: '삭제하시겠습니까??',

@@ -13,5 +13,12 @@ module.exports ={
         };
         console.log(order_obj);
         return Order.create(order_obj);
+    },
+
+    getReviewById:(buyerId) => {
+        const order_record = Order.getList(buyerId)
+        return order_record
     }
+
+
 }

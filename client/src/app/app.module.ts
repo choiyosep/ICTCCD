@@ -18,6 +18,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import {CartService} from "../core/api/cart.service";
 import {ProductService} from "../core/api/product.service";
 import { BookmarkService } from '../core/api/bookmark.service';
+import {OrderService} from '../core/api/order.service'
 //import {IonicRatingModule} from 'ionic4-rating';
 //import {IonicPageModule} from "ionic-angular";
 
@@ -59,6 +60,7 @@ import { BookmarkService } from '../core/api/bookmark.service';
     CartService,
     ProductService,
     BookmarkService,
+    OrderService
 
   ]
 })

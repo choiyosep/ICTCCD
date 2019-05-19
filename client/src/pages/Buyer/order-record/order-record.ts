@@ -1,7 +1,12 @@
+import {Order} from "../../../core/model/Order";
 import { Component } from '@angular/core';
-import {  IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserStore} from "../../../core/model/UserStore";
+import {ToastService} from "../../../core/service/toast.service";
+import {OrderService} from "../../../core/api/order.service";
 import {Product} from "../../../core/model/Product";
+import {StoreService} from "../../../core/api/store.service";
+import {SessionService} from "../../../core/service/session.service";
 
 /**
  * Generated class for the OrderRecordPage page.
@@ -18,7 +23,7 @@ import {Product} from "../../../core/model/Product";
   templateUrl: 'order-record.html',
 })
 export class OrderRecordPage {
-  private orderArray: Product[] = [];
+  private orderArray: Order[] = [];
   private Product1 : Product;
   private Product2 : Product;
   private Product3 : Product;
@@ -28,7 +33,14 @@ export class OrderRecordPage {
   data: Array<{date: string, name : string ,price : number, qty: number,icon: string, showDetails: boolean}> = [];
 
   // name:string, price: number,qty:number,
-  constructor(public navCtrl: NavController, public navParams: NavParams)
+  constructor(   
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private alertCtrl: AlertController,
+    private toastService: ToastService,
+    private orderService: OrderService,
+    private storeService:StoreService,
+    private sessionService: SessionService)
   {
 
     this.DateArray.push("2019-04-30");
@@ -59,18 +71,17 @@ export class OrderRecordPage {
 
     for(let i = 0; i < 3; i++ ){
 
-
-
     this.data.push({
 
-      date : this.DateArray[i],
+      date: this.DateArray[i],
       name: this.orderArray[i].prodName,
-      price: this.orderArray[i].salePrice *this.orderArray[i].qty,
-      qty:this.orderArray[i].qty,
+      price: this.orderArray[i].salePrice * this.orderArray[i].qty,
+      qty: this.orderArray[i].qty,
       icon: 'ios-add-circle-outline',
       showDetails: false
     });
-  }
+    }
+    this.getOrderRecordList();
 
   }
 
@@ -83,15 +94,39 @@ export class OrderRecordPage {
       case 'main':
         this.navCtrl.push('MainComponent');
         break;
-  }
-} toggleDetails(data) {
-  if (data.showDetails) {
-    data.showDetails = false;
-    data.icon = 'ios-add-circle-outline';
-  } else {
-    data.showDetails = true;
-    data.icon = 'ios-remove-circle-outline';
-  }
+    }
+  } toggleDetails(data) {
+    if (data.showDetails) {
+      data.showDetails = false;
+      data.icon = 'ios-add-circle-outline';
+    } else {
+      data.showDetails = true;
+      data.icon = 'ios-remove-circle-outline';
+    }
 
 
-}}
+  }
+  getOrderRecordList() {
+
+    //해당 로그인한 사용자 이름 불러오기
+    //불러온 이름으로 사용자 order list get해오기
+    const buyerId = this.sessionService.getValue('loginId');
+    this.orderService.get(buyerId).subscribe(
+      (res) => {
+        //응답오면
+        //console.log(JSON.stringify(res))
+         if (res && res.code != undefined) {
+           //성공시
+           if (res.code == 1) {
+             //console.log(JSON.stringify(res.data))
+            this.orderArray=res.data;
+
+           } else {
+             this.toastService.presentToast(res.msg);
+           }
+         }
+       }
+    ) 
+
+  }
+}
