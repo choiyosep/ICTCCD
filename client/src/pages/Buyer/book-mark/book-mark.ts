@@ -187,11 +187,11 @@ export class BookMarkPage {
     this.bookmarkService.get(bookMark.buyerId).subscribe(
       (res) => {
         //응답오면
-        console.log(JSON.stringify(res))
+        //console.log(JSON.stringify(res))
          if (res && res.code != undefined) {
            //성공시
            if (res.code == 1) {
-             console.log(JSON.stringify(res.data))
+             //console.log(JSON.stringify(res.data))
             this.bookMarkArray=res.data;
 
            } else {

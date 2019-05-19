@@ -81,9 +81,6 @@ export class BuyerMainPage {
   }
 
 
-
-
-
   setLocationByGPS(){
     //현재 기기의 위치값을 받아온다.
     this.geoLocation.getCurrentPosition().then(

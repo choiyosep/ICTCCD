@@ -134,7 +134,9 @@ private myInput;
   revise(i){
 
 
+    console.log(i);
     this.myInput=this.userStore.reviews[i].content;
+    console.log(this.myInput)
     document.getElementById(`revise${i}`).style.display = "none";
     document.getElementById(`delete${i}`).style.display = "none";
     document.getElementById(`content${i}`).style.display = "none";
@@ -161,9 +163,11 @@ check() :boolean {
   const loginId = this.session.getValue("loginId");
   let flag = false;
             for(let i=0; i< this.userStore.reviews.length; i++){
+              console.log(this.userStore.reviews[i].buyerId)
               if(loginId==this.userStore.reviews[i].buyerId)
                 flag=true;
             }
+            console.log(flag)
             return flag;
 
 
