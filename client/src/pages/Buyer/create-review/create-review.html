@@ -18,29 +18,15 @@
 
 <ion-content padding>
   <div margin-left="40px">
-    <ion-icon  name="star" *ngFor = "let num of [1,2,3,4,5]" (click)="rate(num)" [ngStyle]="{'color':getColor(num)}"></ion-icon>
+    <ion-icon  name="star"  *ngFor = "let num of [1,2,3,4,5]" (click)="rate(num)" [ngStyle]="{'color':getColor(num)}"></ion-icon>
   </div>
   <br style="line-height: 16px;">
   <div class="title_Input">
     구매한 상점<span class="Red Body04">&nbsp;*</span>
   </div>
-  <input class="input_box">
+  <input [placeholder]="userStore.title" class="input_box">
   <br style="line-height: 16px;">
 
-  <input [(ngModel)]="userStore.reviews" placeholder="리뷰는 솔직하게" class="review_box">
-  <!--<br style="line-height: 16px;">-->
-  <!--<ionic3-star-rating-->
-    <!--activeIcon = "ios-star"-->
-  <!--defaultIcon = "ios-star-outline"-->
-  <!--activeColor = "#488aff"-->
-  <!--defaultColor = "red"-->
-  <!--readonly="false"-->
-  <!--[rating]="rating">-->
-  <!--</ionic3-star-rating>-->
+  <input [(ngModel)]="contents" placeholder="리뷰는 솔직하게" class="review_box">
 
-  <!--Selected rating: {{rating}}-->
-  <!--<rating [rate]="rate" readonly="false" size="default" (rateChange)="onRateChange($event)"></rating>-->
-
-
-  <!--<rating [(ngModel)]="rate"  readonly="false" size="default" (ngModelChange)="onModelChange($event)"></rating>-->
 </ion-content>

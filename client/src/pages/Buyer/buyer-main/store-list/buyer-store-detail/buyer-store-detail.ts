@@ -83,8 +83,10 @@ private myInput;
     }
   }
 
-  goToPage(str: string, product?: Product) {
-
+  goToPage(str: string, product?: Product , title?:string, sellerId?: string ) {
+    sellerId=this.userStore.sellerId;
+    title =this.userStore.title;
+    console.log(title);
     console.log(product);
     switch (str) {
       case 'store-create':
@@ -98,8 +100,8 @@ private myInput;
         this.navCtrl.push('ProductDetailPage', {product: product});
         break;
 
-      case 'review-create' :
-        this.navCtrl.push('CreateReviewPage');
+      case 'review-create':
+        this.navCtrl.push('CreateReviewPage',{title :title, sellerId: sellerId});
         break;
     }
   }

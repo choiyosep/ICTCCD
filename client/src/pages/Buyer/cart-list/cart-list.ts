@@ -113,11 +113,57 @@ export class CartListPage {
       }
     });
   }
-  /*deletechecked(item){
+  all_delete(){
 
-    this.deleteSelected.push(item.index);
+    let deleteSelected: any[] = [];
 
-  }*/
+    for (let i = 0; i < this.cart.products.length; i++) {
+        deleteSelected.push(this.cart.products[i].product.prodNum);
+    }
+
+    this.data = {
+      "cartNum": this.cart.cartNum,
+      "prodNumList":deleteSelected
+    };
+
+
+    let confirm = this.alertCtrl.create({
+      title: '전체삭제 하시겠습니까?',
+      subTitle: '',
+      cssClass: 'storeDelete',
+      buttons: [
+        {
+          text: '취소',
+          cssClass: 'cancle',
+          handler: () => {
+            console.log("취소");
+          }
+        },
+        {
+          text: '삭제',
+          cssClass:'del',
+          handler: () => {
+            this.cartService.cartDelete(this.data).subscribe(
+              (res) =>{
+                //응답오면
+                if(res&&res.code!=undefined){
+                  //성공시
+                  if(res.code==1) {
+                    this.navCtrl.setRoot("CartListPage");
+                    this.toastService.presentToast("삭제 완료");
+                  }else{
+                    this.toastService.presentToast(res.msg);
+                  }
+                }
+              }
+            )
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+  }
   delete() {
 
     let deleteSelected: any[] = [];
