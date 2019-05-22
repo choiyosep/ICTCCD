@@ -16,4 +16,13 @@ export class ReviewService extends BaseService {
   public add(data: any): Observable<IResponse<any>> {
     return this.http.post(`${this.controllerName}`, data);
   }
+
+  public delete(reviewNum : string) : Observable<IResponse<any>> {
+    return this.http.delete(`${this.controllerName}/${reviewNum}`);
+  }
+
+  public revise(reviewNum: string , data : any) : Observable<IResponse<any>>{
+    return this.http.put(`${this.controllerName}/${reviewNum}`, data);
+
+  }
 }

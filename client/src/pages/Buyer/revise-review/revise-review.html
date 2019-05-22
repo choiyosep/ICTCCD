@@ -1,0 +1,28 @@
+<!--
+  Generated template for the ReviseReviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <div class="flex-area-row-space-between">
+      <div class="back" (click)="back()">취소</div>
+      <div class="confirm" (click)="add()">수정</div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div margin-left="40px">
+    <ion-icon  name="star"  *ngFor = "let num of [1,2,3,4,5]" (click)="rate(num)"  [ngStyle]="{'color':getColor(num)}"></ion-icon>
+  </div>
+  <br style="line-height: 16px;">
+  <div class="title_Input">
+    구매한 상점<span class="Red Body04">&nbsp;*</span>
+  </div>
+  <input [placeholder]="userStore.title" class="input_box">
+  <br style="line-height: 16px;">
+
+  <input [(ngModel)]="contents" [placeholder]="review.content" class="review_box">
+</ion-content>

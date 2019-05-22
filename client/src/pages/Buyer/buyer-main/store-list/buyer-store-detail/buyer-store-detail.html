@@ -87,7 +87,7 @@
           </div>
 
           <div *ngIf="getId()==review.buyerId" >
-          <button (click)="revise(i)" id="revise{{i}}" class="review-manage-button">
+          <button (click)="goToPage('review-revise',i,userStore.title,userStore.sellerId,userStore.reviews[i].content,userStore.reviews[i].reviewNum)" id="revise{{i}}" class="review-manage-button">
           수정
           </button>
           <button (click)="delete(i)" id="delete{{i}}" class="review-manage-button">
