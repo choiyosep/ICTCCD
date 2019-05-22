@@ -90,11 +90,8 @@ private myInput;
     }
   }
 
-  goToPage(str: string, i? : number ,product?: Product , title?:string, sellerId?: string, content?:string , k?:string) {
-    k= this.userStore.reviews[i].reviewNum;
-    content=this.userStore.reviews[i].content;
-    sellerId=this.userStore.sellerId;
-    title =this.userStore.title;
+  goToPage(str: string,  product?: Product) {
+
     // console.log(title);
     // console.log(product);
     switch (str) {
@@ -109,15 +106,33 @@ private myInput;
         this.navCtrl.push('ProductDetailPage', {product: product});
         break;
 
-      case 'review-create':
-        this.navCtrl.push('CreateReviewPage',{title :title, sellerId: sellerId});
-        break;
-
-      case 'review-revise':
-        this.navCtrl.push('ReviseReviewPage',{i : i ,title :title, sellerId: sellerId, content : content, k : k});
-        break;
+      // case 'review-create':
+      //   this.navCtrl.push('CreateReviewPage',{title :title, sellerId: sellerId});
+      //   break;
+      //
+      // case 'review-revise':
+      //   this.navCtrl.push('ReviseReviewPage',{i : i ,title :title, sellerId: sellerId, content : content, k : k});
+      //   break;
 
     }
+  }
+
+  goToReviewRevise(i : number, title:string, sellerId: string, content:string , k:string){
+    k = this.userStore.reviews[i].reviewNum;
+    content=this.userStore.reviews[i].content;
+    sellerId=this.userStore.sellerId;
+    title =this.userStore.title;
+
+      this.navCtrl.push('ReviseReviewPage',{i : i ,title :title, sellerId: sellerId, content : content, k : k});
+
+
+  }
+
+  goToReviewCreate(title:string, sellerId: string){
+    sellerId=this.userStore.sellerId;
+    title =this.userStore.title;
+        this.navCtrl.push('CreateReviewPage',{title :title, sellerId: sellerId});
+
   }
 
   change(contents: string){

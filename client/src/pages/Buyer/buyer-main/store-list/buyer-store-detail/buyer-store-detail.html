@@ -87,7 +87,7 @@
           </div>
 
           <div *ngIf="getId()==review.buyerId" >
-          <button (click)="goToPage('review-revise',i,userStore.title,userStore.sellerId,userStore.reviews[i].content,userStore.reviews[i].reviewNum)" id="revise{{i}}" class="review-manage-button">
+          <button (click)="goToReviewRevise(i,userStore.title,userStore.sellerId,userStore.reviews[i].content,userStore.reviews[i].reviewNum)" id="revise{{i}}" class="review-manage-button">
           수정
           </button>
           <button (click)="delete(i)" id="delete{{i}}" class="review-manage-button">
@@ -125,7 +125,7 @@
 
   <div id="map" class="store-location-image"></div>
 
-  <img id="product-add-button" (click)="goToPage('review-create',userStore.title,userStore.sellerId)" ion-fixed="true" style="display:none;"  class="add-circle" src="assets/icon/icon_add.png">
+  <img id="product-add-button" (click)="goToReviewCreate(userStore.title,userStore.sellerId)" ion-fixed="true" style="display:none;"  class="add-circle" src="assets/icon/icon_add.png">
 
 
 
