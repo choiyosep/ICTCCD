@@ -11,7 +11,12 @@ export class StoreService extends BaseService {
     super('Store', http);
   }
 
-
+  public getStoresDetailsById(id: string): Observable<IResponse<any>>{
+    return this.http.get<IResponse<any>>(`${this.controllerName}/buyer/${id}`);
+  }
+ /*  public get<T>(id: string): Observable<IResponse<T>> {
+    return this.http.get<IResponse<T>>(`${this.controllerName}/${id}`);
+  } */
   public getStores(lat: number, lng: number, catNum: number, buyerId: string, keyword?: string): Observable<IResponse<any>> {
     const params = {
       keyword: keyword

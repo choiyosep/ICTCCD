@@ -6,8 +6,8 @@ const Store = require('../service/Store')
 //Controller 계층 : 가장 상위 레벨에서 핵심 비즈니스 로직을 수행한다.
 
 module.exports = {
-
-    get: (sellerId) => {
+//controller/product.js -> 상품의 update, delete, create 만조정 
+    /* get: (sellerId) => {
         return new Promise(async (resolve, reject) => {
             try{
                 //상품 정보 불러옴
@@ -61,7 +61,7 @@ module.exports = {
             }
         });
     },
-
+ */
 
     update: (prodNum, sellerId, prodName, originalPrice, discountRate, salePrice, stock, state,images) => {
         return new Promise( async (resolve, reject ) =>{

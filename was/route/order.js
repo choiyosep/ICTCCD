@@ -1,7 +1,7 @@
 const Router = require('express').Router()
     , Ctrl = require('../service/order')
     , Handler = require('../middleware/Handler')
-    , Request = require('../middleware/Request');
+   
 
 
 
@@ -11,9 +11,11 @@ Router.get(
 
     ],
     Handler.request(
-        Ctrl.getReviewById,
+        Ctrl.getOrderById,
         (req, res, next) => [
             req.params['buyerId']
 
         ]
     ));
+
+module.exports = Router;

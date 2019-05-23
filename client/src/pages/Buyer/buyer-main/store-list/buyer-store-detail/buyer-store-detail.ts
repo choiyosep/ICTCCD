@@ -39,10 +39,14 @@ private myInput;
     public navParams : NavParams,
     private alertCtrl: AlertController,
     private toastService: ToastService,
-    private storeService : StoreService
+    private storeService : StoreService,
+    private sessionService: SessionService
   ) {
     if(this.navParams.get("sellerId")!=undefined){
-      this.storeService.get(this.navParams.get("sellerId"))
+      const id = this.sessionService.getValue("loginId");
+      console.log(id);
+      console.log(this.navParams.get("sellerId"))
+      this.storeService.getStoresDetailsById(this.navParams.get("sellerId"))
         .subscribe((res)=>{
           if(res && res.code ==RESPONSE_CODE.SUCCESS) {
             this.userStore = res.data;

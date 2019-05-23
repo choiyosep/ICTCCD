@@ -20,6 +20,7 @@ export class BaseService {
   }
 
   public get<T>(id: string): Observable<IResponse<T>> {
+    console.log("baseService:"+id)
     return this.http.get<IResponse<T>>(`${this.controllerName}/${id}`);
   }
 

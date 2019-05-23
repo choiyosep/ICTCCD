@@ -1,7 +1,6 @@
 import {Order} from "../../../core/model/Order";
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
-import {UserStore} from "../../../core/model/UserStore";
 import {ToastService} from "../../../core/service/toast.service";
 import {OrderService} from "../../../core/api/order.service";
 import {Product} from "../../../core/model/Product";
@@ -29,58 +28,28 @@ export class OrderRecordPage {
   private Product3 : Product;
 
   private DateArray : string[]=[];
-
-  data: Array<{date: string, name : string ,price : number, qty: number,icon: string, showDetails: boolean}> = [];
+  
+  data: Array<{
+    date: string,
+    name: string,
+    //price: number,
+    details: string,
+    //qty: number,
+    icon: string,
+    showDetails: boolean
+  }> = [];
 
   // name:string, price: number,qty:number,
-  constructor(   
+  constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private toastService: ToastService,
     private orderService: OrderService,
-    private storeService:StoreService,
-    private sessionService: SessionService)
-  {
+    private storeService: StoreService,
+    private sessionService: SessionService) {
 
-    this.DateArray.push("2019-04-30");
-    this.DateArray.push("2019-04-29");
-    this.DateArray.push("2019-04-28");
-
-
-
-    this.Product1 = new Product();
-    this.Product1.prodName="소보루빵",
-      this.Product1.qty=3,
-      this.Product1.salePrice=1000;
-
-    this.Product2 = new Product();
-    this.Product2.prodName="소보루빵",
-      this.Product2.qty=3,
-      this.Product2.salePrice=1000;
-
-    this.Product3 = new Product();
-    this.Product3.prodName="소보루빵",
-      this.Product3.qty=3,
-      this.Product3.salePrice=1000;
-
-
-    this.orderArray.push(this.Product1);
-    this.orderArray.push(this.Product2);
-    this.orderArray.push(this.Product3);
-
-    for(let i = 0; i < 3; i++ ){
-
-    this.data.push({
-
-      date: this.DateArray[i],
-      name: this.orderArray[i].prodName,
-      price: this.orderArray[i].salePrice * this.orderArray[i].qty,
-      qty: this.orderArray[i].qty,
-      icon: 'ios-add-circle-outline',
-      showDetails: false
-    });
-    }
+    //구매이력 불러오는 method
     this.getOrderRecordList();
 
   }
@@ -114,19 +83,37 @@ export class OrderRecordPage {
     this.orderService.get(buyerId).subscribe(
       (res) => {
         //응답오면
-        //console.log(JSON.stringify(res))
-         if (res && res.code != undefined) {
-           //성공시
-           if (res.code == 1) {
-             //console.log(JSON.stringify(res.data))
-            this.orderArray=res.data;
+        
+        if (res && res.code != undefined) {
+          //성공시
+          if (res.code == 1) {
 
-           } else {
-             this.toastService.presentToast(res.msg);
-           }
-         }
-       }
-    ) 
-
+            //order_record데이터 받아오기
+            this.orderArray = res.data;
+                    //구매날짜별로 DataArray 삽입
+             //let count = 0;
+             for (let i = 0; i < this.orderArray.length; i++) {
+            
+              this.DateArray.push(this.orderArray[i].orderDate)
+              console.log(this.DateArray[0]);
+              this.data.push({
+                date: this.DateArray[i],
+                name: this.orderArray[i].storeName,
+                details: this.orderArray[i].orderDetail,
+                icon: 'ios-add-circle-outline',
+                showDetails: false
+              });
+             }
+      
+            //알림메시지
+            console.log(this.DateArray)
+          } else {
+            this.toastService.presentToast(res.msg);
+          }
+        }
+      }
+    )
   }
+
 }
+

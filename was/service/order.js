@@ -15,8 +15,9 @@ module.exports ={
         return Order.create(order_obj);
     },
 
-    getReviewById:(buyerId) => {
-        const order_record = Order.getList(buyerId)
+    getOrderById:(buyerId) => {
+        const order_record = Order.getList('buyerId',buyerId)
+        //const saleList = Sale.getList('sellerId',sellerId);
         return order_record
     }
 

@@ -1,6 +1,11 @@
 import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Product} from "../../../../core/model/Product";
+import {Sale} from "../../../../core/model/Sale";
+import {SessionService} from "../../../../core/service/session.service"
+import {SaleService} from "../../../../core/api/sale.service"
+import {ToastService} from "../../../../core/service/toast.service";
+
 
 
 
@@ -20,59 +25,31 @@ import {Product} from "../../../../core/model/Product";
   templateUrl: 'sell-record.html',
 })
 export class SellRecordPage{
-  private sellArray: Product[] = [];
+  private sellArray: Sale[] = [];
   private Product1 : Product;
   private Product2 : Product;
   private Product3 : Product;
 
   private DateArray : string[]=[];
 
-  data: Array<{date: string, name : string ,price : number, qty: number,icon: string, showDetails: boolean}> = [];
+  data: Array<{
+    date: string, 
+    name : string ,
+    price : number, 
+    qty: number,
+    icon: string, 
+    showDetails: boolean}> = [];
 
   // name:string, price: number,qty:number,
-  constructor(public navCtrl: NavController, public navParams: NavParams)
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public sessionService:SessionService,
+    private toastService: ToastService,
+    public saleService:SaleService)
   {
 
-    this.DateArray.push("2019-04-30");
-    this.DateArray.push("2019-04-29");
-    this.DateArray.push("2019-04-28");
-
-
-
-    this.Product1 = new Product();
-    this.Product1.prodName="소보루빵",
-      this.Product1.qty=3,
-      this.Product1.salePrice=1000;
-
-    this.Product2 = new Product();
-    this.Product2.prodName="소보루빵",
-      this.Product2.qty=3,
-      this.Product2.salePrice=800;
-
-    this.Product3 = new Product();
-    this.Product3.prodName="소보루빵",
-      this.Product3.qty=3,
-      this.Product3.salePrice=500;
-
-//각각의 product객체들을 sellArray에 넣어줌
-    this.sellArray.push(this.Product1);
-    this.sellArray.push(this.Product2);
-    this.sellArray.push(this.Product3);
-
-    for(let i = 0; i < 3; i++ ){
-
-
-
-      this.data.push({
-
-        date : this.DateArray[i],
-        name: this.sellArray[i].prodName,
-        price: this.sellArray[i].salePrice *this.sellArray[i].qty,
-        qty:this.sellArray[i].qty,
-        icon: 'ios-add-circle-outline',
-        showDetails: false
-      });
-    } 
+    this.getOrderRecordList();
 
   }
 
@@ -96,6 +73,49 @@ export class SellRecordPage{
     }
 
 
+  }
+
+
+  getOrderRecordList() {
+
+    //해당 로그인한 사용자 이름 불러오기
+    //불러온 이름으로 사용자 order list get해오기
+    const sellerId = this.sessionService.getValue('loginId');
+    this.saleService.get(sellerId).subscribe(
+      (res) => {
+        //응답오면
+        console.log(sellerId)//ok
+        
+        if (res && res.code != undefined) {
+          //성공시
+          console.log(res.code);
+          if (res.code == 1) {
+console.log("qqqq")
+            //sale_record데이터 받아오기
+            this.sellArray = res.data;
+             console.log(JSON.stringify(this.sellArray))
+             for (let i = 0; i < this.sellArray.length; i++) {
+          
+              this.DateArray.push(this.sellArray[i].saleDate)
+              console.log(this.DateArray[0]);
+              this.data.push({
+                date : this.DateArray[i],
+                name: this.sellArray[i].prodName,
+                price: this.sellArray[i].price,
+                qty:this.sellArray[i].quantity,
+                icon: 'ios-add-circle-outline',
+                showDetails: false
+              });
+             }
+      
+            //알림메시지
+            console.log(this.DateArray)
+          } else {
+            this.toastService.presentToast(res.msg);
+          }
+        }
+      }
+    )
   }
 
 }

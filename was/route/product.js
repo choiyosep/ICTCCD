@@ -6,7 +6,7 @@ const Router = require('express').Router()
 /**
  * @desc Logout
  */
-Router.get(
+/* Router.get(
     '/:prodNum',
     [
     ],
@@ -29,7 +29,7 @@ Router.get(
         (req, res, next) => [
             req
         ]
-    ));
+    )); */
 
 Router.post(
     '',

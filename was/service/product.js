@@ -1,7 +1,9 @@
 const Store = require('../model/Store'),
     product_picture = require('../model/product_picture'),
-    Product = require('../model/product')
-    
+    Product = require('../model/product'),
+    DB = require('../core/Database'), 
+    Response = require('../core/Response')
+
 
 //route -> controller -> service -> model
 
@@ -28,12 +30,40 @@ module.exports = {
         const products = Product.getList('sellerId',sellerId);
         return products;
     }, 
+    getProductsBybuyerId:(sellerId)=>{
+        return new Promise(async (resolve, reject) => {
+            console.log("디비"+sellerId)
+            try {
+                DB.conn.getConnection((err, conn) =>{
+                    if(err){
+                        console.log(err);
+                    }
+                        const query = `SELECT * FROM product WHERE sellerId = '${sellerId}' AND state = 1`;
+                        conn.query(query,null, (err, results, fields) => {
+                            if (err) {
+                                reject(Response.get(Response.type.DATABASE_ERROR, err.message));
+                            } else {
+                                conn.release();
+                                resolve(results)
+                            }
+                        });
+                    }
+                );
+            } catch (err) {
+                console.log(err);
+                reject(Response.get(Response.type.FAILED_GET_DB, err.message));
+            }
+        });
+
+    },
     getProductPictureById:(prodNum)=>{
         const pictures = product_picture.getList('prodNum', prodNum);
         //사진들은 getList로 불러온다.
         
         return pictures;
+        
     },
+
    
 //상품,상품 사진 삭제_F
    

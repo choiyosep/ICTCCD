@@ -12,7 +12,7 @@ export class Order extends Serializable implements IModel {
     //주문 상점명 
     storeName: string = '';
     //주문 내역
-    orderDetail: CartProduct[] = [];
+    orderDetail: string = '';
     //주문 날짜
     orderDate: string;
 

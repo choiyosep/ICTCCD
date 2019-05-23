@@ -14,9 +14,24 @@ Router.get(
     Handler.request(
         Ctrl.get,
         (req, res, next) => [
-            req.params['sellerId']
+            req.params['sellerId'],
+            
         ]
     ));
+     Router.get(
+        '/buyer/:sellerId',
+        [
+        ],
+       
+        Handler.request(
+            Ctrl.buyerGet,
+            (req, res, next) => [
+                req.params['sellerId'],
+                
+                
+            ]
+        ));
+ 
 
 
 Router.get(
