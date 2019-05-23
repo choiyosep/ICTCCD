@@ -17,7 +17,12 @@ app.use(cookieParser());
  * Route Init
  */
 
-const files = fs.readdirSync('../route');
+/**
+ * Cross-Domain Request Settings
+ */
+app.use(Handler.response());
+
+const files = fs.readdirSync('route');
 //fs.readdirSync('../route'); 지영
 
 files.forEach(file => {
@@ -25,10 +30,7 @@ files.forEach(file => {
     app.use('/' + fileNameArr[0].toLowerCase(), require('./route/' + file));
 });
 
-/**
- * Cross-Domain Request Settings
- */
-app.use(Handler.response());
+
 /**
  * Not support protocol.
  */

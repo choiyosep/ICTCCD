@@ -229,17 +229,21 @@ export class StoreModifyComponent{
     confirm.present();
   }
 
-  back() {
-    this.navCtrl.pop();
+  goToMain(){
+    this.navCtrl.setRoot('StoreDetailComponent');
   }
 
   startJusoSearch(){
     let frameElement: HTMLElement = document.getElementById('daumIframe');
     frameElement.style.display='block';
     frameElement.style.height="100%";
-
+    frameElement.setAttribute('src','assets/juso.html');
+    //frameElement.setAttribute('src','assets/juso.html');
+    //fx`rameElement.setAttribute('src','http://localhost:3000/daumJuso');
     document.getElementById('formContent').style.display="none";
   }
+
+
 
   closeDaumIframe(){
     let frame = document.getElementById("daumIframe");
