@@ -24,27 +24,27 @@
 
 
 
-    <div class='bookmark-list' *ngFor="let item of bookMarkArray">
+    <div class='bookmark-list' *ngFor="let item of bookMarkArray; let i = index ">
 
       <div class="box heart">
         <!--즐겨찾기 됐을때-->
-        <img *ngIf="item.isBookMarked" (click)="removeFromBookmark(item)" src="assets/icon/heart-filled.png">
+        <img  style=margin-left:10px (click)="removeFromBookmark(item,i)" src="assets/icon/heart-filled.png">
         <!--즐겨찾기 안됐을때-->
-        <img *ngIf="!item.isBookMarked" (click)="addToBookmark(item)"  src="assets/icon/heart-empty.png">
+        <!--<img *ngIf="!item.isBookMarked" (click)="addToBookmark(item)"  src="assets/icon/heart-empty.png">-->
       </div>
 
-      <div class='box sub-photo'>
-        <img src="{{ item.images }}">
+      <div  class='box sub-photo'>
+        <img  margin-left="10px"  src="{{ item.images }}">
       </div>
 
-      <div class='box sub-name Body04'>
+      <div text-center="100%" class='box sub-name Body04'>
         {{ item.title }}
       </div>
 
-      <div class = 'box sub-star'>
+   <!--   <div class = 'box sub-star'>
       <img src="assets/imgs/star-icon.png">
       </div>
-
+-->
       <div class='box score Body03'>
         {{ item.score }}
       </div>

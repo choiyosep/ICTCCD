@@ -20,6 +20,7 @@ import {ProductService} from "../core/api/product.service";
 import { BookmarkService } from '../core/api/bookmark.service';
 import {OrderService} from '../core/api/order.service';
 import {SaleService} from '../core/api/sale.service'
+import{ReviewService} from "../core/api/review.service";
 //import {IonicRatingModule} from 'ionic4-rating';
 //import {IonicPageModule} from "ionic-angular";
 
@@ -62,8 +63,8 @@ import {SaleService} from '../core/api/sale.service'
     ProductService,
     BookmarkService,
     OrderService,
-    SaleService
-
+    SaleService,
+    ReviewService,
   ]
 })
 export class AppModule {}

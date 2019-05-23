@@ -8,6 +8,7 @@ import {ToastService} from "../../../../../core/service/toast.service";
 import {StoreService} from "../../../../../core/api/store.service";
 import {RESPONSE_CODE} from "../../../../../core/service/response.service";
 import {Converter} from "../../../../../core/helper/converter";
+import {ReviewService} from "../../../../../core/api/review.service";
 
 /**
  * Generated class for the BuyerStoreDetailPage page.
@@ -32,6 +33,11 @@ export class BuyerStoreDetailPage {
   private marker;
   private products: Array<Product>;
 private myInput;
+  private data : {  reviewNum : string ;
+    buyerId : string ;
+    sellerId : string ;
+    content : string ;
+    rating : number};
 
   constructor(
     protected session: SessionService,
@@ -40,7 +46,8 @@ private myInput;
     private alertCtrl: AlertController,
     private toastService: ToastService,
     private storeService : StoreService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private ReviewService : ReviewService
   ) {
     if(this.navParams.get("sellerId")!=undefined){
       const id = this.sessionService.getValue("loginId");
@@ -87,9 +94,10 @@ private myInput;
     }
   }
 
-  goToPage(str: string, product?: Product) {
+  goToPage(str: string,  product?: Product) {
 
-    console.log(product);
+    // console.log(title);
+    // console.log(product);
     switch (str) {
       case 'store-create':
         this.navCtrl.push('StoreCreateComponent');
@@ -102,10 +110,33 @@ private myInput;
         this.navCtrl.push('ProductDetailPage', {product: product});
         break;
 
-      case 'review-create' :
-        this.navCtrl.push('CreateReviewPage');
-        break;
+      // case 'review-create':
+      //   this.navCtrl.push('CreateReviewPage',{title :title, sellerId: sellerId});
+      //   break;
+      //
+      // case 'review-revise':
+      //   this.navCtrl.push('ReviseReviewPage',{i : i ,title :title, sellerId: sellerId, content : content, k : k});
+      //   break;
+
     }
+  }
+
+  goToReviewRevise(i : number, title:string, sellerId: string, content:string , k:string){
+    k = this.userStore.reviews[i].reviewNum;
+    content=this.userStore.reviews[i].content;
+    sellerId=this.userStore.sellerId;
+    title =this.userStore.title;
+
+      this.navCtrl.push('ReviseReviewPage',{i : i ,title :title, sellerId: sellerId, content : content, k : k});
+
+
+  }
+
+  goToReviewCreate(title:string, sellerId: string){
+    sellerId=this.userStore.sellerId;
+    title =this.userStore.title;
+        this.navCtrl.push('CreateReviewPage',{title :title, sellerId: sellerId});
+
   }
 
   change(contents: string){
@@ -146,6 +177,10 @@ private myInput;
     document.getElementById(`content${i}`).style.display = "none";
     document.getElementById(`complete${i}`).style.display = "";
     document.getElementById(`revise_clicked${i}`).style.display = "";
+
+
+
+
   }
 
   showUpdatedItem(i){
@@ -153,13 +188,60 @@ private myInput;
     //
     // let index = this.userStore.reviews.indexOf(updateItem);
     console.log(i);
-
+    let k =this.userStore.reviews[i].reviewNum;
     this.userStore.reviews[i].content = this.myInput;
+    this.data = {
+      "reviewNum" : k,
+      "buyerId": this.userStore.reviews[i].buyerId,
+      "sellerId":this.userStore.reviews[i].sellerId,
+      "content":this.userStore.reviews[i].content ,
+      "rating":this.userStore.reviews[i].rating
+
+    }
+    //this.userStore.reviews[i].content = this.myInput;
     document.getElementById(`revise${i}`).style.display = "";
     document.getElementById(`delete${i}`).style.display = "";
     document.getElementById(`content${i}`).style.display = "";
     document.getElementById(`complete${i}`).style.display = "none";
     document.getElementById(`revise_clicked${i}`).style.display = "none";
+
+    let confirm = this.alertCtrl.create({
+      title: '수정하시겠습니까??',
+      subTitle: '',
+      cssClass: '',
+      buttons: [
+        {
+          text: '확인',
+          cssClass: '',
+          handler: () => {
+            this.ReviewService.revise(k,this.data).subscribe(
+              (res) =>{
+                //응답오면
+                if(res&&res.code!=undefined){
+                  //성공시
+                  if(res.code==1) {
+                    // this.navCtrl.push('BuyerStoreDetailPage', {sellerId: this.userStore.sellerId});
+
+                    this.toastService.presentToast("리뷰 수정 완료");
+                  }else{
+                    this.toastService.presentToast(res.msg);
+                  }
+                }
+              }
+            )
+
+
+          }
+        },
+        {
+          text: '취소',
+          cssClass:'',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present();
 
   }
 
@@ -186,6 +268,7 @@ check() :boolean {
     })
   }
   delete(i:number) {
+    let k = this.userStore.reviews[i].reviewNum;
     let confirm = this.alertCtrl.create({
       title: '삭제하시겠습니까??',
       subTitle: '',
@@ -195,14 +278,24 @@ check() :boolean {
           text: '확인',
           cssClass: '',
           handler: () => {
-            //즐겨찾기 추가 작업
-            
 
-            //즐겨찾기 속성 변경
+            console.log(k);
+            this.ReviewService.delete(k).subscribe(
+              (res) =>{
+                //응답오면
+                if(res&&res.code!=undefined){
+                  //성공시
+                  if(res.code==1) {
+                   // this.navCtrl.push('BuyerStoreDetailPage', {sellerId: this.userStore.sellerId});
+                    this.userStore.reviews.splice(i,1);
+                    this.toastService.presentToast("리뷰 삭제 완료");
+                  }else{
+                    this.toastService.presentToast(res.msg);
+                  }
+                }
+              }
+            )
 
-            this.userStore.reviews.splice(i,1);
-            //알림메시지
-            this.toastService.presentToast('삭제 완료!!');
 
           }
         },

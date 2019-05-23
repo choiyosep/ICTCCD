@@ -161,11 +161,6 @@ module.exports = {
     deleteProduct : (cartNum, prodNumList) =>{
         return new Promise (async (resolve, reject) =>{
             try{
-                console.log(cartNum, prodNumList);
-
-                console.log(typeof(cartNum));
-                console.log(typeof(prodNumList[0]))
-
                 for(let i=0; i<prodNumList.length; i++){
                     //장바구니와 상품번호로 장바구니에 담긴 상품을 불러온다
                     const product = await Cart.getCartProduct(cartNum, prodNumList[i]);
@@ -174,9 +169,7 @@ module.exports = {
                     //장바구니에서 상품을 삭제한다
                     await Cart.deleteProduct(cartNum, prodNumList[i]);
                 }
-
                 const cartProducts = await Cart.getCartProductList(cartNum);
-                console.log("length:"+cartProducts.length);
                 //장바구니가 비어있으면 장바구니를 삭제한다.
                 if(cartProducts.length==0){
                     await Cart.deleteCart(cartNum);
@@ -204,17 +197,16 @@ module.exports = {
                 let product;
                 for(let i= 0; i<cartProducts.length; i++){
                     product = await Product.getProductByProdNum(cartProducts[i].prodNum);
-                    // await Sale.createSale(cart.sellerId, product.prodName, cartProducts[i].quantity, product.salePrice * cartProducts[i].quantity, saleDate);
+                    await Sale.createSale(cart.sellerId, product.prodName, cartProducts[i].quantity, product.salePrice * cartProducts[i].quantity, saleDate);
                     cart.totalPrice += cartProducts[i].quantity * product.salePrice;
                 }
-                console.log("totalPrice:"+cart.totalPrice);
-
                 //구매이력 저장
                 const store = await Store.getStoreById(cart.sellerId);
                 const orderDetail = product.prodName + " 등 " + cartProducts.length + "개 " + cart.totalPrice+ "원";
-                console.log(orderDetail);
-                rs= await Order.createOrder(cart.buyerId, store.title, orderDetail, saleDate);
-                console.log(rs);
+                await Order.createOrder(cart.buyerId, store.title, orderDetail, saleDate);
+
+                //cart 삭제
+                await Cart.deleteCart(cartNum);
 
                 resolve("성공");
             }catch(err){

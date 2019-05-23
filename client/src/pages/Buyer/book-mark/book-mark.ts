@@ -23,10 +23,10 @@ import { resolve } from 'path';
 export class BookMarkPage {
 
   private bookMarkArray: UserStore[] = [];
-  private bookmarkStore1 : UserStore;
-  private bookmarkStore2 : UserStore;
-  private bookmarkStore3 : UserStore;
-  private storeList : UserStore[] = [];
+  // private bookmarkStore1 : UserStore;
+  // private bookmarkStore2 : UserStore;
+  // private bookmarkStore3 : UserStore;
+  // private storeList : UserStore[] = [];
 
   private src: string;
 
@@ -58,56 +58,56 @@ export class BookMarkPage {
 
   }
 
-  addToBookmark(store: UserStore) {
-    let confirm = this.alertCtrl.create({
-      title: '찜하시겠습니까??',
-      subTitle: '',
-      cssClass: '',
-      buttons: [
-        {
-          text: '확인',
-          cssClass: '',
-          handler: () => {
-            //즐겨찾기 추가 작업
-           //const sellerId = this.sessionService.getValue('loginId');
-           let bookMark = new Bookmark();
-           bookMark.buyerId = this.sessionService.getValue('loginId');
-           bookMark.sellerId = store.sellerId;
-           console.log(bookMark.buyerId);
-           console.log(bookMark.sellerId);
+  // addToBookmark(store: UserStore) {
+  //   let confirm = this.alertCtrl.create({
+  //     title: '찜하시겠습니까??',
+  //     subTitle: '',
+  //     cssClass: '',
+  //     buttons: [
+  //       {
+  //         text: '확인',
+  //         cssClass: '',
+  //         handler: () => {
+  //           //즐겨찾기 추가 작업
+  //          //const sellerId = this.sessionService.getValue('loginId');
+  //          let bookMark = new Bookmark();
+  //          bookMark.buyerId = this.sessionService.getValue('loginId');
+  //          bookMark.sellerId = store.sellerId;
+  //          console.log(bookMark.buyerId);
+  //          console.log(bookMark.sellerId);
+  //
+  //           this.bookmarkService.add(bookMark).subscribe(
+  //            (res) =>{
+  //              //응답오면
+  //               if (res && res.code != undefined) {
+  //                 //성공시
+  //                 if (res.code == 1) {
+  //                   //즐겨찾기 속성 변경(UserStore)
+  //                   store.isBookMarked = true;
+  //                   //알림메시지
+  //                   this.toastService.presentToast('즐겨찾기 추가 완료!!');
+  //                 } else {
+  //                   this.toastService.presentToast(res.msg);
+  //                 }
+  //               }
+  //             }
+  //          )
+  //
+  //         }
+  //       },
+  //       {
+  //         text: '취소',
+  //         cssClass:'',
+  //         handler: () => {
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   confirm.present();
+  //
+  // }
 
-            this.bookmarkService.add(bookMark).subscribe(
-             (res) =>{
-               //응답오면
-                if (res && res.code != undefined) {
-                  //성공시
-                  if (res.code == 1) {
-                    //즐겨찾기 속성 변경(UserStore)
-                    store.isBookMarked = true;
-                    //알림메시지
-                    this.toastService.presentToast('즐겨찾기 추가 완료!!');
-                  } else {
-                    this.toastService.presentToast(res.msg);
-                  }
-                }
-              }
-           ) 
-            
-          }
-        },
-        {
-          text: '취소',
-          cssClass:'',
-          handler: () => {
-          }
-        }
-      ]
-    });
-    confirm.present();
-
-  }
-
-  removeFromBookmark(store: UserStore) {
+  removeFromBookmark(store: UserStore, i : number) {
     let confirm = this.alertCtrl.create({
       title: '즐겨찾기에서 제거하시겠습니까?',
       subTitle: '',
@@ -121,7 +121,7 @@ export class BookMarkPage {
                 let bookMark = new Bookmark();
                 bookMark.buyerId = this.sessionService.getValue('loginId');
                 bookMark.sellerId = store.sellerId;
-    
+
                 console.log(bookMark);
     
                   this.bookmarkService.deleteBookMark(bookMark).subscribe(
@@ -134,6 +134,7 @@ export class BookMarkPage {
               
                         //즐겨찾기 속성 변경
                          store.isBookMarked = false;
+                        this.bookMarkArray.splice(i,1);
                          //알림메시지
                          this.toastService.presentToast('즐겨찾기 제거 완료!');
                        } else {
@@ -143,10 +144,10 @@ export class BookMarkPage {
                    }
                 )   
                 
-               //즐겨찾기 속성 변경
-               store.isBookMarked = false;
-               //알림메시지
-               this.toastService.presentToast('즐겨찾기 제거 완료!');
+               // //즐겨찾기 속성 변경
+               // store.isBookMarked = false;
+               // //알림메시지
+               // this.toastService.presentToast('즐겨찾기 제거 완료!');
           }
         },
         {
