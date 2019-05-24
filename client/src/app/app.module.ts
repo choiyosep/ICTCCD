@@ -21,6 +21,7 @@ import { BookmarkService } from '../core/api/bookmark.service';
 import {OrderService} from '../core/api/order.service';
 import {SaleService} from '../core/api/sale.service'
 import{ReviewService} from "../core/api/review.service";
+import{UserService} from "../core/api/user.service";
 //import {IonicRatingModule} from 'ionic4-rating';
 //import {IonicPageModule} from "ionic-angular";
 
@@ -37,6 +38,8 @@ import{ReviewService} from "../core/api/review.service";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
+
     //IonicRatingModule
     //StarRatingModule,
     // NgbModule,
@@ -65,6 +68,7 @@ import{ReviewService} from "../core/api/review.service";
     OrderService,
     SaleService,
     ReviewService,
+    UserService,
   ]
 })
 export class AppModule {}
