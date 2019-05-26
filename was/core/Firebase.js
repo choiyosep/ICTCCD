@@ -1,4 +1,4 @@
-var serviceAccount = require('../config/firebase-account.json')
+var serviceAccount = require('../config/firebase.json')
     ,admin = require('firebase-admin')
     , Response = require('../core/Response');
 
