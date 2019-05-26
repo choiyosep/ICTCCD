@@ -9,4 +9,4 @@ node_modules/
 # System Files
 .DS_Store
 Thumbs.db
-config/Firebase-account.json
+config/*.json
