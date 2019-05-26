@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/Account/login/login";
 import {SessionService} from "../core/service/session.service";
-import {UserService} from "../core/api/user.service";
+
 
 @Component({
   templateUrl: 'app.html'
@@ -41,6 +41,8 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
+
+
 
   goToPage(pageName: string) {
     this.menu.close();

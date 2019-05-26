@@ -20,5 +20,10 @@ export class UserService extends BaseService {
      return this.http.get<IResponse<T>>(`${this.controllerName}/${id}`);
    } */
 
+  public putToken(buyerId: string, token: string): Observable<IResponse<any>> {
+    console.log(buyerId, token);
+    return this.http.put<IResponse<any>>(`${this.controllerName}/me/token`, {buyerId: buyerId, token: token});
+  }
+
 
 }

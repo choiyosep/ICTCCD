@@ -22,6 +22,7 @@ import {OrderService} from '../core/api/order.service';
 import {SaleService} from '../core/api/sale.service'
 import{ReviewService} from "../core/api/review.service";
 import{UserService} from "../core/api/user.service";
+import {Push} from "@ionic-native/push";
 //import {IonicRatingModule} from 'ionic4-rating';
 //import {IonicPageModule} from "ionic-angular";
 
@@ -69,6 +70,7 @@ import{UserService} from "../core/api/user.service";
     SaleService,
     ReviewService,
     UserService,
+    Push
   ]
 })
 export class AppModule {}
