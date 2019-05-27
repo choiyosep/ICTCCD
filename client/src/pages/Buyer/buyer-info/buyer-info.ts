@@ -21,7 +21,15 @@ import {User} from "../../../core/model/user";
 })
 export class BuyerInfoPage {
 
-  public user : User;
+  private user : User;
+  // private data :
+  //   {
+  //     id: string;
+  //     level:string;
+  //     nickname: string;
+  //     push_con: boolean;
+  //
+  //   }
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private userService : UserService,
@@ -36,13 +44,21 @@ export class BuyerInfoPage {
   ionViewDidEnter(){
 
     const id = this.sessionService.getValue("loginId");
+    //
+    // console.log(id);
 
-    console.log(id);
+
     this.userService.getUsersDetailsById(id).subscribe((res) =>{
       if(res && res.code==1){
-       console.log(res.data);
-       this.user=res.data;
+this.user= res.data;
+        // this.data = {
+        //   "id":res.data.id,
+        //   "level":res.data.level,
+        //   "nickname":res.data.nickname,
+        //   "push_con":res.data.push_con
+        // };
 
+        console.log(this.user);
 
 
       }

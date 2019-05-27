@@ -10,7 +10,7 @@ import {IResponse} from "../service/response.service";
 export class UserService extends BaseService {
 
   constructor(http: HttpService) {
-    super('users', http);
+    super('User', http);
   }
 
   public getUsersDetailsById(buyerId: string): Observable<IResponse<any>>{
