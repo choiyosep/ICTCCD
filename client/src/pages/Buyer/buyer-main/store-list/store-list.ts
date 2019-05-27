@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserStore} from "../../../../core/model/UserStore";
 import {ToastService} from "../../../../core/service/toast.service";
-import {RESPONSE_CODE} from "../../../../core/service/response.service";
+import {IResponse, RESPONSE_CODE} from "../../../../core/service/response.service";
 import {StoreService} from "../../../../core/api/store.service";
 import {SessionService} from "../../../../core/service/session.service";
 import {Bookmark} from "../../../../core/model/Bookmark";
 import {BookmarkService} from "../../../../core/api/bookmark.service";
+import {Push, PushObject, PushOptions} from "@ionic-native/push";
+import {UserService} from "../../../../core/api/user.service";
 
 /**
  * Generated class for the StoreListPage page.
@@ -38,13 +40,50 @@ export class StoreListPage {
               private toastService: ToastService,
               private storeService : StoreService,
               private bookmarkService : BookmarkService,
-              private sessionService : SessionService
+              private sessionService : SessionService,
+              private userService : UserService,
+              private push : Push,
               )
   {
     let catName = this.navParams.get("catName");
     if(catName!=undefined){
       this.setContents(catName);
     }
+
+  }
+
+  pushSetup(){
+    const options: PushOptions = {
+      android: {
+        senderID: '853388993136'
+      },
+      ios: {
+        alert: 'true',
+        badge: true,
+        sound: 'false'
+      }
+    }
+
+    const pushObject: PushObject = this.push.init(options);
+
+
+    pushObject.on('notification').subscribe((notification: any) => {
+      this.toastService.presentToast(notification.message);
+      console.log('Received a notification', notification)
+    });
+
+    pushObject.on('registration').subscribe((registration: any) =>
+    {
+      console.log('Device registered', registration);
+      const loginId = this.sessionService.getValue("loginId");
+      this.userService.putToken(loginId, registration.registrationId)
+        .subscribe((res: IResponse<any>) => {
+          console.log(res);
+        });
+    });
+
+    pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+
   }
 
   setContents(catName: any){
@@ -133,6 +172,8 @@ export class StoreListPage {
           text: '확인',
           cssClass: '',
           handler: () => {
+            //토큰 값 전달
+            this.pushSetup();
             //즐겨찾기 추가 작업
            //const sellerId = this.sessionService.getValue('loginId');
             let bookMark = new Bookmark();

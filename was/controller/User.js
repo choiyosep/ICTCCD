@@ -35,5 +35,40 @@ module.exports = {
 
 
         });
-    }
+    },
+
+
+    updatePushCon: (buyerId, push_con) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                console.log(buyerId, push_con);
+                const user = await User.getUserById(buyerId);
+                if (user) {
+                    const rs = await User.updatePushCon(buyerId, push_con);
+                    resolve(rs);
+                } else {
+                    throw Response.get(Response.type.USER_NOT_FOUND, {});
+                }
+            } catch (err) {
+                reject(err);
+            }
+        });
+    },
+
+    updateToken: (userId, token) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                console.log(userId, token);
+                const user = await User.getUserById(userId);
+                if (user) {
+                    const rs = await User.updateToken(userId, token);
+                    resolve(rs);
+                } else {
+                    throw Response.get(Response.type.USER_NOT_FOUND, {});
+                }
+            } catch (err) {
+                reject(err);
+            }
+        });
+    },
 }

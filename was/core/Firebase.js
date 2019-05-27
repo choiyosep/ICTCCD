@@ -1,58 +1,62 @@
-var Q = require('q')
-    , request = require('request')
-    , google = require('googleapis');
+var serviceAccount = require('../config/firebase.json')
+    ,admin = require('firebase-admin')
+    , Response = require('../core/Response');
+
 
 module.exports = {
 
-    getAccessToken: function() {
-        const deferred = Q.defer();
-        const key = require('../common/firebase-account.json');
-        var jwtClient = new google.google.auth.JWT(
-            key.client_email,
-            null,
-            key.private_key,
-            ['https://www.googleapis.com/auth/firebase.messaging'],
-            null
-        );
-        jwtClient.authorize(function (err, tokens) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(tokens.access_token);
-            }
+    initialize: () => {
+        return new Promise(async (resolve, reject) => {
+            admin.initializeApp({
+                credential: admin.credential.cert(serviceAccount)
+            });
+            resolve();
         });
-        return deferred.promise;
     },
 
-    sendPushMessage: function(accessToken, target, title, body, data){
-        const deferred = Q.defer();
-        const key = require('../common/firebase-account.json');
-        const options = {
-            method:'POST',
-            url: 'https://fcm.googleapis.com/v1/projects/' + key.project_id + '/messages:send',
-            headers: {
-                'Content-type': 'application/json',
-                'Authorization': 'Bearer ' + accessToken
+
+    sendPushTest: () =>{
+        const message = {
+            token : 'fiyMyIjuwrs:APA91bFF5LlT3YtVLnEVXvu6XkgdbJCebg1xoO9RUWwwbp9GKsyavLlf3T040SSUAlkcpN0Dir_wHO1DUfHh-Vn4tZnxQ_joElE91ZAlVL48s0noF_kRJft6-VYvGY5DIBfesZMVpJoX',
+            data: {
+                title: "제목",
+                message: '내용'
             },
-            json: {
-                "message":{
-                    "token" : target,
-                    "notification" : {
-                        "title" : title,
-                        "body" : body
-                    },
-                    "data": data
-                }
+            notification:{
+                title: '제목',
+                body: '내용'
             }
         };
+        admin.messaging().send(message).
+        then( console.log).
+        catch(console.log).
+        finally(console.log);
+    },
 
-        request(options, function(error, response, body) {
-            if (!error && response.statusCode == 200 && typeof body['error_code'] === 'undefined') {
-                deferred.resolve(body);
-            } else {
-                deferred.reject(error);
+    sendPushMessage: function(users, title, body){
+        return new Promise(async (resolve, reject) => {
+            try {
+                for (let i=0; i<users.length; i++)
+                {
+                    const message = {
+                        token : users[i].token,
+                        data: {
+                            title: title,
+                            message: body
+                        },
+                        notification:{
+                            title: title,
+                            body: body
+                        }
+                    };
+                    await admin.messaging().send(message);
+                }
+                resolve();
+            } catch (err) {
+                console.log(err);
+                reject(Response.get(Response.type.FIREBASE_MESSAGE_FAILED, err));
             }
         });
-        return deferred.promise;
     }
+
 }

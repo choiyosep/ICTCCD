@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   // API_ENDPOINT: 'http://175.195.197.180:3000/',
-  // API_ENDPOINT: 'http://192.168.19.165:3000/',
+  // API_ENDPOINT: 'http://192.168.219.102:3000/',
 
   //web
   API_ENDPOINT: 'http://localhost:8100/api/',
