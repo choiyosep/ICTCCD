@@ -85,6 +85,7 @@ BaseModelForMySql.prototype = {
     },
 
     update: function(object, field, value){
+        //console.log(object)
         return new Promise(async (resolve, reject) => {
             try {
                 DB.conn.getConnection((err,conn)=>{
@@ -95,6 +96,7 @@ BaseModelForMySql.prototype = {
                         } else {
                             conn.release();
                             resolve(results);
+                            console.log("업데이트 완료")
                         }
                     });
                 });
