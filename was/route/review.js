@@ -36,14 +36,15 @@ const Router = require('express').Router()
             ));
         
         Router.delete(
-            '/:reviewNum',
+            '',
             [
         
             ],
             Handler.request(
                 Ctrl.delete,
                 (req, res, next) => [
-                    req.params['reviewNum']
+                    req.body['reviewNum'],
+                    req.body['sellerId']
                 ]
             ));
         

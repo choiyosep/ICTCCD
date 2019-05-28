@@ -17,8 +17,9 @@ export class ReviewService extends BaseService {
     return this.http.post(`${this.controllerName}`, data);
   }
 
-  public delete(reviewNum : string) : Observable<IResponse<any>> {
-    return this.http.delete(`${this.controllerName}/${reviewNum}`);
+  public delete( data : any) : Observable<IResponse<any>> {
+    console.log(data)
+    return this.http.delete(`${this.controllerName}/`, data);
   }
 
   public revise(reviewNum: string , data : any) : Observable<IResponse<any>>{
