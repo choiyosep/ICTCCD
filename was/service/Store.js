@@ -1,7 +1,5 @@
 const Store = require('../model/Store'),
     Store_picture = require('../model/Store_picture'),
-    Review = require('../service/review'),
-    Store_review = require('../model/review'),
     DB = require('../core/Database');
 
 //route -> controller -> service -> model
@@ -17,7 +15,9 @@ module.exports = {
     },
 
     getStoreListByCategory: (category)=>{
+        console.log(category)
         const stores = Store.getList('category', category);
+        //console.log(category)
         return stores;
     },
     getBookmarkedStoreList: (buyerId) =>{
@@ -162,6 +162,38 @@ module.exports = {
             }
         })
     },
+    //review_T에서 sellerId와 일치하는 store 불러와서 각 review rating 다 더하기 
+    //이 함수를 review_create / update /delete 할때마다 이 함수 호출 store_T.grade update
+    // return sum;
+    getReviewTotalgrade:(sellerId) => {
+        //해당 sellerId로 평균구하는 method
+      
+        return new Promise(async (resolve, reject) => {
+            try {
+                DB.conn.getConnection((err, conn) =>{
+                    const query = `SELECT AVG(rating)AS AVG FROM review WHERE sellerId = '${sellerId}'`;
+                    conn.query(query, null, (err, results, fields) => {
+                        if (err) {
+                            reject(Response.get(Response.type.DATABASE_ERROR, err.message));
+                        } else {
+                            //상점 평점 업데이트
+                            conn.release();
+                            //console.log(results[0])
+                            const review_rating =results[0]
+                            console.log(review_rating)
+                            resolve(review_rating.AVG)// 합 넘김.
+                        }
+                    })
+                })
+               
+            }catch (err) {
+                console.log(err);
+                reject(Response.get(Response.type.FAILED_GET_DB, err.message));
+            }
+                
+            });
+
+    }
 
    
 

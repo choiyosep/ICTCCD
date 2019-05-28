@@ -1,9 +1,7 @@
-const //Store_C = require('../controller/Store')
-    Store = require('../controller/Store'),//같은 서비스 폴더에 파일 사용하려면 router('./~~')
+const Store = require('../service/Store'),//같은 서비스 폴더에 파일 사용하려면 router('./~~')
     Store_Review = require('../model/review'),
-    
     DB = require('../core/Database'),
-    Response = require('../core/Response')
+    Response = require('../core/Response');
 
 
 //route -> controller -> service -> model
@@ -26,7 +24,6 @@ module.exports = {
             content: content,
             rating: rating
         }
-       // const review_update = Store_Review.update(review__obj, 'reviewNum', reviewNum);
         
         return new Promise(async (resolve, reject) => {
             try {
@@ -45,14 +42,14 @@ module.exports = {
                         } else {
 
                             conn.release(); 
-                            resolve(review_update)
+                            //resolve(review_update)
 
                         }
                     });
                 }
             );
                // console.log(r)
-               // resolve(review_update)
+                resolve(review_update)
             } catch (err) {
                 reject(err);
             }
@@ -107,15 +104,15 @@ module.exports = {
 
     },
 
-    delete: (reviewNum) => {
+    delete: (reviewNum,sellerId) => {
         
         return new Promise(async (resolve, reject) => {
             try {
                 //리뷰삭제
-                const review_delete =Store_Review.delete('reviewNum',reviewNum);
+                const review_delete =await Store_Review.delete('reviewNum',reviewNum);
 
+                //리뷰 평점계산 후 store_grade setup
                 const review_rating = await Store.getReviewTotalgrade(sellerId);
-                console.log(review_rating)
                 DB.conn.getConnection((err, conn) =>{
                     if(err){
                         console.log(err);
@@ -127,14 +124,14 @@ module.exports = {
                         } else {
 
                             conn.release(); 
-                            resolve(review_delete)
+                            
 
                         }
                     });
                 }
-            );
-               // console.log(r)
-                
+                );
+                resolve(review_delete)
+
             } catch (err) {
                 reject(err);
             }
