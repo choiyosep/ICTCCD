@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 
 import {Platform, MenuController, Nav, AlertController} from 'ionic-angular';
 
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/Account/login/login";
@@ -43,6 +42,8 @@ export class MyApp {
     });
   }
 
+
+
   goToPage(pageName: string) {
     this.menu.close();
 
@@ -66,6 +67,11 @@ export class MyApp {
       case'sell-record':
         this.nav.push('SellRecordComponent');
         break;
+
+      case 'buyer-info':
+        this.nav.push('BuyerInfoPage');
+        break;
+
       default:
         break;
     }

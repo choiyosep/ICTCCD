@@ -98,7 +98,9 @@ export class BuyerMainPage {
           }
         )
       }
-    );
+    ).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
 

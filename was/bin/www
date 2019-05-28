@@ -4,7 +4,9 @@ const debug = require('debug')('was:server')
     , fs = require('fs')
     , port = normalizePort(process.env.PORT || '3000')
     , app = require('../app')
-    , DB = require('../core/Database');
+    , DB = require('../core/Database')
+    , Firebase = require('../core/Firebase');
+
 
 app.set('port', port);
 
@@ -15,6 +17,9 @@ app.set('port', port);
     try {
 
         DB.conn = await DB.initialize();
+        // await Firebase.initialize();
+        //푸시알림 테스트(정상작동)
+        // Firebase.sendPushTest();
 
         /**
          * Task Init

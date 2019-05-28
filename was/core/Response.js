@@ -17,6 +17,7 @@ module.exports = {
         IS_EXIST_OTHER_CART     : { code: 14, msg: '다른 상점의 장바구니가 존재합니다.'},
         IS_EMPTY_CART           : { code: 15, msg: '장바구니가 비어있습니다.'},
         USER_NOT_FOUND          : { code: 16, msg: '회원정보가 존재하지 않습니다.'},
+        FIREBASE_MESSAGE_FAILED : { code: 20, msg: 'Firebase cloud message 실패.'},
         INTERNAL_ERROR          : { code: 99, msg: '서버 오류'},
         NOT_SUPPORT             : { code: 100, msg: '지원하지 않는 프로토콜 입니다.'}
     },

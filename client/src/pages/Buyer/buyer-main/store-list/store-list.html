@@ -47,9 +47,9 @@
           </div>
           <div class="flex-content-col">
             <!--즐겨찾기 됐을때-->
-            <img *ngIf="store.isBookMarked" (click)="removeFromBookmark(store)" width="80px" height="80px" src="assets/icon/bookmark-hand-filled.png">
+            <img *ngIf="store.isBookMarked"     height=" 61px" margin-bottom="10px"(click)="removeFromBookmark(store)" width="80px" height="80px" src="assets/icon/filled_heart.png">
             <!--즐겨찾기 안됐을때-->
-            <img *ngIf="!store.isBookMarked" (click)="addToBookmark(store)" width="80px" height="80px" src="assets/icon/bookmark-hand-empty.png">
+            <img *ngIf="!store.isBookMarked" height=" 61px" margin-bottom="10px" (click)="addToBookmark(store)" width="80px" height="80px" src="assets/icon/empty_heart.png">
           </div>
         </div>
       </div>
@@ -71,9 +71,10 @@
           </div>
           <div class="flex-content-col">
             <!--즐겨찾기 됐을때-->
-            <img *ngIf="store.isBookMarke" (click)="removeFromBookmark(store)" width="80px" height="80px" src="assets/icon/bookmark-hand-filled.png">
+            <img *ngIf="store.isBookMarked" (click)="removeFromBookmark(store)" width="80px" height="80px" src="assets/icon/filled_heart.png">
+
             <!--즐겨찾기 안됐을때-->
-            <img *ngIf="!store.isBookMarked" (click)="addToBookmark(store)" width="80px" height="80px" src="assets/icon/bookmark-hand-empty.png">
+            <img *ngIf="!store.isBookMarked" (click)="addToBookmark(store)" width="80px" height="80px" src="assets/icon/empty_heart.png">
           </div>
         </div>
       </div>

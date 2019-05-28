@@ -5,6 +5,7 @@ import {Sale} from "../../../../core/model/Sale";
 import {SessionService} from "../../../../core/service/session.service"
 import {SaleService} from "../../../../core/api/sale.service"
 import {ToastService} from "../../../../core/service/toast.service";
+import {Converter} from "../../../../core/helper/converter";
 
 
 
@@ -90,12 +91,15 @@ export class SellRecordPage{
           //성공시
           console.log(res.code);
           if (res.code == 1) {
-console.log("qqqq")
             //sale_record데이터 받아오기
             this.sellArray = res.data;
              console.log(JSON.stringify(this.sellArray))
              for (let i = 0; i < this.sellArray.length; i++) {
-          
+               const date = new Date(this.sellArray[i].saleDate);
+               this.sellArray[i].saleDate = date.getFullYear() + "."
+                 + (date.getMonth()+1) +"."
+                 + date.getDate()+"."
+                 +Converter.dayToString(date.getDay());
               this.DateArray.push(this.sellArray[i].saleDate)
               console.log(this.DateArray[0]);
               this.data.push({

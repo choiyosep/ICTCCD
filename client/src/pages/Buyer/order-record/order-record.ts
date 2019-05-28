@@ -6,6 +6,7 @@ import {OrderService} from "../../../core/api/order.service";
 import {Product} from "../../../core/model/Product";
 import {StoreService} from "../../../core/api/store.service";
 import {SessionService} from "../../../core/service/session.service";
+import {Converter} from "../../../core/helper/converter";
 
 /**
  * Generated class for the OrderRecordPage page.
@@ -93,7 +94,11 @@ export class OrderRecordPage {
                     //구매날짜별로 DataArray 삽입
              //let count = 0;
              for (let i = 0; i < this.orderArray.length; i++) {
-            
+               const date = new Date(this.orderArray[i].orderDate);
+               this.orderArray[i].orderDate = date.getFullYear() + "."
+                 + (date.getMonth()+1) +"."
+                 + date.getDate()+"."
+                 +Converter.dayToString(date.getDay());
               this.DateArray.push(this.orderArray[i].orderDate)
               console.log(this.DateArray[0]);
               this.data.push({
