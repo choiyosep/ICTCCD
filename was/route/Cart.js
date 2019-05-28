@@ -31,6 +31,21 @@ Router.put(
         ]
     ));
 
+Router.put(
+    '/force',
+    [
+
+    ],
+    Handler.request(
+        Ctrl.updateForce,
+        (req, res, next) => [
+            req.body['buyerId'],
+            req.body['sellerId'],
+            req.body['prodNum'],
+            req.body['quantity']
+        ]
+    ));
+
 
 Router.delete(
     '/product',

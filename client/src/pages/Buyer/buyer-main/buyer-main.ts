@@ -35,9 +35,9 @@ export class BuyerMainPage {
       console.log("메세지:"+e.data);
       if(e.data !=="close"){
         this.myAddress= e.data;
+        this.setLocationBySearch(this.myAddress);
         //this.setLocationBySearch(this.myAddress);
       }
-      this.setLocationBySearch(this.myAddress);
       this.closeDaumIframe();
 
       //console.log(this.myAddress);

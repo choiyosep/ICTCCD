@@ -65,10 +65,20 @@ page-cart-list {
 // 선택 삭제 버튼
 .delete-button {
     font-weight: bold;
-    height: 48px;
+    height: 40px;
     width: 100%;
-    padding: 14px 0px;
+    padding: 7px 0px;
     color: #F36C69;
+  border-radius: 10px;
+}
+
+//전체 삭제 버튼
+.delete-all-button {
+  font-weight: bold;
+  height: 32px;
+  width: 40%;
+  padding: 7px 0px;
+  color: #F36C69;
   border-radius: 10px;
 }
 
@@ -115,4 +125,13 @@ page-cart-list {
   padding-left: 0px;
   padding-right: 0px;
   padding-bottom: 0px;
+}
+
+
+.store-title{
+  //color: #3a84f1;
+  @extend .Grey07;
+  font-family: "Spoqa Han Sans KR Bold";
+  font-size: 24px;
+  line-height: 30px;
 }

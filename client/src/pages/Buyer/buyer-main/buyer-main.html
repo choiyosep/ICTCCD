@@ -11,16 +11,30 @@
     </button>
     <div class="flex-area-row">
       <input class="address-finder"  (click)="startSearch()" [value]="getAddress()" placeholder="주소검색">
-      <button class="gps-button" (click)="setLocationByGPS()" ion-button gpstoggle>
-        <ion-icon style="zoom:0.5;" name="pin"></ion-icon>
-      </button>
+      <!--<button class="gps-button" (click)="setLocationByGPS()" ion-button gpstoggle>-->
+        <!--<ion-icon style="zoom:0.5;" name="pin"></ion-icon>-->
+        <img src ="assets/icon/location.svg" width="40px" (click)="setLocationByGPS()">
+      <!--</button>-->
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <iframe style="display:none;" src="assets/juso.html"  class="daumIframeStyle" id='daumIframe'></iframe>
-    <div id="formContent" class="line">
+    <div id="formContent">
+
+      <ion-slides class="slides" >
+        <ion-slide>
+          <img src = "http://img.woowahan.com/www/common/baemin.jpg">
+        </ion-slide>
+        <ion-slide>
+          <img src = "https://www.yogiyo.co.kr/mobile/image/app_img_560x292.png">
+        </ion-slide>
+        <ion-slide>
+          <img src = "http://mblogthumb3.phinf.naver.net/MjAxNzA5MjRfMTk2/MDAxNTA2MjM1NDY5ODEz.1M0Fdjvm-nu-m9FxUKq-pJLHMgTJHjXHbeNiZgWV20Ug.PUkWqZ-AQn-7ipeZlwgnLb8TccYbE-dZtpcyfgifGEcg.PNG.co_ola/01.png?type=w800">
+        </ion-slide>
+      </ion-slides>
+      <br>
 
     <div class="row">
       <div class="col" align="center" (click)="goToPage('store-list', '제과')">

@@ -125,10 +125,11 @@ private myInput;
   goToReviewRevise(i : number, title:string, sellerId: string, content:string , k:string){
     k = this.userStore.reviews[i].reviewNum;
     content=this.userStore.reviews[i].content;
+    let rating = this.userStore.reviews[i].rating;
     sellerId=this.userStore.sellerId;
     title =this.userStore.title;
 
-      this.navCtrl.push('ReviseReviewPage',{i : i ,title :title, sellerId: sellerId, content : content, k : k});
+      this.navCtrl.push('ReviseReviewPage',{i : i ,title :title, sellerId: sellerId, content : content, k : k, rating: rating});
 
 
   }

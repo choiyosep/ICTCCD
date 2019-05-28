@@ -14,9 +14,17 @@ module.exports = {
                 const hasStore = await Store.has(sellerId);
                 if (hasStore) {
                     //판매이력 받아오기
-                    const rs = await Sale.getSaleList(sellerId);
-
-                    resolve(rs);
+                    const sales = await Sale.getSaleList(sellerId);
+                    // var groups = {};
+                    // for(let i=0; i<sales.length; i++){
+                    //     var date = (sales[i].saleDate+'').split('T')[0];
+                    //     if (date in groups) {
+                    //         groups[date].push(sales[i]);
+                    //     } else {
+                    //         groups[date] = new Array(sales[i]);
+                    //     }
+                    // }
+                    resolve(sales);
                 }else
                     throw Response.get(Response.type.STORE_NOT_FOUND,{});
                 //판매이력 삭제

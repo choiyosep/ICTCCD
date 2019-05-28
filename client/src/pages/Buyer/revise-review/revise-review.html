@@ -17,12 +17,14 @@
   <div margin-left="40px">
     <ion-icon  name="star"  *ngFor = "let num of [1,2,3,4,5]" (click)="rate(num)"  [ngStyle]="{'color':getColor(num)}"></ion-icon>
   </div>
-  <br style="line-height: 16px;">
   <div class="title_Input">
-    구매한 상점<span class="Red Body04">&nbsp;*</span>
+    상점명
   </div>
-  <input [placeholder]="userStore.title" class="input_box">
+  <input readonly [placeholder]="userStore.title" class="input_box">
   <br style="line-height: 16px;">
 
-  <input [(ngModel)]="contents" [placeholder]="review.content" class="review_box">
+  <ion-textarea  [(ngModel)]="review.content" class="review_box">
+
+  </ion-textarea>
+
 </ion-content>

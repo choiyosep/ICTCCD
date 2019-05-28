@@ -17,25 +17,13 @@
 
 <ion-content padding>
 
-    <div class='table'>
-
-
-    </div>
-
-
-
-    <div class='bookmark-list' *ngFor="let item of bookMarkArray; let i = index ">
-
-
-
+  <div class='bookmark-list' *ngFor="let item of bookMarkArray; let i = index ">
       <div  class='box sub-photo'>
         <img  margin-left="10px"  src="{{ item.images }}">
       </div>
-
       <div text-center="100%" class='box sub-name Body04'>
         {{ item.title }}
       </div>
-
    <!--   <div class = 'box sub-star'>
       <img src="assets/imgs/star-icon.png">
       </div>

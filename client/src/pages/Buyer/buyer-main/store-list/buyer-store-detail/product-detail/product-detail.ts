@@ -66,6 +66,31 @@ export class ProductDetailPage {
     this.amount--;
   }
 
+
+  showConfirmMessage(){
+    let confirm = this.alertCtrl.create({
+      title: '장바구니 담기 완료',
+      subTitle: '장바구니로 이동하시겠습니까?',
+      cssClass: '',
+      buttons: [
+        {
+          text: '확인',
+          cssClass: '',
+          handler: () => {
+            this.navCtrl.setRoot('CartListPage');
+          }
+        },
+        {
+          text: '취소',
+          cssClass: '',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
   cartAdd(){
     if(this.amount <=0 || this.amount> this.product.stock)
     {
@@ -86,29 +111,43 @@ export class ProductDetailPage {
       this.cartProduct.quantity = this.amount;
       //장바구니 담기
       this.cartService.cartAdd(this.cartProduct).subscribe((res)=>{
-        if(res&&res.code == 1){
-          this.product.stock -= this.amount;
-          let confirm = this.alertCtrl.create({
-            title: '장바구니 담기 완료',
-            subTitle: '장바구니로 이동하시겠습니까?',
-            cssClass: '',
-            buttons: [
-              {
-                text: '확인',
-                cssClass: '',
-                handler: () => {
-                  this.navCtrl.setRoot('CartListPage');
+        if(res) {
+          if (res.code == 1) {
+            this.toastService.presentToast(res.data);
+            this.product.stock -= this.amount;
+            this.showConfirmMessage();
+          }else if (res.code == 14){
+            let confirm = this.alertCtrl.create({
+              title: '다른 상점의 장바구니가 존재합니다!!',
+              subTitle: '기존 장바구니를 비우고 추가하시겠습니까?',
+              cssClass: '',
+              buttons: [
+                {
+                  text: '확인',
+                  cssClass: '',
+                  handler: () => {
+                    this.cartService.cartAddForce(this.cartProduct).subscribe((res) =>{
+                      if(res){
+                        if(res.code==1){
+                          this.toastService.presentToast(res.data);
+                          this.showConfirmMessage();
+                        }
+                      }
+                    })
+                  }
+                },
+                {
+                  text: '취소',
+                  cssClass: '',
+                  handler: () => {
+                  }
                 }
-              },
-              {
-                text: '취소',
-                cssClass:'',
-                handler: () => {
-                }
-              }
-            ]
-          });
-          confirm.present();
+              ]
+            });
+            confirm.present();
+          }else{
+            this.toastService.presentToast(res.msg);
+          }
         }
       });
   }

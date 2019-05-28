@@ -22,7 +22,7 @@ app.use(cookieParser());
  */
 app.use(Handler.response());
 
-const files = fs.readdirSync('../route');
+const files = fs.readdirSync('route');
 //fs.readdirSync('../route'); 지영
 
 files.forEach(file => {

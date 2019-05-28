@@ -12,6 +12,9 @@ export class Cart extends Serializable implements IModel{
   //판매자아이디
   sellerId : string;
 
+  //상점명
+  storeName : string;
+
   //상품 목록
   products: CartProduct[] = [];
 
