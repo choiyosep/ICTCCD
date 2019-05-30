@@ -14,7 +14,7 @@ page-buyer-main {
 
 .col{
   background: white;
-  border: dashed gray 0.5px;
+  border: dashed gray 0.1px;
 }
 
 //.line {
@@ -50,5 +50,12 @@ page-buyer-main {
 
 .gps-button{
   margin-top:5px;
+}
+
+
+#formContent{
+  .row{
+    margin: 0px;
+  }
 }
 

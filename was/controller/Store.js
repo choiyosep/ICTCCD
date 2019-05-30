@@ -54,10 +54,7 @@ module.exports = {
                
                       //리뷰를 store객체에 넣어준다.
                       store.reviews =reviews;
-                     // 리뷰평점을 계산해서 불러온다.
-                     const review_totalgrade = await Review.getReviewTotalgrade(sellerId);
-                     //Store.grade객체에 계산된 리뷰 평점 삽입.
-                     store.grade = review_totalgrade;
+                    
                     //상점 객체 반환
                     resolve(store);
                 }else{//상점이 존재하지 않으면
@@ -73,7 +70,6 @@ module.exports = {
     buyerGet:(sellerId)=>{
         return new Promise(async (resolve, reject) => {
             try{
-                //console.log(sellerId)
                 //상점 정보 불러옴
                 const store = await Store.getStoreById(sellerId);
                 //userstore에 지정된 변수 모두 사용가능?
@@ -108,12 +104,10 @@ module.exports = {
 
                      //리뷰 불러옴
                       const reviews = await Review.getReviewById(sellerId);
+                      console.log(reviews)
                       //리뷰를 store객체에 넣어준다.
                       store.reviews =reviews;
-                      // 리뷰평점을 계산해서 불러온다.
-                     const review_totalgrade = await Review.getReviewTotalgrade(sellerId);
-                     //Store.grade객체에 계산된 리뷰 평점 삽입.
-                     store.grade = review_totalgrade;
+                     
 
                     //상점 객체 반환
                     resolve(store);
@@ -246,43 +240,8 @@ module.exports = {
                 reject(err);
             }
         })
-    },
-    
-    //review_T에서 sellerId와 일치하는 store 불러와서 각 review rating 다 더하기 
-    //이 함수를 review_create / update /delete 할때마다 이 함수 호출 store_T.grade update
-    // return sum;
-     getReviewTotalgrade:(sellerId) => {
-        //해당 sellerId로 평균구하는 method
-       // const review_rating; 
-       console.log(sellerId)
-        return new Promise(async (resolve, reject) => {
-            try {
-                DB.conn.getConnection((err, conn) =>{
-                    const query = `SELECT AVG(rating)AS AVG FROM review WHERE sellerId = '${sellerId}'`;
-                    conn.query(query, null, (err, results, fields) => {
-                        if (err) {
-                            reject(Response.get(Response.type.DATABASE_ERROR, err.message));
-                        } else {
-                            //상점 평점 업데이트
-                            conn.release();
-                            //console.log(results[0])
-                            const review_rating =results[0]
-                            console.log(review_rating)
-                            resolve(review_rating.AVG)// 합 넘김.
-                        }
-                    })
-                })
-                //await Store.UpdatestoreGrade(sellerId,review_rating);
-
-               
-            }catch (err) {
-                console.log(err);
-                reject(Response.get(Response.type.FAILED_GET_DB, err.message));
-            }
-                
-            });
-
     }
+
      
     
 }

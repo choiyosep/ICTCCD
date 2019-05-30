@@ -20,6 +20,10 @@ export class CartService extends BaseService {
     return this.http.put(`${this.controllerName}`, cartProduct.toObject(), false);
   }
 
+  public cartAddForce<T>(cartProduct : CartProduct): Observable<IResponse<T>> {
+    return this.http.put(`${this.controllerName}/force`, cartProduct.toObject(), false);
+  }
+
   public cartDelete<T>(data: any): Observable<IResponse<T>> {
     return this.http.delete(`${this.controllerName}/product`, data);
   }

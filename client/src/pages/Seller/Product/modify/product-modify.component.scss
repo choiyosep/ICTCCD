@@ -2,6 +2,24 @@ page-product-modify {
 
 }
 
+.disable-text-area {
+  z-index: 6 !important;
+}
+
+
+.main-product-image-disable, .disable-text-area {
+  height: 150px;
+  width: 100%;
+  border-radius: 6px;
+  padding-top: inherit;
+  padding-left: inherit;
+  padding-right: inherit;
+  z-index: 5;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+}
+
 .disable-button{
   background: none;
 }
@@ -125,4 +143,9 @@ page-product-modify {
 
 .icon-mag path{
   fill: #C0934D;
+}
+
+.shadow{
+  opacity: 0.6;
+
 }

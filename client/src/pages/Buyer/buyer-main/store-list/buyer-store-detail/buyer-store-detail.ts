@@ -32,6 +32,7 @@ export class BuyerStoreDetailPage {
   private map;
   private marker;
   private products: Array<Product>;
+  private deleltedata: { reviewNum : string ;    sellerId : string ;};
 private myInput;
   private data : {  reviewNum : string ;
     buyerId : string ;
@@ -124,10 +125,11 @@ private myInput;
   goToReviewRevise(i : number, title:string, sellerId: string, content:string , k:string){
     k = this.userStore.reviews[i].reviewNum;
     content=this.userStore.reviews[i].content;
+    let rating = this.userStore.reviews[i].rating;
     sellerId=this.userStore.sellerId;
     title =this.userStore.title;
 
-      this.navCtrl.push('ReviseReviewPage',{i : i ,title :title, sellerId: sellerId, content : content, k : k});
+      this.navCtrl.push('ReviseReviewPage',{i : i ,title :title, sellerId: sellerId, content : content, k : k, rating: rating});
 
 
   }
@@ -268,7 +270,14 @@ check() :boolean {
     })
   }
   delete(i:number) {
-    let k = this.userStore.reviews[i].reviewNum;
+    
+   /*  let deleltedata.reviewNum = this.userStore.reviews[i].reviewNum;
+    let sellerId = this.userStore.sellerId; */
+    this.deleltedata = {
+      "reviewNum": this.userStore.reviews[i].reviewNum,
+      "sellerId":this.userStore.sellerId
+    };
+
     let confirm = this.alertCtrl.create({
       title: '삭제하시겠습니까??',
       subTitle: '',
@@ -279,8 +288,8 @@ check() :boolean {
           cssClass: '',
           handler: () => {
 
-            console.log(k);
-            this.ReviewService.delete(k).subscribe(
+           // console.log(k);
+            this.ReviewService.delete(this.deleltedata).subscribe(
               (res) =>{
                 //응답오면
                 if(res&&res.code!=undefined){
