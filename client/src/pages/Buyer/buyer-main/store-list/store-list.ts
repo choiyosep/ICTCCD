@@ -9,6 +9,7 @@ import {Bookmark} from "../../../../core/model/Bookmark";
 import {BookmarkService} from "../../../../core/api/bookmark.service";
 import {Push, PushObject, PushOptions} from "@ionic-native/push";
 import {UserService} from "../../../../core/api/user.service";
+import {environment} from '../../../../environments/environment';
 
 /**
  * Generated class for the StoreListPage page.
@@ -55,7 +56,7 @@ export class StoreListPage {
   pushSetup(){
     const options: PushOptions = {
       android: {
-        senderID: '853388993136'
+        senderID: environment.Firebase.SenderId
       },
       ios: {
         alert: 'true',

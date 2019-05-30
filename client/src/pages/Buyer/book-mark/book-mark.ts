@@ -23,15 +23,6 @@ import { resolve } from 'path';
 export class BookMarkPage {
 
   private bookMarkArray: UserStore[] = [];
-  // private bookmarkStore1 : UserStore;
-  // private bookmarkStore2 : UserStore;
-  // private bookmarkStore3 : UserStore;
-  // private storeList : UserStore[] = [];
-
-  private src: string;
-
-
-  // private UserStore: Array<bookmarkStore>;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -41,71 +32,14 @@ export class BookMarkPage {
     private storeService:StoreService,
     private sessionService: SessionService
   ) {
-    /* this.bookmarkStore1 = new UserStore();
-    this.bookmarkStore1.title="죠스떡볶이",
-      this.bookmarkStore1.score=3.7,
-      this.bookmarkStore1.isBookMarked=false,
-      this.bookmarkStore1.images.push("http://www.fc123.co.kr/admin/data/webedit/11053005520520.jpg")
-
-  */
         //bookmark리스트 불러오기
          this.getBookmarkList(); 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BookMarkPage');
-    //페이지가 처음 진입했을 때 실행하는 코드
-
   }
 
-  // addToBookmark(store: UserStore) {
-  //   let confirm = this.alertCtrl.create({
-  //     title: '찜하시겠습니까??',
-  //     subTitle: '',
-  //     cssClass: '',
-  //     buttons: [
-  //       {
-  //         text: '확인',
-  //         cssClass: '',
-  //         handler: () => {
-  //           //즐겨찾기 추가 작업
-  //          //const sellerId = this.sessionService.getValue('loginId');
-  //          let bookMark = new Bookmark();
-  //          bookMark.buyerId = this.sessionService.getValue('loginId');
-  //          bookMark.sellerId = store.sellerId;
-  //          console.log(bookMark.buyerId);
-  //          console.log(bookMark.sellerId);
-  //
-  //           this.bookmarkService.add(bookMark).subscribe(
-  //            (res) =>{
-  //              //응답오면
-  //               if (res && res.code != undefined) {
-  //                 //성공시
-  //                 if (res.code == 1) {
-  //                   //즐겨찾기 속성 변경(UserStore)
-  //                   store.isBookMarked = true;
-  //                   //알림메시지
-  //                   this.toastService.presentToast('즐겨찾기 추가 완료!!');
-  //                 } else {
-  //                   this.toastService.presentToast(res.msg);
-  //                 }
-  //               }
-  //             }
-  //          )
-  //
-  //         }
-  //       },
-  //       {
-  //         text: '취소',
-  //         cssClass:'',
-  //         handler: () => {
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   confirm.present();
-  //
-  // }
 
   removeFromBookmark(store: UserStore, i : number) {
     let confirm = this.alertCtrl.create({

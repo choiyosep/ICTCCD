@@ -17,7 +17,7 @@ app.set('port', port);
     try {
 
         DB.conn = await DB.initialize();
-        // await Firebase.initialize();
+        await Firebase.initialize();
         //푸시알림 테스트(정상작동)
         // Firebase.sendPushTest();
 

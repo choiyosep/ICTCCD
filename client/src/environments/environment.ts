@@ -28,5 +28,10 @@ export const environment = {
     UserPoolId: "ap-northeast-2_AcVZp4GhT",
     ClientId: "2n2l5jvqvbg2vbqhf32df9lkk8",
     region: 'ap-northeast-2',
+  },
+
+
+  Firebase : {
+    SenderId: '853388993136'
   }
 };
