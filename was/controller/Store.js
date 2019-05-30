@@ -4,7 +4,7 @@ const Store = require('../service/Store')
     ,Response = require('../core/Response')
     ,GeoPoint = require('geopoint')
     ,Bookmark = require('../service/Bookmark')
-    ,DB = require('../core/Database')
+    ,DB = require('../core/Database');
     
 
 //route -> controller -> service -> model
