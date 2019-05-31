@@ -78,12 +78,6 @@ export class BuyerInfoPage {
       cssClass: 'storeDelete',
       buttons: [
         {
-          text: '취소',
-          cssClass: 'cancle',
-          handler: () => {
-          }
-        },
-        {
           text: '변경',
           cssClass: 'del',
           handler: () => {
@@ -105,6 +99,13 @@ export class BuyerInfoPage {
                 }
               }
             )
+          }
+        },
+        {
+          text: '취소',
+          cssClass: 'cancle',
+          handler: () => {
+            this.pushon = (this.data.push_con == "1")? true: false;
           }
         }
       ]

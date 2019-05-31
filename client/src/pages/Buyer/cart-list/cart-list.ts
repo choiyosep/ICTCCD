@@ -27,6 +27,8 @@ export class CartListPage {
   allChecked: boolean;
 
   private cart: Cart ;
+  private price: number;
+  private cartNum: number;
   private data: {  cartNum: number ; prodNumList: any[]};
   private agreeState: boolean;
 
@@ -61,8 +63,12 @@ export class CartListPage {
   }
 
 
-  order(){
-    let confirm = this.alertCtrl.create({
+  order(price: number, cartNum : number){
+ this.price= price;
+ this.cartNum=cartNum;
+
+
+ let confirm = this.alertCtrl.create({
       title: '결제 하시겠습니까?',
       subTitle: '',
       cssClass: 'storeDelete',
@@ -77,18 +83,11 @@ export class CartListPage {
           text: '결제',
           cssClass:'del',
           handler: () => {
-            this.cartService.order(this.cart.cartNum).subscribe((res)=>{
-              if(res&&res.code!=undefined) {
-                //성공시
-                if (res.code == 1) {
-                  this.toastService.presentToast("결제 성공!!");
-                  this.navCtrl.setRoot("OrderRecordPage");
-                } else {
-                  this.toastService.presentToast(res.msg);
-                }
-              }
-            }
-          )
+            console.log(this.price);
+            console.log(this.cartNum);
+
+            this.navCtrl.push("PayPage",{price: price, cartNum : cartNum});
+
         }
       }
     ]

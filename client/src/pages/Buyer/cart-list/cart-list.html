@@ -82,7 +82,7 @@
     <ion-checkbox [(ngModel)]="agreeState"></ion-checkbox> &nbsp;&nbsp; 주문 상품의 내역을 확인하였습니다.
   </div>
     <br>
-    <button [disabled]="!agreeState" (click)="order()" class='buy' id='buyBtn'>구매하기</button>
+    <button [disabled]="!agreeState" (click)="order(cart.totalPrice,cart.cartNum)" class='buy' id='buyBtn'>구매하기</button>
   </div>
 
 </ion-content>
