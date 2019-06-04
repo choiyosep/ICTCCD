@@ -183,9 +183,14 @@ export class BookMarkPage {
     ) 
   }
 
+  goToPage(pageName: string, sellerId?: string) {
+    switch(pageName){
+      case 'store-detail':
+        this.navCtrl.push('BuyerStoreDetailPage', {sellerId: sellerId});
+    }
+  }
 
-
-} 
+}
 
 
 class bookmarkStore {

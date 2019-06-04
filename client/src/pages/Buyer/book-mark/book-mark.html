@@ -19,7 +19,7 @@
 
   <div class='bookmark-list' *ngFor="let item of bookMarkArray; let i = index ">
       <div  class='box sub-photo'>
-        <img  margin-left="10px"  src="{{ item.images }}">
+        <img (click)="goToPage('store-detail',item.sellerId)"  margin-left="10px"  src="{{ item.images }}">
       </div>
       <div text-center="100%" class='box sub-name Body04'>
         {{ item.title }}
