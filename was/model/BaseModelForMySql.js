@@ -40,20 +40,16 @@ BaseModelForMySql.prototype = {
         return new Promise(async (resolve, reject) => {
             try {
                 DB.conn.getConnection((err, conn) =>{
-                    if(err){
-                        console.log(err);
-                    }
-                        const query = 'SELECT * FROM ' + this.table + ' WHERE ' + field + ' = ?';
-                        conn.query(query, [value], (err, results, fields) => {
-                            if (err) {
-                                reject(Response.get(Response.type.DATABASE_ERROR, err.message));
-                            } else {
-                                conn.release();
-                                resolve(results)
-                            }
-                        });
-                    }
-                );
+                    const query = 'SELECT * FROM ' + this.table + ' WHERE ' + field + ' = ?';
+                    conn.query(query, [value], (err, results, fields) => {
+                        if (err) {
+                            reject(Response.get(Response.type.DATABASE_ERROR, err.message));
+                        } else {
+                            conn.release();
+                            resolve(results)
+                        }
+                    });
+                });
             } catch (err) {
                 console.log(err);
                 reject(Response.get(Response.type.FAILED_GET_DB, err.message));

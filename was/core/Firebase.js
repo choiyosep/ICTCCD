@@ -33,13 +33,13 @@ module.exports = {
         finally(console.log);
     },
 
-    sendPushMessage: function(users, title, body){
+    sendPushMessage: function(token, title, body){
         return new Promise(async (resolve, reject) => {
             try {
-                for (let i=0; i<users.length; i++)
-                {
+                // for (let i=0; i<tokens.length; i++)
+                // {
                     const message = {
-                        token : users[i].token,
+                        token : token,
                         data: {
                             title: title,
                             message: body
@@ -50,7 +50,7 @@ module.exports = {
                         }
                     };
                     await admin.messaging().send(message);
-                }
+                // }
                 resolve();
             } catch (err) {
                 console.log(err);

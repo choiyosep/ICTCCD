@@ -65,5 +65,28 @@ module.exports = {
             
         };
         return bookmark.create(product_obj);
+    },
+
+    getBookmarker : (sellerId) =>{
+        return new Promise(async (resolve, reject) => {
+            try {
+                DB.conn.getConnection((err, conn) => {
+                    //console.log(buyerId)
+                    const query = `SELECT nickname, token from soborrow.user, bookmark where soborrow.user.id = bookmark.buyerId and bookmark.sellerId = '${sellerId}' and push_con = 1 and token is not null`;
+                    conn.query(query, null, (err, results, fields) => {
+                        if (err) {
+                            reject(Response.get(Response.type.DATABASE_ERROR, err.message));
+                        } else {
+                            conn.release();
+                            // console.log(results);
+                            resolve(results);
+                        }
+                    });
+                });
+            } catch (err) {
+                console.log(err);
+                reject(Response.get(Response.type.FAILED_GET_DB, err.message));
+            }
+        });
     }
 }
