@@ -31,7 +31,7 @@
 
   <div [ngSwitch]="contents" >
     <div *ngSwitchCase="'제과'">
-      <div *ngFor="let store of bakeryStoreList" class="store-list-card" >
+      <div (click)="goToPage('store-detail', store.sellerId)" *ngFor="let store of bakeryStoreList" class="store-list-card" >
         <img (click)="goToPage('store-detail', store.sellerId)" width="100px" height="100px" [src]="store.images[0]">
         <div class="store-list-info">
           <div (click)="goToPage('store-detail')" class="store-list-info-detail">
