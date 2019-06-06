@@ -75,4 +75,11 @@ export class SessionService {
     localStorage.setItem("address", address);
   }
 
+  public getRadius() {
+    return localStorage.getItem("radius");
+  }
+
+  public setRadius(radius: string){
+    localStorage.setItem("radius", radius);
+  }
 }

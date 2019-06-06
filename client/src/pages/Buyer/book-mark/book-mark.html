@@ -21,7 +21,7 @@
       <div  class='box sub-photo'>
         <img (click)="goToPage('store-detail',item.sellerId)"  margin-left="10px"  src="{{ item.images }}">
       </div>
-      <div text-center="100%" class='box sub-name Body04'>
+      <div (click)="goToPage('store-detail',item.sellerId)" text-center="100%" class='box sub-name Body04'>
         {{ item.title }}
       </div>
    <!--   <div class = 'box sub-star'>

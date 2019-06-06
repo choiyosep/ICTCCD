@@ -20,9 +20,37 @@
 </ion-header>
 
 <ion-content>
-  <iframe style="display:none;" src="assets/juso.html"  class="daumIframeStyle" id='daumIframe'></iframe>
-    <div id="formContent">
+  <div style="display:none;" id="searchContent">
+    <ion-row class="main-radio" radio-group (ionChange)="setRadius($event)"  [(ngModel)]="radius">
+      <ion-col>
+        <ion-item>
+          <ion-label>500m</ion-label>
+          <ion-radio mode="md" item-left value="0.6"></ion-radio>
+        </ion-item>
+      </ion-col>
 
+      <ion-col>
+        <ion-item>
+          <ion-label>1km</ion-label>
+          <ion-radio mode="md" item-left value="1"></ion-radio>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item>
+          <ion-label>5km</ion-label>
+          <ion-radio mode="md" item-left value="5"></ion-radio>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <iframe  src="assets/juso.html"  class="daumIframeStyle" id='daumIframe'></iframe>
+
+  </div>
+
+
+  <div id="formContent">
       <ion-slides class="slides" >
         <ion-slide>
           <img src = "http://img.woowahan.com/www/common/baemin.jpg">

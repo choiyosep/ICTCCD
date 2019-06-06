@@ -3,11 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {SessionService} from "../../../core/service/session.service";
 import {DaumService} from "../../../core/service/daum.service";
 import { Geolocation } from '@ionic-native/geolocation';
-
-import {user_FirstName} from "aws-sdk/clients/alexaforbusiness";
-import {User} from "../../../core/model/user";
-
-
 /**
  * Generated class for the BuyerMainPage page.
  *
@@ -23,6 +18,7 @@ import {User} from "../../../core/model/user";
 export class BuyerMainPage {
 
   private myAddress;
+  private radius: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -47,9 +43,16 @@ export class BuyerMainPage {
   }
 
   ionViewDidLoad() {
-    if(this.sessionService.getLocation()==null){
+    if(this.sessionService.getLocation()==null || this.sessionService.getLocation()==undefined){
       this.setLocationBySearch("경기 수원시 영통구 월드컵로 206");
     }
+    if(this.sessionService.getRadius()==null || this.sessionService.getRadius() ==undefined){
+      this.setRadius("5");
+    }
+
+    this.radius = this.sessionService.getRadius();
+
+
     console.log('ionViewDidLoad BuyerMainPage');
   }
   goToPage(str: string, catName: string) {
@@ -110,23 +113,42 @@ export class BuyerMainPage {
 
   startSearch(){
 
+    let searchElement: HTMLElement = document.getElementById('searchContent');
+
     let frameElement: HTMLElement = document.getElementById('daumIframe');
-    frameElement.style.display='block';
+    searchElement.style.display='block';
+
+    searchElement.style.height="100%";
     frameElement.style.height="100%";
+
     frameElement.setAttribute('src','assets/juso.html');
     document.getElementById('formContent').style.display="none";
    // this.setLocationBySearch(this.myAddress);
 
-
   }
 
   closeDaumIframe(){
-    let frame = document.getElementById("daumIframe");
-    document.getElementById('daumIframe').setAttribute('height','0px');
-    document.getElementById('daumIframe').style.height="0px";
-    document.getElementById('daumIframe').style.border="0px";
+    let searchElement: HTMLElement = document.getElementById('searchContent');
+
+    searchElement.style.display='none';
+
+    let frameElement = document.getElementById("daumIframe");
+    frameElement.setAttribute('height','0px');
+    searchElement.style.height="0px";
+    frameElement.style.height="0px";
+
+    frameElement.style.border="0px";
     document.getElementById('formContent').style.display="block";
 
+  }
+
+  getRadius() {
+    return this.sessionService.getRadius();
+
+  }
+
+  setRadius(radius : any){
+    this.sessionService.setRadius(radius);
   }
 }
 

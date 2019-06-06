@@ -17,11 +17,11 @@ export class StoreService extends BaseService {
  /*  public get<T>(id: string): Observable<IResponse<T>> {
     return this.http.get<IResponse<T>>(`${this.controllerName}/${id}`);
   } */
-  public getStores(lat: number, lng: number, catNum: number, buyerId: string, keyword?: string): Observable<IResponse<any>> {
+  public getStores(lat: number, lng: number, catNum: number, buyerId: string, radius: string, keyword?: string): Observable<IResponse<any>> {
     const params = {
       keyword: keyword
     };
-    return this.http.get<IResponse<any>>(`${this.controllerName}?lat=${lat}&lng=${lng}&category=${catNum}&buyerId=${buyerId}&radius=1000000`, params);
+    return this.http.get<IResponse<any>>(`${this.controllerName}?lat=${lat}&lng=${lng}&category=${catNum}&buyerId=${buyerId}&radius=${radius}`, params);
   }
 
 }

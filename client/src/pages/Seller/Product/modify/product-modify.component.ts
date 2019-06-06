@@ -83,6 +83,11 @@ export class ProductModifyComponent{
       return false;
     }
 
+    if(this.product.state=="1" && this.product.stock <= 0){
+      this.toast("상품 수량을 1개 이상 입력해주세요");
+      return false;
+    }
+
 
 
     let confirm = this.alertCtrl.create({

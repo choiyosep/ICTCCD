@@ -112,10 +112,12 @@ export class StoreListPage {
       default:
         break;
     }
-    console.log(lat,lng,catNum);
     let buyerId  = this.sessionService.getValue("loginId");
-    this.storeService.getStores(lat,lng,catNum, buyerId).subscribe((res)=>{
-      console.log(JSON.stringify(res));
+    let radius = this.sessionService.getRadius();
+
+    console.log(buyerId);
+    console.log(radius);
+    this.storeService.getStores(lat,lng,catNum, buyerId, radius).subscribe((res)=>{
       if(res&&res.code==RESPONSE_CODE.SUCCESS){
         this.setStoreList(catNum, res.data);
       }
@@ -138,6 +140,7 @@ export class StoreListPage {
         break;
       case 5:
         this.EtcStoreList = data;
+        break;
     }
 
   }
