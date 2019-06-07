@@ -1,7 +1,10 @@
 const Store = require('../service/Store')
     ,Product = require('../service/product')
     ,Response = require('../core/Response')
-  
+
+    ,Bookmark = require('../service/Bookmark')
+    ,Firebase = require('../core/Firebase');
+
 //route -> controller -> service -> model
 
 //Controller 계층 : 가장 상위 레벨에서 핵심 비즈니스 로직을 수행한다.
@@ -40,19 +43,26 @@ module.exports = {
     
         return new Promise( async (resolve, reject ) =>{
             try{
-                console.log(sellerId, prodName, originalPrice, discountRate, salePrice, stock, state,images);
                 //상품 등록
                 const rs = await Product.createProduct( sellerId, prodName, originalPrice, discountRate, salePrice, stock, state);
                 //상품 사진 등록
                 const prodNum =rs.insertId;
-                console.log(rs);
                 for(let i=0; i< images.length; i++)
                     await Product.createProductPicture(prodNum, images[i]);
+
+                //즐겨찾기한 회원 중 푸시 알림 상태가 1인 회원 받아오기
+                const bookmarkerList = await Bookmark.getBookmarker(sellerId);
+                //상점 받아오기
+                const store = await Store.getStoreById(sellerId);
+                //푸시알림 전송
+                for(let i=0; i<bookmarkerList.length; i++){
+                    const token = bookmarkerList[i].token;
+                    const nickname = bookmarkerList[i].nickname;
+                    console.log("푸시 메세지 보낸다:",token, nickname);
+                    Firebase.sendPushMessage(token,'떠리매쳐' ,`${nickname}님! ${store.title}에 ${prodName}이 등록되었습니다!!`);
+                }
+
                 resolve(rs);
-               /*  }else{//등록된 상품이 있으면
-                    //exception 발생시킴
-                    throw Response.get(Response.type.PRODUCT_ALREADY_EXIST, {});
-                } */
             }catch(err){
                 console.log(err);
                 reject(err);

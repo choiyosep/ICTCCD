@@ -33,8 +33,16 @@
       </ion-slides>
     </div>
 
-    <div class="store-name">
-      {{userStore?.title}}
+    <div class="store-name flex-area-row-space-between">
+      <div class="Subheading Grey07">
+        {{userStore?.title}}
+      </div>
+      <div class="flex-area-row">
+        <img width="25px" height="25px" src="assets/imgs/star-icon.png">
+        <div class="review-grade">
+          {{userStore?.grade}}
+        </div>
+      </div>
     </div>
     <div class="content-box-underline flex-area-row-space-between">
       <div class="store-property-name">
@@ -103,7 +111,7 @@
             </div>
 
           </div>
-          <div class="review-content">
+          <div class="input_box review-content">
             {{review.content}}
           </div>
         </div>

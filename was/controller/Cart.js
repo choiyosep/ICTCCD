@@ -17,6 +17,9 @@ module.exports = {
             try{
                 const cart = await Cart.getCartByBuyerId(buyerId);
 
+                const store = await Store.getStoreById(cart.sellerId);
+                cart.storeName = store.title;
+
                 if(cart){
                     cart.products = [];
                     cart.totalPrice = 0;
@@ -86,29 +89,44 @@ module.exports = {
                         resolve("추가 성공");
                     }else{//존재하는 장바구니의 상점과 다른 상점의 상품이면
                         console.log("다른 상점의 장바구니가 존재!!");
-                        //일단 거절(보류)
-                        // reject(Response.get(Response.type.IS_EXIST_OTHER_CART,{}))
-
-                        //장바구니를 삭제하기 전에, 장바구니에 담겨있던 상품 내역을 불러온다.
-                        const cartProducts = await Cart.getCartProductList(cart.cartNum);
-                        for(let i=0; i<cartProducts.length; i++){
-                            //장바구니에 담겨있던 상품의 수량을 상품테이블의 재고량에 다시 더해준다.
-                            await Cart.increaseProductQuantity(cartProducts[i].prodNum, cartProducts[i].quantity);
-                            console.log("증가");
-                        }
-                        //기존 장바구니를 삭제한다.
-                        rs = await Cart.deleteCart(cart.cartNum);
-                        console.log(rs);
-
-                        //장바구니를 생성한다
-                        let newCart = await Cart.createCart(buyerId, sellerId);
-                        //장바구니_상품에 상품을 넣는다.
-                        await Cart.createCartProduct( newCart.insertId, prodNum, quantity);
-                        // product 수량을 감소시킨다.
-                        await Cart.reduceProductQuantity(prodNum, quantity);
-                        resolve("기존 장바구니 삭제하여 추가 성공");
+                        //일단 거절
+                        reject(Response.get(Response.type.IS_EXIST_OTHER_CART,{}))
                     }
                 }
+            }catch(err){
+                console.log(err);
+                reject(err);
+            }
+        })
+    },
+
+
+    updateForce: (buyerId, sellerId, prodNum, quantity) => {
+        return new Promise( async (resolve, reject ) =>{
+            try{
+                console.log("장바구니 강제로 추가 시작");
+                //장바구니가 불러옴
+                const cart = await Cart.getCartByBuyerId(buyerId);
+
+                //장바구니를 삭제하기 전에, 장바구니에 담겨있던 상품 내역을 불러온다.
+                const cartProducts = await Cart.getCartProductList(cart.cartNum);
+                for(let i=0; i<cartProducts.length; i++){
+                    //장바구니에 담겨있던 상품의 수량을 상품테이블의 재고량에 다시 더해준다.
+                    await Cart.increaseProductQuantity(cartProducts[i].prodNum, cartProducts[i].quantity);
+                    console.log("증가");
+                }
+                //기존 장바구니를 삭제한다.
+                rs = await Cart.deleteCart(cart.cartNum);
+                console.log(rs);
+
+                //장바구니를 생성한다
+                let newCart = await Cart.createCart(buyerId, sellerId);
+                //장바구니_상품에 상품을 넣는다.
+                await Cart.createCartProduct( newCart.insertId, prodNum, quantity);
+                // product 수량을 감소시킨다.
+                await Cart.reduceProductQuantity(prodNum, quantity);
+                resolve("기존 장바구니 삭제하여 추가 성공");
+
             }catch(err){
                 console.log(err);
                 reject(err);

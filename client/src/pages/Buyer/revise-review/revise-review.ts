@@ -22,7 +22,6 @@ export class ReviseReviewPage {
   @Input() rating : number;
   @Output() ratingChange : EventEmitter<number> = new EventEmitter();
 
-  contents: string;
   private userStore : UserStore;
   private review : Review;
   // private i : number;
@@ -47,6 +46,7 @@ export class ReviseReviewPage {
     this.userStore.title=this.navParams.get("title");
     this.review.content=this.navParams.get("content");
     this.review.reviewNum= this.navParams.get("k");
+    this.rate(this.navParams.get("rating"));
 
   }
 
@@ -90,7 +90,6 @@ export class ReviseReviewPage {
 
     this.review.buyerId =this.sessionService.getValue(("loginId"));
     this.review.rating=this.rating;
-    this.review.content=this.contents;
     let k=this.review.reviewNum;
     this.data = {
 

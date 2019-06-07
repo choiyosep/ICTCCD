@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 
 import {SessionService} from "../../../core/service/session.service";
 import {Converter} from "../../../core/helper/converter";
@@ -21,16 +21,19 @@ import {User} from "../../../core/model/user";
 })
 export class BuyerInfoPage {
 
+  private pushon: boolean;
   private user : User;
-  // private data :
-  //   {
-  //     id: string;
-  //     level:string;
-  //     nickname: string;
-  //     push_con: boolean;
-  //
-  //   }
+  private data :
+    {
+      id: string;
+      level:string;
+      nickname: string;
+      push_con: string;
+
+    }
   constructor(public navCtrl: NavController,
+              private alertCtrl: AlertController,
+              private toastCtrl : ToastController,
               public navParams: NavParams,
               private userService : UserService,
               private sessionService: SessionService) {
@@ -50,18 +53,72 @@ export class BuyerInfoPage {
 
     this.userService.getUsersDetailsById(id).subscribe((res) =>{
       if(res && res.code==1){
-this.user= res.data;
-        // this.data = {
-        //   "id":res.data.id,
-        //   "level":res.data.level,
-        //   "nickname":res.data.nickname,
-        //   "push_con":res.data.push_con
-        // };
-
-        console.log(this.user);
+          this.data= res.data;
+          console.log(this.data.push_con);
+        this.pushon = (this.data.push_con == "1")? true: false;
 
 
       }
     });
   }
+
+  toast(str: string = '') {
+    this.toastCtrl.create({
+      message: str,
+      duration: 2000,
+      position: 'top'
+    }).present();
+  }
+
+  changeState($event) {
+
+    let confirm = this.alertCtrl.create({
+      title: 'push 알림상태를 변경하시겠습니까?',
+      subTitle: '',
+      cssClass: 'storeDelete',
+      buttons: [
+        {
+          text: '변경',
+          cssClass: 'del',
+          handler: () => {
+            this.data.push_con= ($event.value==true)? "1": "0";
+            console.log(this.data.push_con);
+            console.log(this.data.id);
+
+            this.userService.send(this.data.id,this.data.push_con).subscribe(
+              (res) =>{
+                //응답오면
+                if(res&&res.code!=undefined){
+                  //성공시
+                  if(res.code==1) {
+
+                    this.toast("변경 완료");
+                  }else{
+                    this.toast(res.msg);
+                  }
+                }
+              }
+            )
+          }
+        },
+        {
+          text: '취소',
+          cssClass: 'cancle',
+          handler: () => {
+            this.pushon = (this.data.push_con == "1")? true: false;
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+
+
+
+
+  }
+
+
+
+
 }

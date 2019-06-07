@@ -24,8 +24,6 @@ page-store-detail {
 }
 
 .store-name{
-  @extend .Subheading;
-  @extend .Grey07;
   margin-top: 30px;
   margin-bottom: 20px;
 }
@@ -60,7 +58,7 @@ page-store-detail {
 
 .review-grade{
   padding : 0px 5px 0px 5px;
-  @extend .Body03;
+  @extend .Subheading;
 }
 
 .review-card{

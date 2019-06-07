@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   // API_ENDPOINT: 'http://175.195.197.180:3000/',
-  // API_ENDPOINT: 'http://192.168.219.102:3000/',
+  // API_ENDPOINT: 'http://192.168.22.138:3000/',
 
   //web
   API_ENDPOINT: 'http://localhost:8100/api/',
@@ -28,5 +28,10 @@ export const environment = {
     UserPoolId: "ap-northeast-2_AcVZp4GhT",
     ClientId: "2n2l5jvqvbg2vbqhf32df9lkk8",
     region: 'ap-northeast-2',
+  },
+
+
+  Firebase : {
+    SenderId: '853388993136'
   }
 };

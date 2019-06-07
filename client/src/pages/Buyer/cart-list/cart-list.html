@@ -11,7 +11,7 @@
     </button>
     <div class="flex-area-row">
       <div class="store-toolbar-title">장바구니</div>
-      <button (click)="all_delete()" class="delete-wrapper">
+      <button (click)="all_delete()" class="delete-all-button" *ngIf="cart!=undefined">
         전체삭제
       </button>
     </div>
@@ -28,6 +28,13 @@
 
 
   <div *ngIf="cart!=undefined">
+    <div class='flex-area-row-center'>
+      <div class="store-title">
+        {{cart?.storeName}}
+      </div>
+    </div>
+    <br>
+
     <div class='table'>
       <div class='box check'>
         <ion-checkbox [(ngModel)]="allChecked" (click)="checkedAll()" ></ion-checkbox>
@@ -71,11 +78,11 @@
       총 상품 가격: {{ cart.totalPrice }}원
     </div>
 
-  <div class='agreement Body01'>
+  <div class='Body01'>
     <ion-checkbox [(ngModel)]="agreeState"></ion-checkbox> &nbsp;&nbsp; 주문 상품의 내역을 확인하였습니다.
   </div>
     <br>
-    <button [disabled]="!agreeState" (click)="order()" class='buy' id='buyBtn'>구매하기</button>
+    <button [disabled]="!agreeState" (click)="order(cart.totalPrice,cart.cartNum)" class='buy' id='buyBtn'>구매하기</button>
   </div>
 
 </ion-content>

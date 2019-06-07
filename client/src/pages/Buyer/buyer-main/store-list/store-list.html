@@ -15,14 +15,14 @@
     <ion-segment-button value="제과">
       제과
     </ion-segment-button>
+    <ion-segment-button value="떡">
+      떡
+    </ion-segment-button>
     <ion-segment-button value="분식">
       분식
     </ion-segment-button>
     <ion-segment-button value="반찬">
       반찬
-    </ion-segment-button>
-    <ion-segment-button value="떡">
-      떡
     </ion-segment-button>
     <ion-segment-button value="기타">
       기타
@@ -31,7 +31,7 @@
 
   <div [ngSwitch]="contents" >
     <div *ngSwitchCase="'제과'">
-      <div *ngFor="let store of bakeryStoreList" class="store-list-card" >
+      <div (click)="goToPage('store-detail', store.sellerId)" *ngFor="let store of bakeryStoreList" class="store-list-card" >
         <img (click)="goToPage('store-detail', store.sellerId)" width="100px" height="100px" [src]="store.images[0]">
         <div class="store-list-info">
           <div (click)="goToPage('store-detail')" class="store-list-info-detail">
@@ -79,11 +79,77 @@
         </div>
       </div>
     </div>
-    <div *ngSwitchCase="'반찬'">
-    </div>
     <div *ngSwitchCase="'떡'">
+      <div *ngFor="let store of riceCakeStoreList" class="store-list-card" >
+        <img (click)="goToPage('store-detail', store.sellerId)" width="100px" height="100px" [src]="store.images[0]">
+        <div class="store-list-info">
+          <div (click)="goToPage('store-detail')" class="store-list-info-detail">
+            <div class="Body02">{{store.title}}</div><br>
+            <div class="flex-area-row">
+              <img width="15px" height="15px" src="assets/imgs/star-icon.png">
+              &nbsp;
+              <div class="Caption03">{{store.grade}}</div>
+            </div>
+            <div class="Caption03">
+              거리: {{store.distance}}km
+            </div>
+          </div>
+          <div class="flex-content-col">
+            <!--즐겨찾기 됐을때-->
+            <img *ngIf="store.isBookMarked"     height=" 61px" margin-bottom="10px"(click)="removeFromBookmark(store)" width="80px" height="80px" src="assets/icon/filled_heart.png">
+            <!--즐겨찾기 안됐을때-->
+            <img *ngIf="!store.isBookMarked" height=" 61px" margin-bottom="10px" (click)="addToBookmark(store)" width="80px" height="80px" src="assets/icon/empty_heart.png">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngSwitchCase="'반찬'">
+      <div *ngFor="let store of sideDishStoreList" class="store-list-card" >
+        <img (click)="goToPage('store-detail', store.sellerId)" width="100px" height="100px" [src]="store.images[0]">
+        <div class="store-list-info">
+          <div (click)="goToPage('store-detail')" class="store-list-info-detail">
+            <div class="Body02">{{store.title}}</div><br>
+            <div class="flex-area-row">
+              <img width="15px" height="15px" src="assets/imgs/star-icon.png">
+              &nbsp;
+              <div class="Caption03">{{store.grade}}</div>
+            </div>
+            <div class="Caption03">
+              거리: {{store.distance}}km
+            </div>
+          </div>
+          <div class="flex-content-col">
+            <!--즐겨찾기 됐을때-->
+            <img *ngIf="store.isBookMarked"     height=" 61px" margin-bottom="10px"(click)="removeFromBookmark(store)" width="80px" height="80px" src="assets/icon/filled_heart.png">
+            <!--즐겨찾기 안됐을때-->
+            <img *ngIf="!store.isBookMarked" height=" 61px" margin-bottom="10px" (click)="addToBookmark(store)" width="80px" height="80px" src="assets/icon/empty_heart.png">
+          </div>
+        </div>
+      </div>
     </div>
     <div *ngSwitchCase="'기타'">
+      <div *ngFor="let store of EtcStoreList" class="store-list-card" >
+        <img (click)="goToPage('store-detail', store.sellerId)" width="100px" height="100px" [src]="store.images[0]">
+        <div class="store-list-info">
+          <div (click)="goToPage('store-detail')" class="store-list-info-detail">
+            <div class="Body02">{{store.title}}</div><br>
+            <div class="flex-area-row">
+              <img width="15px" height="15px" src="assets/imgs/star-icon.png">
+              &nbsp;
+              <div class="Caption03">{{store.grade}}</div>
+            </div>
+            <div class="Caption03">
+              거리: {{store.distance}}km
+            </div>
+          </div>
+          <div class="flex-content-col">
+            <!--즐겨찾기 됐을때-->
+            <img *ngIf="store.isBookMarked"     height=" 61px" margin-bottom="10px"(click)="removeFromBookmark(store)" width="80px" height="80px" src="assets/icon/filled_heart.png">
+            <!--즐겨찾기 안됐을때-->
+            <img *ngIf="!store.isBookMarked" height=" 61px" margin-bottom="10px" (click)="addToBookmark(store)" width="80px" height="80px" src="assets/icon/empty_heart.png">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

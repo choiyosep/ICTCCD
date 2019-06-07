@@ -22,7 +22,7 @@
       아이디
     </div>
     <div class="store-property-value">
-      {{user?.id}}
+      {{data?.id}}
     </div>
   </div>
 
@@ -31,7 +31,7 @@
       닉네임
     </div>
     <div class="store-property-value">
-      {{user?.nickname}}
+      {{data?.nickname}}
     </div>
   </div>
 
@@ -40,8 +40,7 @@
       PUSH 알림 허용
     </div>
     <div class="store-property-value">
-      <ion-toggle color="orange" checked="true"></ion-toggle>
-
+      <ion-toggle (ionChange)="changeState($event)" [(ngModel)]="pushon"  color="orange"></ion-toggle>
     </div>
   </div>
 

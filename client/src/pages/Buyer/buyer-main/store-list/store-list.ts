@@ -9,6 +9,7 @@ import {Bookmark} from "../../../../core/model/Bookmark";
 import {BookmarkService} from "../../../../core/api/bookmark.service";
 import {Push, PushObject, PushOptions} from "@ionic-native/push";
 import {UserService} from "../../../../core/api/user.service";
+import {environment} from '../../../../environments/environment';
 
 /**
  * Generated class for the StoreListPage page.
@@ -55,7 +56,7 @@ export class StoreListPage {
   pushSetup(){
     const options: PushOptions = {
       android: {
-        senderID: '853388993136'
+        senderID: environment.Firebase.SenderId
       },
       ios: {
         alert: 'true',
@@ -90,19 +91,19 @@ export class StoreListPage {
     this.contents=catName;
     let location = this.sessionService.getLocation();
     let lat = location.lat;
-    let lng = location.lng
+    let lng = location.lng;
     let catNum;
     switch(catName){
       case "제과":
         catNum = 1;
         break;
-      case "분식":
+      case "떡":
         catNum = 2;
         break;
-      case "반찬":
+      case "분식":
         catNum = 3;
         break;
-      case "떡":
+      case "반찬":
         catNum = 4;
         break;
       case "기타":
@@ -127,13 +128,13 @@ export class StoreListPage {
         this.bakeryStoreList = data;
         break;
       case 2:
-        this.flourFoodStoreList= data;
+        this.riceCakeStoreList= data;
         break;
       case 3:
-        this.sideDishStoreList = data;
+        this.flourFoodStoreList = data;
         break;
       case 4:
-        this.riceCakeStoreList = data;
+        this.sideDishStoreList = data;
         break;
       case 5:
         this.EtcStoreList = data;

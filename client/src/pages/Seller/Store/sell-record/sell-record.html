@@ -20,17 +20,14 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-list-header color="secondary" text-center="true">
-      판매이력조회
-    </ion-list-header>
+    <!--<ion-list-header color="secondary" text-center="true">-->
+      <!--판매이력조회-->
+    <!--</ion-list-header>-->
     <ion-item padding *ngFor="let d of data" (click)="toggleDetails(d)"><ion-icon color="primary" item-right [name]="d.icon"></ion-icon>
       <div class="Body04">
         {{d.date}}
       </div>
       <div *ngIf="d.showDetails">
-        <!--{{d.details}}-->
-
-
         <div>
           {{d.name}} <br>
           {{d.qty}}개
@@ -38,9 +35,6 @@
         <div class="content-box-underline Body05" align="right" >
           {{d.price}}원
         </div>
-
-
-
       </div>
     </ion-item>
   </ion-list>
