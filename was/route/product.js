@@ -1,35 +1,11 @@
 const Router = require('express').Router()
     , Ctrl = require('../controller/Product')
-    , Handler = require('../middleware/Handler')
-    , Request = require('../middleware/Request');
+    , Handler = require('../middleware/Handler');
+  
 
 /**
  * @desc Logout
  */
-/* Router.get(
-    '/:prodNum',
-    [
-    ],
-   
-    Handler.request(
-        Ctrl.get,
-        (req, res, next) => [
-            req.params['prodNum']
-        ]
-    ));
-
-
-Router.get(
-    '',
-    [
-
-    ],
-    Handler.request(
-        Ctrl.list,
-        (req, res, next) => [
-            req
-        ]
-    )); */
 
 Router.post(
     '',
@@ -83,5 +59,7 @@ Router.delete(
             req.params['prodNum'],
         ]
     ));
+
+   
 
 module.exports = Router;
