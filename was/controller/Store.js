@@ -67,12 +67,14 @@ module.exports = {
             }
         });
     },
+    //store detail로 갈때
     buyerGet:(sellerId)=>{
         return new Promise(async (resolve, reject) => {
             try{
                 //상점 정보 불러옴
                 const store = await Store.getStoreById(sellerId);
                 //userstore에 지정된 변수 모두 사용가능?
+               // console.log(store)
 
                 if(store){//상점이 존재하면
                     //시간 변환 (예) 540 -> 9시 0분)
@@ -80,6 +82,7 @@ module.exports = {
                     store.sMinute = store.sTime % 60;
                     store.eHour = Math.floor(store.eTime / 60);
                     store.eMinute = store.eTime % 60;
+                    console.log(store.sHour)
                     //사진 파일 정보 불러옴
                     const images = await Store.getPicturesById(sellerId);
                     store.images=[];
@@ -204,6 +207,10 @@ module.exports = {
     list: (lat, lng, category, buyerId, radius) => {
         return new Promise(async (resolve, reject) =>{
             try{
+                //현재 시간 받아오기
+                var d = new Date();
+                let CurrentHours =d.getHours() 
+                let CurrentMinutes = d.getMinutes();
                 const stores = await Store.getStoreListByCategory(category);
                 //console.log(JSON.stringify(stores));
                 //const newStores = [];
@@ -212,6 +219,7 @@ module.exports = {
                    let point1 =  new GeoPoint(Number(lat), Number(lng));
                    let point2 = new GeoPoint(stores[i].lat, stores[i].lng);
                    var distance = point1.distanceTo(point2, true);
+
                    //point1과 point2 거리 계산해서 삽입
                    if(distance <radius){
                        //거리 설정(소수점 셋째자리)
@@ -225,10 +233,18 @@ module.exports = {
                        //첫번째 사진
                         stores[i].images.push(images[0].pic_src);
                    
-                        //sorting_Store
-                        sorting_Store.push(stores[i]);
+                        //현재 시간이랑 비교해서 각 store의 시간 내에 있는 값만 sorting_Store에 넣기
+                        //넣은 내용만 storting해서 storeList로 반환
+
+
+                        if (stores[i].sTime < (CurrentHours * 60 + CurrentMinutes) && stores[i].eTime > (CurrentHours * 60 + CurrentMinutes)) {
+                            console.log("운영시간 내에 존재합니다.")
+                            //sorting_Store
+                            sorting_Store.push(stores[i]);
+                        }
+
                     }
-                    
+
                 }//for 문끝남. 거리순으로 sorting
 
                 const newStores = await Store.sortingStore(sorting_Store);
