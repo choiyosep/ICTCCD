@@ -270,9 +270,6 @@ check() :boolean {
     })
   }
   delete(i:number) {
-    
-   /*  let deleltedata.reviewNum = this.userStore.reviews[i].reviewNum;
-    let sellerId = this.userStore.sellerId; */
     this.deleltedata = {
       "reviewNum": this.userStore.reviews[i].reviewNum,
       "sellerId":this.userStore.sellerId

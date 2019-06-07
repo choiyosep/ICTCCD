@@ -46,6 +46,33 @@ module.exports = {
         })
 
     },
+    getsellerIdBycartNum:(cartNum)=>{
+        return new Promise( async(resolve, reject) =>{
+            try {
+                DB.conn.getConnection((err, conn) => {
+                    const query = `SELECT sellerId FROM cart WHERE cartNum = '${cartNum}'`;
+                    conn.query(query, null, (err, results, fields) => {
+                        if (err) {
+                            reject(Response.get(Response.type.DATABASE_ERROR, err.message));
+                        } else {
+                            conn.release();
+
+                            resolve(results);
+
+                        }
+                    });
+                });
+            } catch (err) {
+                console.log(err);
+                reject(Response.get(Response.type.FAILED_GET_DB, err.message));
+            }
+
+
+
+        })
+
+
+    },
 
     createCart: (buyerId, sellerId)=>{
         let obj = {

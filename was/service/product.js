@@ -2,7 +2,7 @@ const Store = require('../model/Store'),
     product_picture = require('../model/product_picture'),
     Product = require('../model/product'),
     DB = require('../core/Database'), 
-    Response = require('../core/Response')
+    Response = require('../core/Response');
 
 
 //route -> controller -> service -> model
@@ -133,13 +133,39 @@ module.exports = {
         return Product.update(product_obj,'prodNum', prodNum);
        // return Store.update(store_obj,"sellerId", sellerId);
     },
-    /* updateProductPicture:(prodNum, image) =>{
-        //객체 생성
-        const product_obj = {
-            prodNum : prodNum,
-            pic_src : image
-        };
-        return product_picture.update(product_obj);
-    } */
+    checkingProductStock: (sellerId) => {
+        //제품이 order될때 제품 제고 체크해서 0으로 만들기
+        console.log(sellerId)
+
+        return new Promise(async (resolve, reject) => {
+            
+            try {
+                DB.conn.getConnection((err, conn) =>{
+                    if(err){
+                        console.log(err);
+                    }
+                    const query = `update product set state = 0 
+                        where stock = 0 and sellerId ='${sellerId}'`;
+                        conn.query(query,null, (err, results, fields) => {
+                            if (err) {
+                                reject(Response.get(Response.type.DATABASE_ERROR, err.message));
+                            } else {
+                                conn.release();
+                                console.log("11")
+                                resolve(results)
+                            }
+                        });
+                    }
+                );
+            } catch (err) {
+                console.log(err);
+                reject(Response.get(Response.type.FAILED_GET_DB, err.message));
+            }
+        });
+
+
+    }
+  
+    
 
 }
