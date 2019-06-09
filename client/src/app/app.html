@@ -12,18 +12,18 @@
       <button (click)="goToPage('sellerMain')"  ion-item >
         메인
       </button>
-      <button  ion-item >
-        회원정보수정
-      </button>
+      <!--<button  ion-item >-->
+        <!--회원정보수정-->
+      <!--</button>-->
       <button (click)="goToPage('sell-record')" ion-item >
         판매이력조회
       </button>
       <button (click)="logout()" ion-item >
         로그아웃
       </button>
-      <button (click)="leave()" ion-item >
-        회원탈퇴
-      </button>
+      <!--<button (click)="leave()" ion-item >-->
+        <!--회원탈퇴-->
+      <!--</button>-->
     </ion-list>
     <!--구매자메뉴-->
     <ion-list *ngIf="getLevel()==1">
@@ -37,7 +37,7 @@
         즐겨찾기
       </button>
       <button (click)="goToPage('buyer-info')" ion-item >
-        회원정보수정
+        회원정보조회
       </button>
       <button (click)="goToPage('order-record')" ion-item >
         구매이력조회
@@ -45,9 +45,9 @@
       <button (click)="logout()" ion-item >
         로그아웃
       </button>
-      <button (click)="leave()" ion-item >
-        회원탈퇴
-      </button>
+      <!--<button (click)="leave()" ion-item >-->
+        <!--회원탈퇴-->
+      <!--</button>-->
     </ion-list>
   </ion-content>
 
