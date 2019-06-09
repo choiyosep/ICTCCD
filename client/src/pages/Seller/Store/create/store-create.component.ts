@@ -10,6 +10,7 @@ import {SessionService} from "../../../../core/service/session.service";
 import {Converter} from "../../../../core/helper/converter";
 import {DaumService} from "../../../../core/service/daum.service";
 import {HttpResponse} from "@angular/common/http";
+import {environment} from "../../../../environments/environment";
 /**
  * Generated class for the StoreDetailPage page.
  *
@@ -48,6 +49,7 @@ export class StoreCreateComponent {
     window.addEventListener( 'message', (e) =>{
       console.log("메세지:"+e.data);
       if(e.data !=="close"){
+        (document.getElementById("mainAddr") as HTMLInputElement).value =  e.data;
         this.userStore.mainAddr= e.data;
       }
       this.closeDaumIframe();
@@ -155,15 +157,11 @@ export class StoreCreateComponent {
         });
       }
     );
-
-
   }
 
   goToMain(){
     this.navCtrl.setRoot('StoreDetailComponent');
   }
-
-
 
   back(){
     this.navCtrl.pop();
@@ -174,19 +172,17 @@ export class StoreCreateComponent {
     let frameElement: HTMLElement = document.getElementById('daumIframe');
     frameElement.style.display='block';
     frameElement.style.height="100%";
-    frameElement.setAttribute('src','assets/juso.html');
-    //frameElement.setAttribute('src','assets/juso.html');
-    //fx`rameElement.setAttribute('src','http://localhost:3000/daumJuso');
+    frameElement.setAttribute('src',`${environment.API_ENDPOINT}daumJuso`);
     document.getElementById('formContent').style.display="none";
   }
 
   closeDaumIframe(){
-    let frame = document.getElementById("daumIframe");
+    let frame : any = document.getElementById("daumIframe");
     document.getElementById('daumIframe').setAttribute('height','0px');
+    document.getElementById('daumIframe').setAttribute('src','about:blank');
     document.getElementById('daumIframe').style.height="0px";
     document.getElementById('daumIframe').style.border="0px";
     document.getElementById('formContent').style.display="block";
-
   }
 
   imageUpload(event, i: number) {

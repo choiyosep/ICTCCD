@@ -7,12 +7,10 @@ export const environment = {
   API_ENDPOINT: 'http://localhost:8100/api/',
   //mobile
 
-  // API_ENDPOINT: 'http://192.168.43.77:3000/',
+  // API_ENDPOINT: 'http://192.168.22.205:3000/',
 
   AWS:{
-
     REGION :"ap-northeast-2",
-
     S3: {
       BUCKET_NAME: "soborrow",
       FILE_URL: 'https://soborrow2.s3.ap-northeast-2.amazonaws.com/',

@@ -10,7 +10,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <div class="flex-area-row">
-      <input class="address-finder"  (click)="startSearch()" [value]="getAddress()" placeholder="주소검색">
+      <input id="address-finder" class="address-finder"  (click)="startSearch()" [value]="getAddress()" placeholder="주소검색">
       <!--<button class="gps-button" (click)="setLocationByGPS()" ion-button gpstoggle>-->
         <!--<ion-icon style="zoom:0.5;" name="pin"></ion-icon>-->
         <img src ="assets/icon/location.svg" width="40px" (click)="setLocationByGPS()">
@@ -25,7 +25,7 @@
       <ion-col>
         <ion-item>
           <ion-label>500m</ion-label>
-          <ion-radio mode="md" item-left value="0.6"></ion-radio>
+          <ion-radio mode="md" item-left value="0.5"></ion-radio>
         </ion-item>
       </ion-col>
 
@@ -38,8 +38,8 @@
 
       <ion-col>
         <ion-item>
-          <ion-label>5km</ion-label>
-          <ion-radio mode="md" item-left value="5"></ion-radio>
+          <ion-label>3km</ion-label>
+          <ion-radio mode="md" item-left value="3"></ion-radio>
         </ion-item>
       </ion-col>
 

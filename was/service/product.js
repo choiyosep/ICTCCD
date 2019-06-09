@@ -151,7 +151,6 @@ module.exports = {
                                 reject(Response.get(Response.type.DATABASE_ERROR, err.message));
                             } else {
                                 conn.release();
-                                console.log("11")
                                 resolve(results)
                             }
                         });

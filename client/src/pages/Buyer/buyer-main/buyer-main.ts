@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {SessionService} from "../../../core/service/session.service";
 import {DaumService} from "../../../core/service/daum.service";
 import { Geolocation } from '@ionic-native/geolocation';
+import {environment} from "../../../environments/environment";
 /**
  * Generated class for the BuyerMainPage page.
  *
@@ -32,6 +33,8 @@ export class BuyerMainPage {
       if(e.data !=="close"){
         this.myAddress= e.data;
         this.setLocationBySearch(this.myAddress);
+        let addressElement : any = document.getElementById('address-finder');
+        addressElement.value=e.data;
         //this.setLocationBySearch(this.myAddress);
       }
       this.closeDaumIframe();
@@ -43,14 +46,17 @@ export class BuyerMainPage {
   }
 
   ionViewDidLoad() {
+    console.log("반경");
+    console.log(this.sessionService.getRadius());
     if(this.sessionService.getLocation()==null || this.sessionService.getLocation()==undefined){
       this.setLocationBySearch("경기 수원시 영통구 월드컵로 206");
     }
     if(this.sessionService.getRadius()==null || this.sessionService.getRadius() ==undefined){
-      this.setRadius("5");
+      this.setRadius("1");
+      this.radius = "1";
+    }else{
+      this.radius = this.sessionService.getRadius();
     }
-
-    this.radius = this.sessionService.getRadius();
 
 
     console.log('ionViewDidLoad BuyerMainPage');
@@ -120,8 +126,8 @@ export class BuyerMainPage {
 
     searchElement.style.height="100%";
     frameElement.style.height="100%";
-
-    frameElement.setAttribute('src','assets/juso.html');
+    frameElement.setAttribute('src',`${environment.API_ENDPOINT}daumJuso`);
+    // frameElement.setAttribute('src','assets/juso.html');
     document.getElementById('formContent').style.display="none";
    // this.setLocationBySearch(this.myAddress);
 
