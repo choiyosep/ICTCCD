@@ -237,9 +237,7 @@ export class StoreModifyComponent{
     let frameElement: HTMLElement = document.getElementById('daumIframe');
     frameElement.style.display='block';
     frameElement.style.height="100%";
-    frameElement.setAttribute('src','assets/juso.html');
-    //frameElement.setAttribute('src','assets/juso.html');
-    //fx`rameElement.setAttribute('src','http://localhost:3000/daumJuso');
+    frameElement.setAttribute('src',`${environment.API_ENDPOINT}daumJuso`);
     document.getElementById('formContent').style.display="none";
   }
 

@@ -293,8 +293,11 @@ check() :boolean {
                   //성공시
                   if(res.code==1) {
                    // this.navCtrl.push('BuyerStoreDetailPage', {sellerId: this.userStore.sellerId});
-                    this.userStore.reviews.splice(i,1);
-                    this.toastService.presentToast("리뷰 삭제 완료");
+                   //  this.userStore.reviews.splice(i,1);
+                    this.navCtrl.pop();
+                    this.navCtrl.push('BuyerStoreDetailPage', {sellerId: this.userStore.sellerId});
+
+                    this.toastService.presentToast("삭제 완료");
                   }else{
                     this.toastService.presentToast(res.msg);
                   }

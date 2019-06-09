@@ -155,31 +155,6 @@ module.exports = {
         })
     },
 
-    cartOrder : (cartNum) =>{
-        return new Promise (async (resolve, reject ) =>{
-            try{
-                const buyerId = await Cart.getBuyerId(cartNum);
-                const storeName = await Cart.getStoreName(cartNum);
-                const orderDetail = await Cart.getOrderDetail(cartNum);
-                const orderDate = new Date();
-                const sellerInfo = await Cart.getCartByBuyerId(cartNum);
-                console.log(sellerInfo);
-                //구매이력 추가
-                rs = await Cart.createOrder(buyerId, storeName, orderDetail, orderDate);
-                //장바구니 삭제
-                await Cart.deleteCart(cartNum);
-                //product 개수 확인하는 코드 if ( product 수량 ==0 ) 일 경우 변경
-                await Product.checkingProductStock(sellerInfo);
-                
-                resolve(rs);
-            }catch(err){
-                console.log(err);
-                reject(err);
-            }
-
-        })
-
-    },
 
     deleteProduct : (cartNum, prodNumList) =>{
         return new Promise (async (resolve, reject) =>{

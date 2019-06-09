@@ -71,51 +71,24 @@ export class BuyerInfoPage {
   }
 
   changeState($event) {
+    this.data.push_con= ($event.value==true)? "1": "0";
+    console.log(this.data.push_con);
+    console.log(this.data.id);
 
-    let confirm = this.alertCtrl.create({
-      title: 'push 알림상태를 변경하시겠습니까?',
-      subTitle: '',
-      cssClass: 'storeDelete',
-      buttons: [
-        {
-          text: '변경',
-          cssClass: 'del',
-          handler: () => {
-            this.data.push_con= ($event.value==true)? "1": "0";
-            console.log(this.data.push_con);
-            console.log(this.data.id);
+    this.userService.send(this.data.id,this.data.push_con).subscribe(
+      (res) =>{
+        //응답오면
+        if(res&&res.code!=undefined){
+          //성공시
+          if(res.code==1) {
 
-            this.userService.send(this.data.id,this.data.push_con).subscribe(
-              (res) =>{
-                //응답오면
-                if(res&&res.code!=undefined){
-                  //성공시
-                  if(res.code==1) {
-
-                    this.toast("변경 완료");
-                  }else{
-                    this.toast(res.msg);
-                  }
-                }
-              }
-            )
-          }
-        },
-        {
-          text: '취소',
-          cssClass: 'cancle',
-          handler: () => {
-            this.pushon = (this.data.push_con == "1")? true: false;
+            this.toast("변경 완료");
+          }else{
+            this.toast(res.msg);
           }
         }
-      ]
-    });
-    confirm.present();
-
-
-
-
-
+      }
+    );
   }
 
 
