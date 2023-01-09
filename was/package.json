@@ -13,7 +13,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "firebase-admin": "^8.0.0",
+    "firebase-admin": "^11.4.1",
     "geopoint": "^1.0.1",
     "morgan": "^1.9.1",
     "multiparty": "^4.1.3",
